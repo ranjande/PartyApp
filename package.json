@@ -7,6 +7,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "appcenter": "^1.1.0",
+    "appcenter-analytics": "^1.1.0",
+    "appcenter-crashes": "^1.1.0",
     "mdi": "^2.1.19",
     "react": "^16.0.0",
     "react-dom": "^16.2.0",
