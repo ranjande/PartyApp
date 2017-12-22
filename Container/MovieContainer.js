@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {AppRegistry, StyleSheet,Text, Button, View, Platform, Modal, ScrollView, TouchableOpacity, Image, TouchableHighlight, FlatList,} from 'react-native';
-import {ReactVideoPackage, Video} from 'react-native-video';
+//import {ReactVideoPackage, Video} from 'react-native-video';
 import { Player } from 'video-react';
+
+import "../node_modules/video-react/dist/video-react.css"; // import css
 
 
 const instructions = Platform.select({
@@ -37,9 +39,11 @@ export default class Movie extends React.Component{
             </View>
             <View style={styles.movieblocksRow}>
                 <View style={styles.movieblocksCol}>
-                {/*<Player>
-      <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
-                </Player> */}
+                <Player
+                    playsInline
+                    poster="/assets/poster.png"
+                    src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+                />
                 </View>
                 <View style={styles.movieblocksCol}>
                 <Text>RRR</Text>
