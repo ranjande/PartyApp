@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { ScrollView, Vibration, AppRegistry,StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, TouchableHighlight, FlatList, Dimensions, Menu} from 'react-native';
-
+import MapView from 'react-native-maps';
 import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
-
+import Crashes from "mobile-center-crashes";
 
 export default class ParkingInfoScreen extends React.Component {
   static navigationOptions = {
@@ -22,27 +22,48 @@ export default class ParkingInfoScreen extends React.Component {
   };
 
   render() {
+
+    const region = {
+      longitude:88.3393902,
+      latitude:22.5560008,
+      latitudeDelta:0.009,
+      longitudeDelta:0.009
+    } 
+
     return (
-      <ScrollView style={styles.parkContainer}>
-        <Image
-            source={require('../Assets/Images/fort-william.png')} 
-            style={styles.parkImage}
-          />
-      </ScrollView>
+        <View style ={styles.container}>
+            <MapView style={styles.map}
+              provider = {MapView.POOVIDER_GOOGLE}
+              initialRegion={region}
+              location = 'Kolkata'
+              onMapReady = {console.log('Map Loaded')}
+            >
+            <MapView.Marker
+                coordinate={{latitude:22.5560008, longitude:88.3393902}}
+                pinColor="purple"
+                title="Parking Area: 1"
+            />	
+            <MapView.Marker
+                coordinate={{latitude:22.5565148, longitude:88.3398102}}
+                pinColor="green"
+                title="Parking Area: 2"
+            />	
+          </MapView>  
+        </View>
     );
   }
 }
 
-const WINDOW_WIDTH = Dimensions.get('window').width;
-const WINDOW_HEIGHT = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
-  parkContainer: {
-    backgroundColor: '#EFEFEF',
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    height: 400,
+    width: 400,
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  parkImage: {
-    width: WINDOW_WIDTH - 20,
-    height: WINDOW_HEIGHT - 20,
-  }
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
 });

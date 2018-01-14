@@ -75,9 +75,9 @@ export default class PartyApp extends Component {
         });  
     }
     setTimeout(function(){
-        Vibration.vibrate(500);
+        Vibration.vibrate(1100);
         cancelWelcome();
-    }, 10000);
+    }, 1000);
 } 
 
   render() {

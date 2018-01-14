@@ -25,10 +25,10 @@ export default class DressCodeScreen extends React.Component {
   render() {
     return (
       <ScrollView>
-        <View style={styles.parkContainer}>
+        <View style={styles.dressContainer}>
             <Image
-                source={require('../Assets/Images/fort-william.png')} 
-                style={styles.park}
+                source={require('../Assets/Images/dresscode.png')} 
+                style={styles.dress}
               />
         </View>
       </ScrollView>
@@ -40,12 +40,13 @@ const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
-  parkContainer: {
+  dressContainer: {
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT,
     backgroundColor: '#EFEFEF',
   },
-  park: {
-    width: WINDOW_WIDTH - 150,
+  dress: {
+    borderWidth: 1,
+    width: '50%'
   }
 });

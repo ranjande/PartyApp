@@ -56,7 +56,7 @@ export default class HeaderC extends React.Component{
               />
               </View> */}
         </View>
-          <Modal presentationStyle="overFullScreen"
+          {/*<Modal presentationStyle="overFullScreen"
                   animationType="slide"
                   transparent={true}
                   visible={this.state.modalVisible}
@@ -66,7 +66,7 @@ export default class HeaderC extends React.Component{
                 <View style={{backgroundColor: '#F50057', width: 220, height: WINDOW_HEIGHT - 120, top: 50, borderRightWidth: 1, borderRightColor: '#fff' }}>
                   <SideHamBurgerMenu SIDE_NAV={this.props.NAV}/>
                 </View>
-        </Modal>
+            </Modal> */}
       </View>
     );
   }

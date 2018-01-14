@@ -78,12 +78,16 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         fontWeight: '700',
         fontSize: 15,
+        width: '100%',
+        height: '50',
+        textAlign: 'center',
+        backgroundColor: '#FF4081'
       },
       calendarContent: {
-        flexDirection: 'row',
-        flex:1, 
-        paddingTop: 5,
+        paddingTop: 15,
         paddingLeft: 15,
+        paddingRight: 15,
         width: '100%',
+        textAlign: 'center'
       },
 });
