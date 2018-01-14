@@ -8,17 +8,21 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>         <!-- for Device Name -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>  <!-- for Phone Number -->
     <uses-permission android:name="android.permission.VIBRATE"/>  <!-- for  Vibration -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="22" />
-
     <application
       android:name=".MainApplication"
       android:allowBackup="true"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:theme="@style/AppTheme">
+        <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyDXRs3OKZNE3p8NdxHKc2pP42cTwIyH2ZM"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

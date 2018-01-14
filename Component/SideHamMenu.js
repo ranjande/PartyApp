@@ -4,13 +4,27 @@ import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
 import call from 'react-native-phone-call';
+import { TabNavigator, navigation } from "react-navigation";
 
-//import RSVP from '../Controller/MainControllers'
 
 export default class SideHamBurgerMenu extends React.Component {
 
+
+constructor(props) {
+    super(props);
+    this.state = {
+        navTab: 'Home',
+    };
+}
+
+
   callRSVP = (args) => {
     call(args).catch(console.error);
+  }
+
+  navigateTab = (args) => {
+    Alert.alert(args);
+    //this.props.SIDE_NAV.navigation.navigate(args);
   }
     render() {
       const args = {
@@ -26,7 +40,6 @@ export default class SideHamBurgerMenu extends React.Component {
                   title='Madhulika'
                   source={require("../Assets/Images/madhulika/IMG_20170618.jpg")}
                   avatarStyle={{backgroundColor: '#F50057'}}
-                  //onPress={() => this.setModalVisible(true, 'Time Table')}
                   activeOpacity={0.7}
               />
             </View>
@@ -47,10 +60,10 @@ export default class SideHamBurgerMenu extends React.Component {
                   size={20}
                   color='white'
                   avatarStyle={{ backgroundColor: '#98CBFE'}}
-                  onPress={() => this.setModalVisible(true, 'google-map')} 
+                  onPress={() => this.navigateTab('Map')}
                   activeOpacity={0.7}
               />
-              <Text style={styles.headerLeftText}>Get Direction</Text>
+              <Text style={styles.headerLeftText} onPress={() => this.navigateTab('Map')}>Get Direction</Text>
             </View>
             <View style={styles.headerLeftIcon}>
               <Icon
@@ -58,22 +71,24 @@ export default class SideHamBurgerMenu extends React.Component {
                   size={20}
                   color='white'
                   avatarStyle={{ backgroundColor: '#98CBFE'}}
-                  onPress={() => this.setModalVisible(true, 'invitation-card')} 
+                  onPress={() => this.navigateTab('ICard')}
                   activeOpacity={0.7}
               />
-              <Text style={styles.headerLeftText}>Your Digital I-Card</Text>
+              <Text style={styles.headerLeftText} onPress={() => this.navigateTab('ICard')}>
+                Your Digital I-Card
+              </Text>
             </View>
           
           <View style={styles.headerLeftIcon}>
               <Icon
-                  name='calendar'
-                  size={25}
-                  color='white'
-                  iconStyle={{backgroundColor: '#98CBFE'}}
-                  onPress={() => this.setModalVisible(true, 'add-calendar')}
-                  activeOpacity={0.7}
-              />
-              <Text style={styles.headerLeftText}>Block your Calendar</Text>
+                    name='calendar'
+                    size={20}
+                    color='white'
+                    avatarStyle={{ backgroundColor: '#98CBFE'}}
+                    onPress={() => this.navigateTab('Calendar')}
+                    activeOpacity={0.7}
+                />
+                <Text style={styles.headerLeftText} onPress={() => this.navigateTab('Calendar')}>Block your Calendar</Text>
             </View>             
             <View style={styles.headerLeftIcon}>
               <Icon
@@ -81,10 +96,10 @@ export default class SideHamBurgerMenu extends React.Component {
                   size={20}
                   color='white'
                   avatarStyle={{ backgroundColor: '#98CBFE'}}
-                  onPress={() => this.setModalVisible(true, 'parking-info')} 
+                  onPress={() => this.navigateTab('Park')}
                   activeOpacity={0.7}
               />
-              <Text style={styles.headerLeftText}>Parking Information</Text>
+              <Text style={styles.headerLeftText} onPress={() => this.navigateTab('Park')}>Parking Area</Text>
             </View>
             <View style={styles.headerLeftIcon}>
               <Icon
@@ -92,10 +107,10 @@ export default class SideHamBurgerMenu extends React.Component {
                   size={20}
                   color='white'
                   avatarStyle={{ backgroundColor: '#98CBFE'}}
-                  onPress={() => this.setModalVisible(true, 'parking-info')} 
+                  onPress={() => this.navigateTab('Dress')}
                   activeOpacity={0.7}
               />
-              <Text style={styles.headerLeftText}>Dress Codes</Text>
+              <Text style={styles.headerLeftText} onPress={() => this.navigateTab('Dress')}>Dress Code</Text>
             </View>
             <View style={styles.headerLeftIcon}>
               <Icon
@@ -126,7 +141,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between', 
         height: '70%',  
         width: '100%',
-        marginTop: 10,
+        marginTop: 5,
         marginLeft: 10,
         flex:1,
       },

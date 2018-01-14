@@ -1,19 +1,58 @@
-
 import React, { Component } from 'react';
-import { Vibration, AppRegistry,StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, TouchableHighlight, FlatList, Dimensions, Menu} from 'react-native';
+import { ScrollView, Vibration, AppRegistry,StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, TouchableHighlight, Dimensions} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import RNCalendarEvents from 'react-native-calendar-events';
+import {ReactVideoPackage, Video} from 'react-native-video';
+import { TabNavigator } from "react-navigation";
+import Crashes from "mobile-center-crashes";
+
+import {Fonts} from 'react-native-vector-icons';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
 
 import HeaderC from './Container/HeaderContainer.js';
-import Movie from './Container/MovieContainer.js';
 import Footer from './Container/FooterContainer.js';
 
+
+import MyHomeScreen from './Component/homeScreen.js';
+import MapDirectionScreen from './Component/directionMap.js';
+import DigitalCardScreen from './Component/iCard.js';
+import MyCalendar from './Component/calendarEvents.js';
+import ParkingInfoScreen from './Component/parkingInfo.js';
+import DressCodeScreen from './Component/dressCode.js';
+
+
 import WelcomeMessage from './Component/WelcomeMessage.js';
-import SideHamBurgerMenu from './Component/SideHamMenu.js';
+
 import renderIf from './Component/renderIf';
+
+//import styles from './Assets/Styles/styles';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
+
+
+
+class MyNotificationsScreen extends React.Component {
+  static navigationOptions = {
+    tabBarLabel: 'Notifications',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+       /* source={require('./notif-icon.png')} */
+        style={[styles.icon, {tintColor: tintColor}]}
+      />
+    ),
+  };
+
+  render() {
+    return (
+      <Button
+        onPress={() => this.props.navigation.goBack()}
+        title="Go back home"
+      />
+    );
+  }
+}
+
 
 
 export default class PartyApp extends Component {
@@ -22,34 +61,56 @@ export default class PartyApp extends Component {
       super(props);
       this.state = {
           wvisible: true,
-          sidemenu: false,
-          whicmovie: 'home',
-          menuselect: 'home',
+          navTab: 'Home',
       };
   }
 
 
-componentDidMount(){ 
 
-    animateSideMenu = () => {
-      this.setState({
-        sidemenu: true,
-      });      
-    }
 
+  componentDidMount(){ 
     cancelWelcome = () =>{
         this.setState({
           wvisible: false,
         });  
     }
-
     setTimeout(function(){
-        Vibration.vibrate();
+        Vibration.vibrate(500);
         cancelWelcome();
-      }, 6000);
+    }, 10000);
 } 
 
   render() {
+
+    const MyNavigation = TabNavigator({
+      Home: { screen: MyHomeScreen, },
+      Map: {screen: MapDirectionScreen,},
+      ICard: {screen: DigitalCardScreen,},
+      Calendar: {screen: MyCalendar,},
+      Park: {screen: ParkingInfoScreen,},
+      Dress: {screen: DressCodeScreen},
+    }, 
+    {
+      tabBarPosition: 'top',
+      animationEnabled: true,
+      tabBarOptions: {
+        showIcon: true,
+        activeTintColor: '#ffffff',
+        style: {
+          width: WINDOW_WIDTH,
+          backgroundColor: '#F50057',
+          alignItems: 'stretch' 
+        }, 
+        iconStyle: styles.icon,
+        labelStyle: {
+          fontSize: 7,
+          fontWeight: 'bold',
+        },
+      },
+      
+    swipeEnabled: false,
+    });
+    
     return (
       <View style={styles.mainContainer}>
         {renderIf(this.state.wvisible, 
@@ -57,28 +118,30 @@ componentDidMount(){
               <WelcomeMessage />
           </View>
         )}
-        <View style={styles.headerContainer}>
-          <HeaderC navmenu = {this.state.menuselect} />
+        <View style={styles.navContainer}>
+          <HeaderC NAV={this.props.navigation}/>
+          <MyNavigation />
         </View>
-
-        {renderIf(this.state.sidemenu, 
-          <View style={styles.SideMenuContainer}>
-            <SideHamBurgerMenu />
-          </View>
-        )}
-        {renderIf(this.state.whicmovie, 
-          <View style={styles.movieContainer}>
-              <Movie moviename = {this.state.whichmovie}/>
-          </View>
-        )}
+{/*}
+        <View style={styles.headerLeftWelcome}>
+            <Avatar
+                  large
+                  rounded
+                  title='Madhulika'
+                  source={require("./Assets/Images/madhulika/IMG_20170618.jpg")}
+                  avatarStyle={{backgroundColor: '#F50057'}}
+                  //onPress={() => this.setModalVisible(true, 'Time Table')}
+                  activeOpacity={0.7}
+              />
+            </View>
+      <Text>22.5542° N, 88.3359° E</Text>*/}
         <View style={styles.footerContainer}>
             <Footer />
         </View>
-      </View>
+      </View>      
     );
   }
 }
-
 
 
 
@@ -87,16 +150,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
-  },
-  headerContainer:{
-    backgroundColor: '#FF4081',
-    height: 100, 
     width: WINDOW_WIDTH,
+    height: WINDOW_HEIGHT,
   },
-  movieContainer:{
-    backgroundColor: '#FFFFFF',
+  navContainer:{
+    backgroundColor: '#ffffff',
     width: WINDOW_WIDTH , 
-    height: WINDOW_HEIGHT - 170,
+    height: WINDOW_HEIGHT - 70,
   },
   footerContainer: {
     backgroundColor:'#263238',
@@ -122,5 +182,46 @@ const styles = StyleSheet.create({
     top: 2,
     position: 'absolute',
     display: 'flex',
-  }
+  },
+  icon: {
+    width: 85,
+    height: 45,
+  },
+
+
+  backgroundVideo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+  mainBlocks : {
+    flex: 1,
+    flexDirection : 'column',
+    height: 800,
+    marginTop: 10,
+  },
+  movieblocksRow: {
+      backgroundColor: '#FFFFFF',
+      flex: 1,
+      flexDirection : 'row',
+      height: 150,
+      marginBottom: 10,
+  },
+  movieblocksCol: {
+    borderWidth: 2,
+    borderColor: '#FF80AB',
+    flex: 1,
+    flexDirection : 'column',
+    height: 180,
+    padding: 10,
+    marginLeft: 5,
+    marginRight: 5,
+},
 });

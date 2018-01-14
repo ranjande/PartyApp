@@ -12,6 +12,8 @@ target 'AwesomeBirthday' do
 
   
 
+  pod 'react-native-add-calendar-event', :path => '../node_modules/react-native-add-calendar-event'
+
   target 'AwesomeBirthdayTests' do
     inherit! :search_paths
     # Pods for testing

@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import {AppRegistry, StyleSheet,Text, Button, View, Platform, Modal, ScrollView, TouchableOpacity, Image, TouchableHighlight, FlatList,} from 'react-native';
-//import {ReactVideoPackage, Video} from 'react-native-video';
-import { Player } from 'video-react';
-
-import "../node_modules/video-react/dist/video-react.css"; // import css
-
+import {Video, VideoResizeMode} from 'react-native-video';
+import Crashes from "mobile-center-crashes";
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
@@ -14,7 +11,7 @@ const instructions = Platform.select({
   });
 
   
-export default class Movie extends React.Component{
+export default class MovieC extends React.Component{
 
     constructor(props) {
         super(props);
@@ -39,37 +36,9 @@ export default class Movie extends React.Component{
             </View>
             <View style={styles.movieblocksRow}>
                 <View style={styles.movieblocksCol}>
-                <Player
-                    playsInline
-                    poster="/assets/poster.png"
-                    src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-                />
+
                 </View>
                 <View style={styles.movieblocksCol}>
-                <Text>RRR</Text>
-                {/*
-                    // Within your render function, assuming you have a file called 
-                    // "background.mp4" in your expansion file. Just add your main and (if applicable) patch version 
-                    <Video source={{uri: "../Assets/Movies/20171014.mp4", mainVer: 1, patchVer: 0}} // Looks for .mp4 file (background.mp4) in the given expansion version. 
-                        rate={1.0}                   // 0 is paused, 1 is normal. 
-                        volume={1.0}                 // 0 is muted, 1 is normal. 
-                        muted={false}                // Mutes the audio entirely. 
-                        paused={false}               // Pauses playback entirely. 
-                        resizeMode="cover"           // Fill the whole screen at aspect ratio. 
-                        repeat={true}                // Repeat forever. 
-                        onLoadStart={this.loadStart} // Callback when video starts to load 
-                        onLoad={this.setDuration}    // Callback when video loads 
-                        onProgress={this.setTime}    // Callback every ~250ms with currentTime 
-                        onEnd={this.onEnd}           // Callback when playback finishes 
-                        onError={this.videoError}    // Callback when video cannot be loaded 
-                        style={styles.backgroundVideo} />
-        
-                        // Later to trigger fullscreen 
-                        this.player.presentFullscreenPlayer()
-                        
-                        // To set video position in seconds (seek) 
-                        this.player.seek(0)
-                */}
                 </View>
             </View>
             <View style={styles.movieblocksRow}>
@@ -82,6 +51,13 @@ export default class Movie extends React.Component{
 }
 
 const styles = StyleSheet.create({
+    backgroundVideo: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+      },
       instructions: {
         textAlign: 'center',
         color: '#333333',
