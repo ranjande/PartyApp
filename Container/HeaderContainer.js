@@ -35,7 +35,6 @@ export default class HeaderC extends React.Component{
               <Text style={styles.welcome}>
                   Welcome {agent.toLocaleUpperCase()}
               </Text>
-              <Text>{this.state.modalVisible}</Text>
             </View>
             <View style={styles.headerIcon}>
               <Icon
@@ -46,7 +45,7 @@ export default class HeaderC extends React.Component{
                   activeOpacity={0.7}
               />
             </View> 
-            <View style={styles.headerIcon}>
+            {/*<View style={styles.headerIcon}>
               <Icon
                   name='bars'
                   size={35}
@@ -55,7 +54,7 @@ export default class HeaderC extends React.Component{
                   onPress={() => this.setModalVisible(!this.state.modalVisible, 'hamburger-menu')} 
                   activeOpacity={0.7}
               />
-            </View>
+              </View> */}
         </View>
           <Modal presentationStyle="overFullScreen"
                   animationType="slide"

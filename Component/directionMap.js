@@ -4,7 +4,7 @@ import MapView from 'react-native-maps';
 import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
-//import Crashes from "mobile-center-crashes";
+import Crashes from "mobile-center-crashes";
 
 export default class MapDirectionScreen extends React.Component<{}> {
   static navigationOptions = {
@@ -37,7 +37,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
 
     return (
       <View style ={styles.container}>
-
+{/*
         <MapView style={styles.map}
           provider = {MapView.POOVIDER_GOOGLE}
           initialRegion={region}
@@ -49,8 +49,8 @@ export default class MapDirectionScreen extends React.Component<{}> {
               coordinate={{latitude:'22.5542', longitude:'88.3359'}}
               pinColor="green"
             />
-    </MapView>  
-        {/*
+    </MapView>  */}
+        
         <MapView
           style={styles.map}
           region={{
@@ -60,7 +60,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
             longitudeDelta: 0.0121,
           }}
         >
-        </MapView> */}
+        </MapView> 
       </View>
     );
   }
