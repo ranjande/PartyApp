@@ -7,9 +7,10 @@ import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
 import Crashes from "mobile-center-crashes";
 
 export default class ParkingInfoScreen extends React.Component {
+  
+  
   static navigationOptions = {
     tabBarLabel: 'Park',
-    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
     tabBarIcon: ({ tintColor }) => (
           <Icon
               name='car'
@@ -42,11 +43,13 @@ export default class ParkingInfoScreen extends React.Component {
                 coordinate={{latitude:22.5560008, longitude:88.3393902}}
                 pinColor="purple"
                 title="Parking Area: 1"
+                showCallout
             />	
             <MapView.Marker
                 coordinate={{latitude:22.5565148, longitude:88.3398102}}
                 pinColor="green"
                 title="Parking Area: 2"
+                showCallout
             />	
           </MapView>  
         </View>
@@ -58,10 +61,11 @@ export default class ParkingInfoScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    height: 400,
+    height: 420,
     width: 400,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    backgroundColor: '#EEEEEE'
   },
   map: {
     ...StyleSheet.absoluteFillObject,

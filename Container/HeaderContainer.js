@@ -21,7 +21,6 @@ export default class HeaderC extends React.Component{
             selectedTab: 'Home',
             modalVisible: false,
         };
-        //Alert.alert(JSON.stringify(props))
       }
   
     setModalVisible(visible, selIcon) {

@@ -6,20 +6,10 @@ import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
 
+import renderIf from '../Component/renderIf';
 import renderElseIf from '../Component/renderElseIf';
 
 export default class MyCalendar extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            title :'Madhulika\'s 10th Birthday Celebration',
-            location: 'Gate 1, Fort WIlliam, Kolkata',
-            notes: 'Please call before you reach to destination.',
-            startDate: '2018-02-11T6:30:00.000Z',
-            endDate: '2018-02-11T10:30:00.000Z',
-        };
-    }
 
     getCalAuth = () => {
 
@@ -36,6 +26,7 @@ export default class MyCalendar extends React.Component {
               //handle success (receives event id) or dismissing the modal (receives false)
               if (eventId) {
                 Alert.alert('Event saved to your calendar.\n\nEvent ID: '+eventId);
+                this.setState({blocked: true});
               } else {
                 Alert.alert('You have not save this event to your calendar.');
               }
@@ -60,15 +51,30 @@ export default class MyCalendar extends React.Component {
         ),
     };
 
+        constructor(props) {
+            super(props);
+            this.state = {
+                blocked : false,
+                title: 'De'
+            };
+        }
+
     render(){
         return(
-            <View style={styles.calendarContent}>
-                <Button
-                        onPress={() => this.getCalAuth()}
-                        title="Block your Calendar"
-                        style={styles.headerLeftText}
-                    />
-            </View>
+                <View style={styles.calendarContent}>
+                    {/*renderElseIf(this.state.blocked == true, */}
+                    <Button
+                            onPress={() => this.getCalAuth()}
+                            title="Block your Calendar"
+                            style={styles.headerLeftText}
+                        />
+                    
+                    <View>
+                        <Text>
+                           Your Calendar is blocked  {this.state.title}
+                        </Text>
+                    </View>
+                </View>
         );
     }
 }

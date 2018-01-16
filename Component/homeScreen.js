@@ -27,8 +27,8 @@ export default class MyHomeScreen extends React.Component<{}> {
     return (
       <ScrollView>
         <View style={styles.mainBlocks}>
-            <View style={styles.movieblocksRow}>
-            <Video source={{uri: "https://www.youtube.com/watch?v=VgvpPFIhjws", mainVer: 1, patchVer: 0}} // Looks for .mp4 file (background.mp4) in the given expansion version. 
+            <View style={styles.movieblocksRow} style={{borderWidth: 3, borderColor: '#999', width: '100%', height: 200}}>
+            <Video source={{uri: "../Assets/videos/20171014.mp4", mainVer: 1, patchVer: 1}} // Looks for .mp4 file (background.mp4) in the given expansion version. 
                 rate={1.0}                   // 0 is paused, 1 is normal. 
                 volume={1.0}                 // 0 is muted, 1 is normal. 
                 muted={false}                // Mutes the audio entirely. 
@@ -46,21 +46,9 @@ export default class MyHomeScreen extends React.Component<{}> {
                 <View style={styles.movieblocksCol}>
                 <Image
                     source={require('../Assets/Images/party_card.jpg')}
-                    style={{width: 50, height: 50}}
+                    style={{width: 150, height: 50}}
                 /> 
                 </View>
-                <View style={styles.movieblocksCol}>
-                <Image
-                    source={require('../Assets/Images/party_card.jpg')}
-                    style={{width: 50, height: 50}}
-                /> 
-                </View>
-            </View>
-            <View style={styles.movieblocksRow}>
-            <Image
-                    source={require('../Assets/Images/party_card.jpg')}
-                    style={{width: 50, height: 50}}
-                /> 
             </View>
         </View>
       </ScrollView>

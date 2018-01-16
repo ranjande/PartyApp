@@ -12,26 +12,6 @@ const { WINDOW_WIDTH, WINDOW_HEIGHT } = Dimensions.get('window');
 
 export default class MapDirectionScreen extends React.Component<{}> {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      initialPosition,
-      lastPosition,
-      coordinates: [
-        {
-          latitude:22.5560008,
-          longitude:88.3393902,
-        },
-        {
-          latitude: 22.6413802,
-          longitude: 88.4707479,
-        },
-      ],
-    };
-  }
-
-
-  watchID: ?number = null;
 
    componentDidMount = () => {
       navigator.geolocation.getCurrentPosition(
@@ -48,7 +28,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
       });
    }
    componentWillUnmount = () => {
-     // navigator.geolocation.clearWatch(this.watchID);
+     navigator.geolocation.clearWatch(this.watchID);
    }
 
   static navigationOptions = {
@@ -63,6 +43,26 @@ export default class MapDirectionScreen extends React.Component<{}> {
           />
     ),
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      initialPosition : '',
+      lastPosition : '',
+      coordinates: [
+        {
+          latitude:22.5560008,
+          longitude:88.3393902,
+        },
+        {
+          latitude: 22.6413802,
+          longitude: 88.4707479,
+        },
+      ],
+    };
+  }
+
+  watchID: ?number = null;
 
   render() {
 
@@ -126,18 +126,11 @@ export default class MapDirectionScreen extends React.Component<{}> {
         </MapView> 
 
         <View style={styles.Drive}>
-        <Text style = {styles.boldText}>
-               Initial position:
-            </Text>
-            <Text>
-               {this.state.initialPosition}
+            <Text style = {styles.boldText}>
+               Initial position: {this.state.initialPosition}
             </Text>
             <Text style = {styles.boldText}>
-               Current position:
-            </Text>
-				
-            <Text>
-               {this.state.lastPosition}
+               Current position: {this.state.lastPosition}
             </Text>
         </View> 
       </View>
@@ -157,15 +150,14 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   Drive: {
-    height: 160,
+    height: 100,
     width: 400,
     backgroundColor: 'skyblue',
     alignItems: 'center',
-    flex: 1,
     flexDirection : 'column',
   },
   boldText: {
     fontSize: 10,
-    color: 'red',
+    color: 'blue',
  }
 });
