@@ -29,7 +29,7 @@ export default class HeaderC extends React.Component{
   render(){
     return (
       <View style={styles.headerContainer}>
-        <View style={{flexDirection: 'row', justifyContent: 'flex-end', borderBottomWidth: 1, borderBottomColor: '#fff', height: 50}}>
+        <View style={{flexDirection: 'row', justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#fff', height: 50}}>
             <View style={styles.headerIconLeft}>
               <Text style={styles.welcome}>
                   Welcome {agent.toLocaleUpperCase()}
@@ -84,17 +84,14 @@ const styles = StyleSheet.create({
         marginBottom: 5,
       },
       headerIconLeft: {
-        paddingTop: 5,
+        paddingTop: 0,
         paddingLeft: 15,
-        justifyContent: 'flex-end',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        width: 200,
       },
       headerIconRight: {
-        paddingTop: 5,
-        padingRight: 15,
         justifyContent: 'flex-end',
-        alignItems: 'center',
+        textAlign: 'right',
       },
       headerContainer:{
         backgroundColor: '#FF4081',

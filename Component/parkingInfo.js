@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   parkInfoText:{
     fontWeight: '700',
     fondColor: '#0000ff', 
-    paddingBottom: 30,
+    paddingTop: 30,
+    fontsize: 15,
   }
 });

@@ -68,11 +68,11 @@ export default class MyCalendar extends React.Component {
                         <Text style={styles.textBold}>Venue: Army Officers Institute, Fort WIlliam, Kolkata</Text>
                         <Text style={styles.textBold}>Date: 11th February, 2018</Text>
                         <Text style={styles.textBold}>Time: 12 NOON to 4:00 PM</Text>
-                        <Text style={styles.textBold}>Entry Point: Gate No 1 and South Gate</Text>
+                        <Text style={styles.textBold}>Entry Point: Gate No. 1(East Gate) &amp; South Gate</Text>
                     </View>
-                     {renderElseIf(this.state.blocked == true,
-                    <View>
-                        <Text>
+                     {renderIf(this.state.blocked == true,
+                    <View style={styles.NoteInfo}>
+                        <Text style={styles.textBoldBlocked}>
                            Your Calendar is blocked  {this.state.blocked}
                         </Text>
                     </View>
@@ -80,12 +80,14 @@ export default class MyCalendar extends React.Component {
                     <View>
                     <Button
                             onPress={() => this.getCalAuth()}
-                            title="Block your Calendar"
-                            style={styles.headerLeftText}
+                            title="Block Your Calendar"
+                            style={styles.calendarButton}
+                            color="#FF4081"
                         />
                     </View>
-                    <View>
-                        <Text style={styles.Note}>Please call before you reach to destination.</Text>
+                    <View style={styles.NoteInfo}>
+                        <Text style={styles.Note}>Please call before you reach at the destination.</Text>
+                        <Text style={styles.Note}>For parking : Please tap PARK.</Text>
                     </View>
                 </View>
         );
@@ -93,15 +95,14 @@ export default class MyCalendar extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    headerLeftText: {
+    calendarButton: {
         color: '#ffffff',
         fontWeight: '700',
         fontSize: 15,
-        width: 250,
+        width: 200,
         height: 50,
         textAlign: 'center',
         backgroundColor: '#FF4081',
-        flexDirection:'bottom'
       },
       calendarContent: {
         paddingTop: 15,
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
       },
       CalendarInfo: {
-        paddingBottom: 25,
+        paddingBottom: 10,
         paddingLeft: 15,
         paddingRight: 15,
         width: '100%',
@@ -119,20 +120,30 @@ const styles = StyleSheet.create({
       },
       textBoldHdr: {
         fontSize: 30,
-        fontWeight: 700,
+        fontWeight: '700',
         textAlign: 'center',
         paddingBottom: 25,
       },
       textBold: {
         fontSize: 15,
-        fontWeight: 700,
+        fontWeight: '700',
         textAlign: 'center',
         paddingBottom: 15,
       },
+      textBoldBlocked:{
+        fontSize: 15,
+        color: '#0000ff',
+        fontWeight: '700',
+        textAlign: 'center',
+        paddingBottom: 5,
+      },
+      NoteInfo: {
+        paddingTop: 15,
+      },
       Note: {
         fontSize: 10,
-        fontWeight: 700,
-        textAlign: 'justfy',
+        fontWeight: '700',
+        textAlign: 'center',
         color: 'red'      
       }
 });

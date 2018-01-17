@@ -76,7 +76,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
     const ASPECT_RATIO = WINDOW_WIDTH / WINDOW_HEIGHT;
     const LATITUDE = 22.550432;
     const LONGITUDE = 88.339831;
-    const LATITUDE_DELTA = 0.022;
+    const LATITUDE_DELTA = 0.000003;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
     const GOOGLE_MAPS_APIKEY = 'AIzaSyDXRs3OKZNE3p8NdxHKc2pP42cTwIyH2ZM';
 
@@ -90,7 +90,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
           <MapView.Marker
             coordinate={{latitude:22.5560008, longitude:88.3393902}}
             pinColor="red"
-            title="Army Officer's Institute, Fort William"
+            title="Army Officers Institute, Fort William"
           />	
 
           <MapView.Marker
@@ -104,8 +104,8 @@ export default class MapDirectionScreen extends React.Component<{}> {
             waypoints={ (this.state.coordinates.length > 2) ? this.state.coordinates.slice(1, -1): null}
             destination={this.state.coordinates[this.state.coordinates.length-1]}
             apikey={GOOGLE_MAPS_APIKEY}
-            strokeWidth={3}
-            strokeColor="black"
+            strokeWidth={5}
+            strokeColor="red"
             /*
             onReady={(result) => {
               this.mapView.fitToCoordinates(result.coordinates, {
@@ -126,14 +126,28 @@ export default class MapDirectionScreen extends React.Component<{}> {
         </MapView> 
 
         <View style={styles.Drive}>
-            <Text style = {styles.boldText}>
-               Initial position: {this.state.initialPosition}
-            </Text>
-            <Text style = {styles.boldText}>
-               Current position: {this.state.lastPosition}
-            </Text>
-        </View> 
-      </View>
+              <View>
+                  <Button
+                      title="Current Location"
+                      style={styles.calendarButton}
+                      color="#FF4081"
+                  />
+                  <Text style = {styles.boldText}>
+                    Initial position: {this.state.initialPosition}
+                  </Text>
+              </View>
+              <View>
+                  <Button
+                      title="Driving Directions"
+                      style={styles.calendarButton}
+                      color="#FF4081"
+                  />
+                  <Text style = {styles.boldText}>
+                    Current position: {this.state.lastPosition}
+                  </Text>
+              </View>
+          </View> 
+    </View>
     );
   }
 }
@@ -150,14 +164,24 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   Drive: {
-    height: 100,
+    height: 70,
     width: 400,
-    backgroundColor: 'skyblue',
+    backgroundColor: 'black',
+    opacity: 0.5,
     alignItems: 'center',
-    flexDirection : 'column',
+    flexDirection : 'row',
   },
   boldText: {
-    fontSize: 10,
-    color: 'blue',
- }
+    fontSize: 15,
+    color: 'white',
+ },   
+ mapButton: {
+  color: '#ffffff',
+  fontWeight: '700',
+  fontSize: 12,
+  width: 100,
+  height: 50,
+  textAlign: 'center',
+  backgroundColor: '#FF4081',
+},
 });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Vibration, AppRegistry,StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, Dimensions} from 'react-native';
+import { ScrollView, ActivityIndicator, Vibration, AppRegistry,StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, Dimensions} from 'react-native';
 import MapView from 'react-native-maps';
 import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -28,15 +28,16 @@ export default class MyHomeScreen extends React.Component<{}> {
     return (
       <ScrollView>
         <View style={styles.mainBlocks}>
-            <View style={styles.movieblocksRow} style={{backgroundColor:'#FFFFFF', width: '100%'}}>
+            <View style={styles.movieblocksRow}>
             <FadingSlides
               slides={slides}
               fadeDuration={1500}
               stillDuration={1000}
-              height={380}
+              height={500}
               startAnimation={true}
             />
             </View>
+            <ActivityIndicator size="large" color="#0000ff" />
            {/* <View style={styles.movieblocksRow}>
                 <View style={styles.movieblocksCol}>
                   <Text>Hello</Text>
@@ -53,10 +54,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection : 'column',
     height: '100%',
+    margin: 0,
+    padding: 0,
   },
   movieblocksRow: {
       backgroundColor: '#FFFFFF',
       flex: 1,
+      width: '100%',
+      height: 500,
       flexDirection : 'row',
       marginBottom: 10,
   },
@@ -78,7 +83,7 @@ const slides = [
   {
     image: require('../Assets/Images/madhulika/1.jpg'),
     imageWidth: '100%',
-    imageHeight: 250,
+    imageHeight: 350,
     title: 'Hello World',
     subtitle: 'This is a beautiful world',
     titleColor: '#0000ff',
@@ -86,87 +91,79 @@ const slides = [
   },
   {
     image: require('../Assets/Images/madhulika/2.jpg'),
-    imageWidth: 300,
-    imageHeight: 250,
+    imageWidth: '100%',
+    imageHeight: 350,
     title: 'Bye World',
     subtitle: 'This is a see you soon',
     titleColor: '#0000ff',
     subtitleColor: '#0000ff',
-  }
-  ,
+  },
   {
     image: require('../Assets/Images/madhulika/3.jpg'),
-    imageWidth: 300,
+    imageWidth: '100%',
     imageHeight: 350,
     title: 'Bye World',
     subtitle: 'This is a see you soon',
     titleColor: '#0000ff',
     subtitleColor: '#0000ff',
-  }
-  ,
+  },
   {
     image: require('../Assets/Images/madhulika/4.jpg'),
-    imageWidth: 300,
+    imageWidth: '100%',
     imageHeight: 350,
     title: 'Bye World',
     subtitle: 'This is a see you soon',
     titleColor: '#0000ff',
     subtitleColor: '#0000ff',
-  }
-  ,
+  },
   {
     image: require('../Assets/Images/madhulika/5.jpg'),
-    imageWidth: 350,
+    imageWidth: '100%',
     imageHeight: 350,
     title: 'Bye World',
     subtitle: 'This is a see you soon',
     titleColor: '#0000ff',
     subtitleColor: '#0000ff',
-  }
-  ,
+  },
   {
     image: require('../Assets/Images/madhulika/6.jpg'),
-    imageWidth: 350,
+    imageWidth: '100%',
     imageHeight: 350,
     title: 'Bye World',
     subtitle: 'This is a see you soon',
     titleColor: '#0000ff',
     subtitleColor: '#0000ff',
-  }
-  ,
+  },
   {
     image: require('../Assets/Images/madhulika/7.jpg'),
-    imageWidth: 350,
+    imageWidth: '100%',
     imageHeight: 350,
     title: 'Bye World',
     subtitle: 'This is a see you soon',
     titleColor: '#0000ff',
     subtitleColor: '#0000ff',
-  }
-  ,
+  },
   {
     image: require('../Assets/Images/madhulika/8.jpg'),
-    imageWidth: 350,
+    imageWidth: '100%',
     imageHeight: 350,
     title: 'Bye World',
     subtitle: 'This is a see you soon',
     titleColor: '#0000ff',
     subtitleColor: '#0000ff',
-  }
-  ,
+  },
   {
     image: require('../Assets/Images/madhulika/9.jpg'),
-    imageWidth: 350,
+    imageWidth: '100%',
     imageHeight: 350,
     title: 'Bye World',
     subtitle: 'This is a see you soon',
     titleColor: '#0000ff',
     subtitleColor: '#0000ff',
-  }
-  ,
+  },
   {
-    image: require('../Assets/Images/madhulika/10.jpg'),
-    imageWidth: 300,
+    image: require('../Assets/Images/madhulika/11.jpg'),
+    imageWidth: '100%',
     imageHeight: 350,
     title: 'Bye World',
     subtitle: 'This is a see you soon',

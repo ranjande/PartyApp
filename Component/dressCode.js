@@ -9,7 +9,6 @@ import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
 export default class DressCodeScreen extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Dress',
-    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
     tabBarIcon: ({ tintColor }) => (
           <Icon
               name='male'
@@ -29,6 +28,8 @@ export default class DressCodeScreen extends React.Component {
             <Image
                 source={require('../Assets/Images/dresscode.png')} 
                 style={styles.dress}
+                width={'100%'}
+                height={'100%'}
               />
               <Text style={styles.dresscodeTextHdr}>CRACKING THE DRESS CODE</Text>
               <Text style={styles.dresscodeText}>There is a dress code inside Fort William, so please adhere to it. </Text>
@@ -51,8 +52,8 @@ const styles = StyleSheet.create({
   },
   dress: {
     borderWidth: 1,
-    width: 330,
-    height: 220,
+    width: 300,
+    height: 200,
     alignItems: 'center'
   },
   dresscodeTextHdr: {
