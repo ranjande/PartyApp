@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { ScrollView, Vibration, AppRegistry,StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, TouchableHighlight, FlatList, Dimensions, Menu} from 'react-native';
+import { ScrollView, Vibration, AppRegistry,StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, Dimensions} from 'react-native';
 import MapView from 'react-native-maps';
 import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
-import Video, {VideoResizeMode} from 'react-native-video';
+import FadingSlides from 'react-native-fading-slides';
 
 
 export default class MyHomeScreen extends React.Component<{}> {
-  
+
   static navigationOptions = {
     tabBarLabel: 'Home',
     // Note: By default the icon is only shown on iOS. Search the showIcon option below.
@@ -23,33 +23,25 @@ export default class MyHomeScreen extends React.Component<{}> {
     ),
   };
 
+
   render() {
     return (
       <ScrollView>
         <View style={styles.mainBlocks}>
-            <View style={styles.movieblocksRow} style={{borderWidth: 3, borderColor: '#999', width: '100%', height: 200}}>
-            <Video source={{uri: "../Assets/videos/20171014.mp4", mainVer: 1, patchVer: 1}} // Looks for .mp4 file (background.mp4) in the given expansion version. 
-                rate={1.0}                   // 0 is paused, 1 is normal. 
-                volume={1.0}                 // 0 is muted, 1 is normal. 
-                muted={false}                // Mutes the audio entirely. 
-                paused={false}               // Pauses playback entirely. 
-                resizeMode="cover"           // Fill the whole screen at aspect ratio. 
-                repeat={true}                // Repeat forever. 
-                onLoadStart={this.loadStart} // Callback when video starts to load 
-                onLoad={this.setDuration}    // Callback when video loads 
-                onProgress={this.setTime}    // Callback every ~250ms with currentTime 
-                onEnd={this.onEnd}           // Callback when playback finishes 
-                onError={this.videoError}    // Callback when video cannot be loaded 
-                style={styles.backgroundVideo} />
+            <View style={styles.movieblocksRow} style={{backgroundColor:'#FFFFFF', width: '100%'}}>
+            <FadingSlides
+              slides={slides}
+              fadeDuration={1500}
+              stillDuration={1000}
+              height={380}
+              startAnimation={true}
+            />
             </View>
-            <View style={styles.movieblocksRow}>
+           {/* <View style={styles.movieblocksRow}>
                 <View style={styles.movieblocksCol}>
-                <Image
-                    source={require('../Assets/Images/party_card.jpg')}
-                    style={{width: 150, height: 50}}
-                /> 
+                  <Text>Hello</Text>
                 </View>
-            </View>
+              </View> */}
         </View>
       </ScrollView>
     );
@@ -57,33 +49,15 @@ export default class MyHomeScreen extends React.Component<{}> {
 }
 
 const styles = StyleSheet.create({
-backgroundVideo: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    width: 200,
-    height: 300,
-    borderWidth: 3,
-    borderColor: '#000'
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
   mainBlocks : {
     flex: 1,
     flexDirection : 'column',
     height: '100%',
-    marginTop: 10,
   },
   movieblocksRow: {
       backgroundColor: '#FFFFFF',
       flex: 1,
       flexDirection : 'row',
-      height: 150,
       marginBottom: 10,
   },
   movieblocksCol: {
@@ -97,3 +71,106 @@ backgroundVideo: {
     marginRight: 5,
 },
 });
+
+
+
+const slides = [
+  {
+    image: require('../Assets/Images/madhulika/1.jpg'),
+    imageWidth: '100%',
+    imageHeight: 250,
+    title: 'Hello World',
+    subtitle: 'This is a beautiful world',
+    titleColor: '#0000ff',
+    subtitleColor: '#0000ff',
+  },
+  {
+    image: require('../Assets/Images/madhulika/2.jpg'),
+    imageWidth: 300,
+    imageHeight: 250,
+    title: 'Bye World',
+    subtitle: 'This is a see you soon',
+    titleColor: '#0000ff',
+    subtitleColor: '#0000ff',
+  }
+  ,
+  {
+    image: require('../Assets/Images/madhulika/3.jpg'),
+    imageWidth: 300,
+    imageHeight: 350,
+    title: 'Bye World',
+    subtitle: 'This is a see you soon',
+    titleColor: '#0000ff',
+    subtitleColor: '#0000ff',
+  }
+  ,
+  {
+    image: require('../Assets/Images/madhulika/4.jpg'),
+    imageWidth: 300,
+    imageHeight: 350,
+    title: 'Bye World',
+    subtitle: 'This is a see you soon',
+    titleColor: '#0000ff',
+    subtitleColor: '#0000ff',
+  }
+  ,
+  {
+    image: require('../Assets/Images/madhulika/5.jpg'),
+    imageWidth: 350,
+    imageHeight: 350,
+    title: 'Bye World',
+    subtitle: 'This is a see you soon',
+    titleColor: '#0000ff',
+    subtitleColor: '#0000ff',
+  }
+  ,
+  {
+    image: require('../Assets/Images/madhulika/6.jpg'),
+    imageWidth: 350,
+    imageHeight: 350,
+    title: 'Bye World',
+    subtitle: 'This is a see you soon',
+    titleColor: '#0000ff',
+    subtitleColor: '#0000ff',
+  }
+  ,
+  {
+    image: require('../Assets/Images/madhulika/7.jpg'),
+    imageWidth: 350,
+    imageHeight: 350,
+    title: 'Bye World',
+    subtitle: 'This is a see you soon',
+    titleColor: '#0000ff',
+    subtitleColor: '#0000ff',
+  }
+  ,
+  {
+    image: require('../Assets/Images/madhulika/8.jpg'),
+    imageWidth: 350,
+    imageHeight: 350,
+    title: 'Bye World',
+    subtitle: 'This is a see you soon',
+    titleColor: '#0000ff',
+    subtitleColor: '#0000ff',
+  }
+  ,
+  {
+    image: require('../Assets/Images/madhulika/9.jpg'),
+    imageWidth: 350,
+    imageHeight: 350,
+    title: 'Bye World',
+    subtitle: 'This is a see you soon',
+    titleColor: '#0000ff',
+    subtitleColor: '#0000ff',
+  }
+  ,
+  {
+    image: require('../Assets/Images/madhulika/10.jpg'),
+    imageWidth: 300,
+    imageHeight: 350,
+    title: 'Bye World',
+    subtitle: 'This is a see you soon',
+    titleColor: '#0000ff',
+    subtitleColor: '#0000ff',
+  }
+];

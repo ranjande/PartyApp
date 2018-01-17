@@ -12,25 +12,6 @@ const { WINDOW_WIDTH, WINDOW_HEIGHT } = Dimensions.get('window');
 
 export default class MapDirectionScreen extends React.Component<{}> {
 
-
-   componentDidMount = () => {
-      navigator.geolocation.getCurrentPosition(
-         (position)=> {
-            //const initialPosition = JSON.stringify(position);
-            this.setState({ initialPosition : JSON.stringify(position)});
-         },
-         (error) => alert(error.message),
-         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-      );
-      this.watchID = navigator.geolocation.watchPosition((position) => {
-         //const lastPosition = JSON.stringify(position);
-         this.setState({ lastPosition: JSON.stringify(position) });
-      });
-   }
-   componentWillUnmount = () => {
-     navigator.geolocation.clearWatch(this.watchID);
-   }
-
   static navigationOptions = {
     tabBarLabel: 'Locate',
     tabBarIcon: ({ tintColor }) => (
@@ -47,20 +28,39 @@ export default class MapDirectionScreen extends React.Component<{}> {
   constructor(props) {
     super(props);
     this.state = {
-      initialPosition : '',
-      lastPosition : '',
+      initialPosition: '',
+      lastPosition: '',
       coordinates: [
-        {
-          latitude:22.5560008,
-          longitude:88.3393902,
-        },
         {
           latitude: 22.6413802,
           longitude: 88.4707479,
         },
+        {
+          latitude:22.550432,
+          longitude:88.339831,
+        },
       ],
     };
+    this.mapView = null;
   }
+
+  componentDidMount = () => {
+    navigator.geolocation.getCurrentPosition(
+       (position)=> {
+          const initialPosition = JSON.stringify(position);
+          this.setState({initialPosition});
+       },
+       (error) => alert(error.message),
+       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+       const lastPosition = JSON.stringify(position);
+       this.setState({ lastPosition });
+    });
+ }
+ componentWillUnmount = () => {
+   navigator.geolocation.clearWatch(this.watchID);
+ }
 
   watchID: ?number = null;
 
@@ -74,8 +74,8 @@ export default class MapDirectionScreen extends React.Component<{}> {
     } 
 
     const ASPECT_RATIO = WINDOW_WIDTH / WINDOW_HEIGHT;
-    const LATITUDE = 22.5560008;
-    const LONGITUDE = 88.3393902;
+    const LATITUDE = 22.550432;
+    const LONGITUDE = 88.339831;
     const LATITUDE_DELTA = 0.022;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
     const GOOGLE_MAPS_APIKEY = 'AIzaSyDXRs3OKZNE3p8NdxHKc2pP42cTwIyH2ZM';
@@ -85,20 +85,19 @@ export default class MapDirectionScreen extends React.Component<{}> {
         <MapView style={styles.map}
           provider = {MapView.POOVIDER_GOOGLE}
           initialRegion={region}
-          location = 'Kolkata'
           onMapReady = {console.log('Map Loaded')}
         >
-            <MapView.Marker
-              coordinate={{latitude:22.5560008, longitude:88.3393902}}
-              pinColor="red"
-              title="Army Officer's Institute, Fort William"
-            />	
+          <MapView.Marker
+            coordinate={{latitude:22.5560008, longitude:88.3393902}}
+            pinColor="red"
+            title="Army Officer's Institute, Fort William"
+          />	
 
           <MapView.Marker
-              coordinate={{latitude:22.6413802, longitude:88.4707479}}
-              pinColor="blue"
-              title="Army Officer's Institute, Fort William"
-            />	
+            coordinate={{latitude:22.6413802, longitude:88.4707479}}
+            pinColor="blue"
+            title="Siddha Town, Rajarhat"
+          />	
 
           <MapViewDirections
             origin={this.state.coordinates[0]}
@@ -106,7 +105,8 @@ export default class MapDirectionScreen extends React.Component<{}> {
             destination={this.state.coordinates[this.state.coordinates.length-1]}
             apikey={GOOGLE_MAPS_APIKEY}
             strokeWidth={3}
-            strokeColor="hotpink"
+            strokeColor="black"
+            /*
             onReady={(result) => {
               this.mapView.fitToCoordinates(result.coordinates, {
                 edgePadding: {
@@ -118,8 +118,8 @@ export default class MapDirectionScreen extends React.Component<{}> {
               });
             }}
             onError={(errorMessage) => {
-              // console.log('GOT AN ERROR');
-            }}
+               console.log('GOT AN ERROR'+ errorMessage);
+            }}*/
           />
 
 

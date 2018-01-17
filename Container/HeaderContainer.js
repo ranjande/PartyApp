@@ -30,17 +30,17 @@ export default class HeaderC extends React.Component{
     return (
       <View style={styles.headerContainer}>
         <View style={{flexDirection: 'row', justifyContent: 'flex-end', borderBottomWidth: 1, borderBottomColor: '#fff', height: 50}}>
-            <View style={styles.headerIcon}>
+            <View style={styles.headerIconLeft}>
               <Text style={styles.welcome}>
                   Welcome {agent.toLocaleUpperCase()}
               </Text>
             </View>
-            <View style={styles.headerIcon}>
+            <View style={styles.headerIconRight}>
               <Icon
                   name='bell'
-                  size={20}
-                  color='#455A64'
-                  iconStyle={{backgroundColor: '#98CBFE'}}
+                  size={25}
+                  color='#ffffff'
+                  iconStyle={{backgroundColor: '#ffffff'}}
                   activeOpacity={0.7}
               />
             </View> 
@@ -83,11 +83,17 @@ const styles = StyleSheet.create({
         color: '#333333',
         marginBottom: 5,
       },
-      headerIcon: {
+      headerIconLeft: {
         paddingTop: 5,
-        paddingRight: 15,
         paddingLeft: 15,
-        justifyContent: 'center', 
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        width: 200,
+      },
+      headerIconRight: {
+        paddingTop: 5,
+        padingRight: 15,
+        justifyContent: 'flex-end',
         alignItems: 'center',
       },
       headerContainer:{

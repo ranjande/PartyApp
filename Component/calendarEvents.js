@@ -15,7 +15,7 @@ export default class MyCalendar extends React.Component {
 
         const eventConfig = {
             title :'Madhulika\'s 10th Birthday Celebration',
-            location: 'Gate 1, Fort WIlliam, Kolkata',
+            location: 'Army Officers Institute, Fort WIlliam, Kolkata',
             notes: 'Please call before you reach to destination.',
             startDate: '2018-02-11T6:30:00.000Z',
             endDate: '2018-02-11T10:30:00.000Z',
@@ -62,17 +62,30 @@ export default class MyCalendar extends React.Component {
     render(){
         return(
                 <View style={styles.calendarContent}>
-                    {/*renderElseIf(this.state.blocked == true, */}
+                   
+                    <View style={styles.CalendarInfo}>
+                        <Text style={styles.textBoldHdr}>Madhulika's 10th Birthday Celebration</Text>
+                        <Text style={styles.textBold}>Venue: Army Officers Institute, Fort WIlliam, Kolkata</Text>
+                        <Text style={styles.textBold}>Date: 11th February, 2018</Text>
+                        <Text style={styles.textBold}>Time: 12 NOON to 4:00 PM</Text>
+                        <Text style={styles.textBold}>Entry Point: Gate No 1 and South Gate</Text>
+                    </View>
+                     {renderElseIf(this.state.blocked == true,
+                    <View>
+                        <Text>
+                           Your Calendar is blocked  {this.state.blocked}
+                        </Text>
+                    </View>
+                     )}
+                    <View>
                     <Button
                             onPress={() => this.getCalAuth()}
                             title="Block your Calendar"
                             style={styles.headerLeftText}
                         />
-                    
+                    </View>
                     <View>
-                        <Text>
-                           Your Calendar is blocked  {this.state.title}
-                        </Text>
+                        <Text style={styles.Note}>Please call before you reach to destination.</Text>
                     </View>
                 </View>
         );
@@ -84,10 +97,11 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         fontWeight: '700',
         fontSize: 15,
-        width: '100%',
-        height: '50',
+        width: 250,
+        height: 50,
         textAlign: 'center',
-        backgroundColor: '#FF4081'
+        backgroundColor: '#FF4081',
+        flexDirection:'bottom'
       },
       calendarContent: {
         paddingTop: 15,
@@ -96,4 +110,29 @@ const styles = StyleSheet.create({
         width: '100%',
         textAlign: 'center'
       },
+      CalendarInfo: {
+        paddingBottom: 25,
+        paddingLeft: 15,
+        paddingRight: 15,
+        width: '100%',
+        textAlign: 'center'         
+      },
+      textBoldHdr: {
+        fontSize: 30,
+        fontWeight: 700,
+        textAlign: 'center',
+        paddingBottom: 25,
+      },
+      textBold: {
+        fontSize: 15,
+        fontWeight: 700,
+        textAlign: 'center',
+        paddingBottom: 15,
+      },
+      Note: {
+        fontSize: 10,
+        fontWeight: 700,
+        textAlign: 'justfy',
+        color: 'red'      
+      }
 });

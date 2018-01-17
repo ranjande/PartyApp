@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, Vibration, AppRegistry,StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, TouchableHighlight, Dimensions} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import {ReactVideoPackage, Video} from 'react-native-video';
 import { TabNavigator } from "react-navigation";
 import Crashes from "mobile-center-crashes";
 
@@ -22,10 +21,7 @@ import DressCodeScreen from './Component/dressCode.js';
 
 
 import WelcomeMessage from './Component/WelcomeMessage.js';
-
 import renderIf from './Component/renderIf';
-
-//import styles from './Assets/Styles/styles';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
@@ -77,7 +73,7 @@ export default class PartyApp extends Component {
     setTimeout(function(){
         Vibration.vibrate(1100);
         cancelWelcome();
-    }, 1000);
+    }, 4000);
 } 
 
   render() {
@@ -134,7 +130,7 @@ export default class PartyApp extends Component {
                   activeOpacity={0.7}
               />
             </View>
-      <Text>22.5542° N, 88.3359° E</Text>*/}
+      */}
         <View style={styles.footerContainer}>
             <Footer />
         </View>

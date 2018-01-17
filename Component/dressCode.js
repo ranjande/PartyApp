@@ -30,6 +30,10 @@ export default class DressCodeScreen extends React.Component {
                 source={require('../Assets/Images/dresscode.png')} 
                 style={styles.dress}
               />
+              <Text style={styles.dresscodeTextHdr}>CRACKING THE DRESS CODE</Text>
+              <Text style={styles.dresscodeText}>There is a dress code inside Fort William, so please adhere to it. </Text>
+              <Text style={styles.dresscodeText}>For Men, it’s formal Western Attire. No casual shoes, no strap shoes not even sneakers. </Text>
+              <Text style={styles.dresscodeText}>For Women, There is no specific dress code for women. :)</Text>
         </View>
       </ScrollView>
     );
@@ -47,6 +51,24 @@ const styles = StyleSheet.create({
   },
   dress: {
     borderWidth: 1,
-    width: '50%'
+    width: 330,
+    height: 220,
+    alignItems: 'center'
+  },
+  dresscodeTextHdr: {
+    fontSize: 30,
+    fontColor: '#000000',
+    fontWeight: 'bold',
+    paddingLeft: 25,
+    paddingRight: 25,
+    paddingTop: 10,
+  },
+  dresscodeText: {
+    fontSize: 20,
+    fontColor: '#000000',
+    fontWeight: 'bold',
+    paddingLeft: 25,
+    paddingRight: 25,
+    paddingTop: 5,
   }
 });

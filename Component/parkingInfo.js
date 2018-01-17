@@ -52,6 +52,9 @@ export default class ParkingInfoScreen extends React.Component {
                 showCallout
             />	
           </MapView>  
+          <View>
+            <Text style={styles.parkInfoText}>Parking Area: 1 &amp; 2</Text>
+          </View>
         </View>
     );
   }
@@ -61,7 +64,7 @@ export default class ParkingInfoScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    height: 420,
+    height: 430,
     width: 400,
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -70,4 +73,9 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
+  parkInfoText:{
+    fontWeight: '700',
+    fondColor: '#0000ff', 
+    paddingBottom: 30,
+  }
 });

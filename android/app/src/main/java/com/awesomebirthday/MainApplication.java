@@ -10,7 +10,6 @@ import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage
 import com.calendarevents.CalendarEventsPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.smixx.reactnativeicons.ReactNativeIcons;
-import com.brentvatne.react.ReactVideoPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -40,7 +39,6 @@ public class MainApplication extends Application implements ReactApplication {
             new CalendarEventsPackage(),
             new RNDeviceInfo(),
             new ReactNativeIcons(),
-            new ReactVideoPackage(),
             new VectorIconsPackage(),
             new MapsPackage()
       );
