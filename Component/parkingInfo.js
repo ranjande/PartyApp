@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
 import Crashes from "mobile-center-crashes";
 
+
+
 export default class ParkingInfoScreen extends React.Component {
   
   
@@ -25,8 +27,8 @@ export default class ParkingInfoScreen extends React.Component {
   render() {
 
     const region = {
-      longitude:88.3393902,
-      latitude:22.5560008,
+      longitude:88.3411023,
+      latitude:22.5553296,
       latitudeDelta:0.009,
       longitudeDelta:0.009
     } 
@@ -36,21 +38,26 @@ export default class ParkingInfoScreen extends React.Component {
             <MapView style={styles.map}
               provider = {MapView.POOVIDER_GOOGLE}
               initialRegion={region}
-              location = 'Kolkata'
+              location = 'rmy Officiers Institute, Fort William, Kolkata'
               onMapReady = {console.log('Map Loaded')}
             >
+            
             <MapView.Marker
-                coordinate={{latitude:22.5560008, longitude:88.3393902}}
+                coordinate={{latitude:22.5546958, longitude:88.3410475}}
+                pinColor="red"
+                title="Army Officiers Institute, Fort William"
+                showCallout
+            />	         
+            <MapView.Marker
+                coordinate={{latitude:22.5561231, longitude:88.3418801}}
                 pinColor="purple"
                 title="Parking Area: 1"
-                showCallout
             />	
             <MapView.Marker
-                coordinate={{latitude:22.5565148, longitude:88.3398102}}
+                coordinate={{latitude:22.5553296, longitude:88.3411023}}
                 pinColor="green"
                 title="Parking Area: 2"
-                showCallout
-            />	
+            />        
           </MapView>  
           <View>
             <Text style={styles.parkInfoText}>Parking Area: 1 &amp; 2</Text>
@@ -76,7 +83,7 @@ const styles = StyleSheet.create({
   parkInfoText:{
     fontWeight: '700',
     fondColor: '#0000ff', 
-    paddingTop: 30,
+    paddingBottom: 50,
     fontsize: 15,
   }
 });

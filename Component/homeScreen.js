@@ -31,18 +31,13 @@ export default class MyHomeScreen extends React.Component<{}> {
             <View style={styles.movieblocksRow}>
             <FadingSlides
               slides={slides}
-              fadeDuration={1500}
+              fadeDuration={200}
               stillDuration={1000}
-              height={500}
+              height={350}
               startAnimation={true}
             />
             </View>
-            <ActivityIndicator size="large" color="#0000ff" />
-           {/* <View style={styles.movieblocksRow}>
-                <View style={styles.movieblocksCol}>
-                  <Text>Hello</Text>
-                </View>
-              </View> */}
+            {/* <ActivityIndicator size="large" color="#0000ff" />*/}
         </View>
       </ScrollView>
     );
@@ -51,30 +46,19 @@ export default class MyHomeScreen extends React.Component<{}> {
 
 const styles = StyleSheet.create({
   mainBlocks : {
-    flex: 1,
-    flexDirection : 'column',
+    flex:1,
     height: '100%',
+    width: '100%',
     margin: 0,
     padding: 0,
   },
   movieblocksRow: {
       backgroundColor: '#FFFFFF',
-      flex: 1,
       width: '100%',
-      height: 500,
-      flexDirection : 'row',
-      marginBottom: 10,
+      height: 360,
+      flexDirection : 'column',
+      paddingBottom: 10,
   },
-  movieblocksCol: {
-    borderWidth: 2,
-    borderColor: '#FF80AB',
-    flex: 1,
-    flexDirection : 'column',
-    height: 180,
-    padding: 10,
-    marginLeft: 5,
-    marginRight: 5,
-},
 });
 
 
@@ -162,7 +146,7 @@ const slides = [
     subtitleColor: '#0000ff',
   },
   {
-    image: require('../Assets/Images/madhulika/11.jpg'),
+    image: require('../Assets/Images/madhulika/IMG_20170315.jpg'),
     imageWidth: '100%',
     imageHeight: 350,
     title: 'Bye World',

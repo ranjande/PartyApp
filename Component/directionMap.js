@@ -67,8 +67,8 @@ export default class MapDirectionScreen extends React.Component<{}> {
   render() {
 
     const region = {
-      longitude:88.3393902,
-      latitude:22.5560008,
+      longitude:88.3411023,
+      latitude:22.5553296,
       latitudeDelta:0.022,
       longitudeDelta:0.0021
     } 
@@ -91,12 +91,14 @@ export default class MapDirectionScreen extends React.Component<{}> {
             coordinate={{latitude:22.5560008, longitude:88.3393902}}
             pinColor="red"
             title="Army Officers Institute, Fort William"
+            draggable
           />	
 
           <MapView.Marker
             coordinate={{latitude:22.6413802, longitude:88.4707479}}
             pinColor="blue"
             title="Siddha Town, Rajarhat"
+            draggable
           />	
 
           <MapViewDirections
@@ -129,7 +131,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
               <View>
                   <Button
                       title="Current Location"
-                      style={styles.calendarButton}
+                      style={styles.mapButton}
                       color="#FF4081"
                   />
                   <Text style = {styles.boldText}>
@@ -139,7 +141,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
               <View>
                   <Button
                       title="Driving Directions"
-                      style={styles.calendarButton}
+                      style={styles.mapButton}
                       color="#FF4081"
                   />
                   <Text style = {styles.boldText}>
@@ -164,23 +166,22 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   Drive: {
-    height: 70,
-    width: 400,
-    backgroundColor: 'black',
-    opacity: 0.5,
+    height: 270,
+    backgroundColor: '#ffffff',
+    opacity: 1.8,
     alignItems: 'center',
     flexDirection : 'row',
   },
   boldText: {
     fontSize: 15,
-    color: 'white',
+    color: 'black',
  },   
  mapButton: {
   color: '#ffffff',
   fontWeight: '700',
   fontSize: 12,
-  width: 100,
-  height: 50,
+  width: 70,
+  height: 40,
   textAlign: 'center',
   backgroundColor: '#FF4081',
 },

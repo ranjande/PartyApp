@@ -28,12 +28,25 @@ export default class DressCodeScreen extends React.Component {
             <Image
                 source={require('../Assets/Images/dresscode.png')} 
                 style={styles.dress}
-                width={'100%'}
-                height={'100%'}
               />
               <Text style={styles.dresscodeTextHdr}>CRACKING THE DRESS CODE</Text>
               <Text style={styles.dresscodeText}>There is a dress code inside Fort William, so please adhere to it. </Text>
+              <Icon
+                  name='male'
+                  size={25}
+                  color='black'
+                  avatarStyle={{ backgroundColor: '#98CBFE'}}
+                  activeOpacity={0.7}
+              />
               <Text style={styles.dresscodeText}>For Men, it’s formal Western Attire. No casual shoes, no strap shoes not even sneakers. </Text>
+              <Icon
+                  name='female'
+                  size={25}
+                  color='black'
+                  avatarStyle={{ backgroundColor: '#98CBFE'}}
+                  activeOpacity={0.7}
+              />
+              
               <Text style={styles.dresscodeText}>For Women, There is no specific dress code for women. :)</Text>
         </View>
       </ScrollView>
@@ -48,28 +61,27 @@ const styles = StyleSheet.create({
   dressContainer: {
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT,
-    backgroundColor: '#EFEFEF',
-  },
-  dress: {
-    borderWidth: 1,
-    width: 300,
-    height: 200,
+    backgroundColor: '#FFFFFF',
     alignItems: 'center'
   },
+  dress: {
+    width: 300,
+    height: 200
+  },
   dresscodeTextHdr: {
-    fontSize: 30,
+    fontSize: 20,
     fontColor: '#000000',
-    fontWeight: 'bold',
+    fontWeight: '700',
     paddingLeft: 25,
     paddingRight: 25,
     paddingTop: 10,
   },
   dresscodeText: {
-    fontSize: 20,
+    fontSize: 15,
     fontColor: '#000000',
-    fontWeight: 'bold',
+    fontWeight: '700',
     paddingLeft: 25,
     paddingRight: 25,
-    paddingTop: 5,
+    paddingTop: 15,
   }
 });
