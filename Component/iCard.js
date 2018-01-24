@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, Vibration, AppRegistry,StyleSheet,Text, Alert, AsyncStorage, Platform, TextInput, Button, View, Image, TouchableHighlight, FlatList, Dimensions, Menu} from 'react-native';
 import QRCode from 'react-native-qrcode';
-
+import DeviceInfo from 'react-native-device-info';
 import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
@@ -11,18 +11,9 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 
 export default class DigitalCardScreen extends React.Component {
 
-  state = {
-    guest: 'Ranjan De',
-    mobile: '9874428418',
-    altmobile: '9830028418',
-    venue:'Fort William, Kolkata',
-    date: '11th February, 2018',
-    time: '12:00 noon to 4:00 pm'
-  };
-
   static navigationOptions = {
     tabBarLabel: 'I-Card',
-    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+    
     tabBarIcon: ({ tintColor }) => (
           <Icon
               name='vcard-o'
@@ -34,9 +25,15 @@ export default class DigitalCardScreen extends React.Component {
     ),
   };
 
+
   render() {
 
-    const qrvalue = this.state.guest+'|'+this.state.mobile+'|'+this.state.altmobile+'|'+'11022018';
+    const venue = 'Victory Lounge, \nArmy Officers Institute\nFort William, Kolkata';
+    const date = '11th February, 2018\n';
+    const time = '12:00 noon to 4:00 pm';
+    const mobile = DeviceInfo.getPhoneNumber();
+
+    const qrvalue = this.props.screenProps.name+'|'+this.props.screenProps.email+'|'+this.props.screenProps.id+'|'+mobile;
 
     return (
       <ScrollView>
@@ -44,28 +41,37 @@ export default class DigitalCardScreen extends React.Component {
             <View style={styles.welcomeMeassageBox}>
               <View style={styles.blocksRow}>
                   <View style={styles.blocksCol}>
-                    <Text style={styles.welcomeHeader}>{this.state.guest}</Text>
-                    <Text style={styles.welcomeText}>{this.state.mobile}</Text>
-                    <Text style={styles.welcomeText}>{this.state.altmobile}</Text>
+                    <Image
+                      style={{width: 120, height: 120}}
+                      source={{uri: this.props.screenProps.photo}}
+                    />
                   </View>
-                  <View style={styles.blocksCol} style={{width: 100, textAlign:'center'}}>
+                  <View style={styles.blocksCol}>
                     <QRCode
                         value={qrvalue}
-                        size={100}
+                        size={120}
                         bgColor='black'
                         fgColor='white'/>
                   </View>
               </View>
               <View style={styles.blocksRow}>
                 <View style={styles.blocksCol}>
-                    <Text style={styles.welcomeText}>Time: {this.state.time}</Text>
-                    <Text style={styles.welcomeText}>Date: {this.state.date}</Text>
-                    <Text style={styles.welcomeText}>Venue: {this.state.venue}</Text>
+                    <Text style={styles.welcomeHeader}>{this.props.screenProps.name}</Text>
+                    <Text style={styles.welcomeText}>Email: {this.props.screenProps.email}</Text>
+                    <Text style={styles.welcomeText}>Mobile: {mobile}</Text>
+                    <Text style={styles.welcomeText}>Time: {time}</Text>
+                    <Text style={styles.welcomeText}>Date: {date}</Text>
+                    <Text style={styles.welcomeText}>Venue: {venue}</Text>
+                </View>
+              </View>
+              <View style={styles.blocksRow}>
+                <View style={styles.blocksCol}>
+                    <Text style={styles.Note}>{this.props.screenProps.id}</Text>
                 </View>
               </View>
           </View>
         <Image
-          source={require('../Assets/Images/18170.jpg')}
+          source={require('../Assets/Images/11022018.png')}
           style={styles.idcardBackground}
         /> 
       </View>
@@ -104,42 +110,38 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection : 'column',
     padding: 5,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 5,
+    marginRight: 5,
 },
 
   welcomeMeassageBox: { 
-    width: WINDOW_WIDTH - 90, 
+    width: WINDOW_WIDTH - 60, 
     marginBottom: 5,
     position: 'absolute',
     zIndex: 30,
-    top: 155,
+    top: 15,
     justifyContent: 'center', 
     alignItems: 'center',
     borderWidth: 2,
-    borderRadius: 7,
+    borderRadius: 5,
     borderColor: '#FF4081',
   },
   welcomeText : {
-    fontSize: 20,
+    fontSize: 15,
     color: '#691a99',
-    fontWeight: '700',
     alignItems: 'center',
     justifyContent: 'center', 
   },
   welcomeHeader: {
-    fontSize: 30,
+    fontSize: 25,
     color: '#691a99',
     alignItems: 'center',
     justifyContent: 'center', 
   },
-
-input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    margin: 10,
-    borderRadius: 5,
-    padding: 5,
-}
+  Note: {
+    paddingTop: 5,
+    fontSize: 8,
+    textAlign: 'center',
+    color: 'black'      
+  }
 });

@@ -1,0 +1,24 @@
+properties: {
+        name: 'string',
+        email: {type: 'string', default: 0},
+        altemail: {type: 'string?', default: 0},
+        mobile: {type: 'int'},
+        altmobible: {type: 'int?'},
+        no_head : {type: 'int'},
+        seniors: {type: 'int?'},
+        cars: {type: 'string?'},
+        joining : {type: 'bool', default: false},
+        calendarBlocked: {type: 'bool?', default : false},
+    },
+
+    [{
+        "name": "Ranjan De",
+        "email": "ranjan.de@gmail.com",
+        "altemail": "ranjan.de1@gmail.com",
+        "mobile": "9874428418",
+        "altmobible": "9874428418",
+        "no_head": "3",
+        "seniors": "0",
+        "cars": "",
+        "joining": "false"
+    }]

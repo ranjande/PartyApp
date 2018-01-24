@@ -38,16 +38,17 @@ export default class ParkingInfoScreen extends React.Component {
             <MapView style={styles.map}
               provider = {MapView.POOVIDER_GOOGLE}
               initialRegion={region}
-              location = 'rmy Officiers Institute, Fort William, Kolkata'
-              onMapReady = {console.log('Map Loaded')}
+              location = 'Army Officiers Institute, Fort William, Kolkata'
+              onMapReady = {console.log('Parking Map Loaded')}
+              centerOffset= {(20, 20)}
             >
-            
+            {/*
             <MapView.Marker
                 coordinate={{latitude:22.5546958, longitude:88.3410475}}
                 pinColor="red"
                 title="Army Officiers Institute, Fort William"
                 showCallout
-            />	         
+            />	 */}        
             <MapView.Marker
                 coordinate={{latitude:22.5561231, longitude:88.3418801}}
                 pinColor="purple"

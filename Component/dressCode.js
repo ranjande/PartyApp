@@ -21,6 +21,13 @@ export default class DressCodeScreen extends React.Component {
     
   };
 
+  constructor(props){
+    super(props);
+      this.state = {
+        user: props.screenProps,
+      };
+  }
+
   render() {
     return (
       <ScrollView>
@@ -30,7 +37,7 @@ export default class DressCodeScreen extends React.Component {
                 style={styles.dress}
               />
               <Text style={styles.dresscodeTextHdr}>CRACKING THE DRESS CODE</Text>
-              <Text style={styles.dresscodeText}>There is a dress code inside Fort William, so please adhere to it. </Text>
+              <Text style={styles.dresscodeText}>There is a dress code inside Fort William. </Text>
               <Icon
                   name='male'
                   size={25}
@@ -60,7 +67,7 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   dressContainer: {
     width: WINDOW_WIDTH,
-    height: WINDOW_HEIGHT,
+    height: WINDOW_HEIGHT - 50,
     backgroundColor: '#FFFFFF',
     alignItems: 'center'
   },

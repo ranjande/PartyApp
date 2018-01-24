@@ -10,9 +10,31 @@ import renderIf from '../Component/renderIf';
 import renderElseIf from '../Component/renderElseIf';
 
 export default class MyCalendar extends React.Component {
+/*
+    setAlarmNotification = () => {
+        const alarmNotifData = {
+            id: "12345",                                                    // Required
+            title: 'Madhulika\'s 10th Birthday Celebration',               // Required
+            message: "Army Officers Institute, Fort WIlliam, Kolkata",                             // Required
+            ticker: "Madhulika\'s 10th Birthday Celebration",                   
+            auto_cancel: true,                                              // default: true
+            vibrate: true,                                      
+            vibration: 100,                                             // default: 100, no vibration if vibrate: false
+            small_icon: "ic_launcher",                                  // Required
+            large_icon: "ic_launcher",                          
+            play_sound: true,                                    
+            sound_name: null,                                            // Plays custom notification ringtone if sound_name: null
+            color: "red",                                       
+            schedule_once: true,                                    // Works with ReactNativeAN.scheduleAlarm so alarm fires once
+            tag: 'some_tag',                                    
+            fire_date: "01-24-2018 01:00:00"                            // Date for firing alarm, Required for ReactNativeAN.scheduleAlarm. Format: dd-MM-yyyy HH:mm:ss
+        };
+
+        ReactNativeAN.scheduleAlarm(alarmNotifData);
+    }
+    */
 
     getCalAuth = () => {
-
         const eventConfig = {
             title :'Madhulika\'s 10th Birthday Celebration',
             location: 'Army Officers Institute, Fort WIlliam, Kolkata',
@@ -25,15 +47,16 @@ export default class MyCalendar extends React.Component {
             .then(eventId => {
               //handle success (receives event id) or dismissing the modal (receives false)
               if (eventId) {
-                Alert.alert('Event saved to your calendar.\n\nEvent ID: '+eventId);
+                Alert.alert('Thank you!','Event saved to your calendar.\n\nEvent ID: '+eventId);
                 this.setState({blocked: true});
+                this.props.navigation.setParams({alarmCall: {alram: true, alarmName : 'bell'}});
               } else {
-                Alert.alert('You have not save this event to your calendar.');
+                Alert.alert('Sorry! ','You have not save this event to your calendar.');
               }
             })
             .catch((error) => {
               // handle error such as when user rejected permissions
-              Alert.alert('You have rejected permission to add to your calendar.');
+              Alert.alert('', 'You have rejected permission to add to your calendar.');
             });
           };
 
@@ -55,30 +78,29 @@ export default class MyCalendar extends React.Component {
             super(props);
             this.state = {
                 blocked : false,
-                title: 'De'
             };
         }
 
     render(){
+
         return(
                 <View style={styles.calendarContent}>
-                   
                     <View style={styles.CalendarInfo}>
                         <Text style={styles.textBoldHdr}>Madhulika's 10th Birthday Celebration</Text>
-                        <Text style={styles.textBold}>Venue: Army Officers Institute, Fort WIlliam, Kolkata</Text>
+                        <Text style={styles.textBold}>Venue: Victory Lounge, Army Officers Institute, Fort WIlliam, Kolkata</Text>
                         <Text style={styles.textBold}>Date: 11th February, 2018</Text>
                         <Text style={styles.textBold}>Time: 12 NOON to 4:00 PM</Text>
-                        <Text style={styles.textBold}>Entry Point: Gate No. 1(East Gate) &amp; South Gate</Text>
+                        <Text style={styles.textBold}>Entry: East Gate (Gate 1) &amp; South Gate</Text>
                     </View>
-                     {renderIf(this.state.blocked == true,
+                     {renderIf(this.state.blocked == true, 
                     <View style={styles.NoteInfo}>
                         <Text style={styles.textBoldBlocked}>
-                           Your Calendar is blocked  {this.state.blocked}
+                            Dear {this.props.screenProps.name}, Thank you for blocking your Calendar. 
                         </Text>
                     </View>
                      )}
                     <View>
-                    <Button
+                        <Button
                             onPress={() => this.getCalAuth()}
                             title="Block Your Calendar"
                             style={styles.calendarButton}
@@ -86,7 +108,7 @@ export default class MyCalendar extends React.Component {
                         />
                     </View>
                     <View style={styles.NoteInfo}>
-                        <Text style={styles.Note}>Please call before you reach at the destination.</Text>
+                        <Text style={styles.Note}>You can call us by TAP any of below number(s) before you reach.</Text>
                         <Text style={styles.Note}>For parking : Please tap PARK.</Text>
                     </View>
                 </View>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,Vibration, Alert, Text, TextInput, Platform, Button, View, Image, Dimensions} from 'react-native';
+import { StyleSheet,Vibration, Alert, Text, TextInput, Platform, Button, BackHandler, View, Image, Dimensions} from 'react-native';
 import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab, SocialIcon, Avatar, Header} from 'react-native-elements';
@@ -11,7 +11,8 @@ const welcomemsg1 = '\n\nWe don’t know what you’ve been told\n';
 const welcomemsg2 = 'But Madhulika turns 10 years old\n'; 
 const welcomemsg3 = 'So wear your camouflage\n';
 const welcomemsg4 = 'And spread the word…\n'; 
-const welcomemsg5 = 'We are celebrating MADHULIKA’s 10th birthday on 11th February, 12 pm onwards at Fort William, Kolkata\n\n';
+//const welcomemsg5 = 'We are celebrating MADHULIKA’s 10th birthday on 11th February, 12 pm onwards at Fort William, Kolkata\n\n';
+const welcomemsg5 = '\n\n\n\n';
 const welcomemsg6 = 'Please join us to celebrate...';
 
 
@@ -25,11 +26,28 @@ const welcomemsg6 = 'Please join us to celebrate...';
         };
     }
 
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+      }
+      componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+      }
+
+      handleBackButtonClick() {
+        BackHandler.exitApp();
+        return true;
+      }
+
     _onPressButton= () =>{
-        this.setState({
-            wvisible: true,
-        });  
-        Alert.alert('You tapped the button!')
+        Alert.alert(
+            'Want to close App?',
+            'This will close your application.',
+            [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
+                {text: 'OK', onPress: () => this.handleBackButtonClick()},
+            ],
+            { cancelable: false }
+        );
     }
 
     render() {
@@ -41,9 +59,9 @@ const welcomemsg6 = 'Please join us to celebrate...';
                     ATTENTION TROOPS!
                 </Text>
                 <Text style={styles.welcomeText}>{welcomemsg1}</Text>
-                <Text style={styles.welcomeText}>{welcomemsg2}</Text>
-                <Text style={styles.welcomeText}>{welcomemsg3}</Text>
-                <Text style={styles.welcomeText}>{welcomemsg4}</Text>
+                <Text style={styles.welcomeText1}>{welcomemsg2}</Text>
+                <Text style={styles.welcomeText1}>{welcomemsg3}</Text>
+                <Text style={styles.welcomeText1}>{welcomemsg4}</Text>
                 <Text style={styles.welcomeText}>{welcomemsg5}</Text>
                 <Text style={styles.welcomeText}>{welcomemsg6}</Text>
             </View>
@@ -51,7 +69,7 @@ const welcomemsg6 = 'Please join us to celebrate...';
                 <Icon
                     name='close'
                     size={30}
-                    color='purple'
+                    color='white'
                     rounded
                     onPress={this._onPressButton}
                     activeOpacity={0.5}
@@ -88,6 +106,13 @@ const styles = StyleSheet.create({
       welcomeText : {
         fontSize: 20,
         color: '#00ff00', //'#691a99',
+        fontWeight: '700',
+        alignItems: 'center',
+        justifyContent: 'center', 
+      },
+      welcomeText1 : {
+        fontSize: 20,
+        color: '#3E50B4', 
         fontWeight: '700',
         alignItems: 'center',
         justifyContent: 'center', 

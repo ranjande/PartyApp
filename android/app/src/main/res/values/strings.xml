@@ -1,5 +1,7 @@
 <resources>
     <string moduleConfig="true" name="appcenterCrashes_whenToSendCrashes">ALWAYS_SEND</string>
     <string moduleConfig="true" name="appcenterAnalytics_whenToEnableAnalytics">ENABLE_IN_JS</string>
+    <string name="facebook_app_id">1807433595967329</string>
+    <string name="fb_login_protocol_scheme">fb1807433595967329</string>
     <string name="app_name">Awesome Birthday</string>
 </resources>

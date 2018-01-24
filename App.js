@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Vibration, AppRegistry,StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, TouchableHighlight, Dimensions} from 'react-native';
+import { ScrollView, ActivityIndicator, Vibration, AppRegistry, BackAndroid, StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, TouchableHighlight, Dimensions} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { TabNavigator } from "react-navigation";
 import Crashes from "mobile-center-crashes";
@@ -7,74 +7,107 @@ import Crashes from "mobile-center-crashes";
 import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
+import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 
-import HeaderC from './Container/HeaderContainer.js';
+
 import Footer from './Container/FooterContainer.js';
-
-
 import MyHomeScreen from './Component/homeScreen.js';
 import MapDirectionScreen from './Component/directionMap.js';
 import DigitalCardScreen from './Component/iCard.js';
 import MyCalendar from './Component/calendarEvents.js';
 import ParkingInfoScreen from './Component/parkingInfo.js';
 import DressCodeScreen from './Component/dressCode.js';
-
-
 import WelcomeMessage from './Component/WelcomeMessage.js';
 import renderIf from './Component/renderIf';
+import renderElseIf from './Component/renderElseIf';
+
+import Realm from 'realm';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
-
-
-class MyNotificationsScreen extends React.Component {
-  static navigationOptions = {
-    tabBarLabel: 'Notifications',
-    tabBarIcon: ({ tintColor }) => (
-      <Image
-       /* source={require('./notif-icon.png')} */
-        style={[styles.icon, {tintColor: tintColor}]}
-      />
-    ),
-  };
-
-  render() {
-    return (
-      <Button
-        onPress={() => this.props.navigation.goBack()}
-        title="Go back home"
-      />
-    );
-  }
-}
-
-
-
 export default class PartyApp extends Component {
 
-    constructor(props) {
+  constructor(props) {
       super(props);
       this.state = {
           wvisible: true,
-          navTab: 'Home',
+          isLogin : false,
+          user: {},
+          uname: null,
+          calendarBlocked : false,
+          alarmCall : {
+            alarm : true,
+            alarmColor : '#ffffff',
+            alarmName : 'bell-o',
+          },
+          realm: null,
+          mykey: null,
+          accessToken: null,
       };
   }
 
+  
+
+    componentDidMount(){ 
 
 
 
-  componentDidMount(){ 
-    cancelWelcome = () =>{
+      AsyncStorage.getItem("myKey").then((value) => {
+        this.setState({"myKey": value});
+      }).done();
+      
+      AsyncStorage.setItem("myKey", "My value here");
+
+      
+
+      _cancelWelcome = () =>{
         this.setState({
           wvisible: false,
         });  
+      }
+
+      this._setupGoogleSignin();
+      setTimeout(function(){
+          Vibration.vibrate(1100);
+          _cancelWelcome();
+      }, 4000);
+    } 
+
+    componentWillMount(){
+
+      class AwesomeBirthday {}
+          AwesomeBirthday.schema = {
+              name: 'BirthdayGuest',
+              primaryKey: 'email',
+              properties: {
+                  name: 'string',
+                  email: {type: 'string', default: 0},
+                  altemail: {type: 'string?', default: 0},
+                  mobile: {type: 'int'},
+                  altmobible: {type: 'int?'},
+                  no_head : {type: 'int'},
+                  seniors: {type: 'int?'},
+                  cars: {type: 'string?'},
+                  joining : {type: 'bool', default: false},
+                  calendarBlocked: {type: 'bool?', default : false},
+              },
+          };
+
+      Realm.open({
+         schema: [AwesomeBirthday]
+       })
+       .then(realm => 
+           {
+             realm.write(() => {
+               realm.create('BirthdayGuest', {name: 'Ranjan De', email: 'ranjan.de@gmail.com', mobile: 9874428418, no_head: 3, cars: 'wb06h6805', altmobile: 9830028418});
+              });
+            this.setState({realm});
+            Alert.alert(this.state.realm);
+         }
+       );
     }
-    setTimeout(function(){
-        Vibration.vibrate(1100);
-        cancelWelcome();
-    }, 4000);
-} 
+
 
   render() {
 
@@ -103,10 +136,9 @@ export default class PartyApp extends Component {
           fontWeight: 'bold',
         },
       },
-      
     swipeEnabled: false,
     });
-    
+    const info = this.state.mykey;
     return (
       <View style={styles.mainContainer}>
         {renderIf(this.state.wvisible, 
@@ -114,28 +146,111 @@ export default class PartyApp extends Component {
               <WelcomeMessage />
           </View>
         )}
-        <View style={styles.navContainer}>
-          <HeaderC NAV={this.props.navigation}/>
-          <MyNavigation />
-        </View>
-{/*}
-        <View style={styles.headerLeftWelcome}>
-            <Avatar
-                  large
-                  rounded
-                  title='Madhulika'
-                  source={require("./Assets/Images/madhulika/IMG_20170618.jpg")}
-                  avatarStyle={{backgroundColor: '#F50057'}}
-                  //onPress={() => this.setModalVisible(true, 'Time Table')}
-                  activeOpacity={0.7}
+        {renderElseIf((this.state.isLogin == false && this.state.uname == null), 
+          <View style={styles.LoginMenuContainer}>
+            <View>
+              <GoogleSigninButton 
+                  style={{width: 230, height: 72}} 
+                  color={GoogleSigninButton.Color.Light} 
+                  size={GoogleSigninButton.Size.Wide} 
+                  onPress={() => { this._signIn()}}
               />
+              </View>
+              <View>
+                <Text>
+                 Ranjan {info} De
+                </Text>
+              </View>
+          </View>
+        ,
+          <View style={styles.navContainer}>
+
+            {/* Header Top */}
+            <View style={styles.headerContainer}>
+              <View style={{flexDirection: 'row', flex:1, justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#fff', height: 50}}>
+                  <View style={styles.headerIconLeft}>
+                      <Text style={styles.welcome}>
+                        Welcome {this.state.uname}
+                    </Text>
+                  </View>
+                  <View style={styles.headerIconRight}>
+                    <Icon
+                        name={this.state.alarmCall.alarmName}
+                        size={28}
+                        color={this.state.alarmCall.alarmColor}
+                        activeOpacity={0.7}
+                        onPress={() => this.stopAlarm()}
+                    />
+                  </View> 
+                  <View style={styles.headerIconRight}>
+                    <Icon
+                        name='sign-out'
+                        size={28}
+                        color='white'
+                        activeOpacity={0.7}
+                        onPress={() => this._signOut()}
+                    />
+                  </View> 
+              </View>
             </View>
-      */}
+            {/* Header Top */}
+            
+            <MyNavigation screenProps={this.state.user} />
+          </View>
+        )}
         <View style={styles.footerContainer}>
-            <Footer />
+            <Footer accessToken={ '&copy; Ranjan De'} />
         </View>
       </View>      
     );
+  }
+
+
+  async _setupGoogleSignin() {
+    try {
+      await GoogleSignin.hasPlayServices({ autoResolve: true });
+      await GoogleSignin.configure({
+        webClientId: '460904176105-mq2j6d0p8u529mjs2iidmqmqe528nt6n.apps.googleusercontent.com',
+        offlineAccess: true,
+        shouldFetchBasicProfile: true,
+      });
+
+      const userName = await GoogleSignin.currentUserAsync();
+      console.log(userName);
+      this.setState({user: userName, uname: userName.name});
+    }
+    catch(err) {
+      console.log("Play services error", err.code, err.message);
+    }
+  }
+
+  _signIn() {
+    GoogleSignin.signIn()
+    .then((user) => {
+      console.log(user);
+      this.setState({user: user, isLogin: true, accessToken: user.accessToken, uname: user.name, wvisible: false});
+    })
+    .catch((err) => {
+      console.warn('WRONG SIGNIN', err);
+    })
+    .done();
+  }
+
+  _signOut() {
+    GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
+      this.setState({user: null, isLogin: false, accessToken: null, uname: null, wvisible: true});
+      Alert.alert("You have successfully Logged out.", "You can close the application now by clicking close button.")
+    })
+    .done();
+  }
+
+  stopAlarm =() => {
+    if(this.state.alarmCall.alarm == true){
+      Alert.alert('Stop Alarm');
+      this.setState({
+        alarmCall: {alarmName: 'bell-slash', alrtm: false},
+      });  
+    }
   }
 }
 
@@ -148,26 +263,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT,
+    alignItems: 'center'
   },
   navContainer:{
-    backgroundColor: '#ffffff',
+    backgroundColor: '#FFFFFF',
     width: WINDOW_WIDTH , 
     height: WINDOW_HEIGHT - 70,
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   footerContainer: {
     backgroundColor:'#263238',
     width: WINDOW_WIDTH, 
     height: 50,
   },
-  SideMenuContainer: {
+  LoginMenuContainer: {
     backgroundColor: '#F50057', 
-    top: 49, zIndex: 25, 
-    height: WINDOW_HEIGHT - 119, 
-    width: 240, 
-    position: 'absolute', 
-    borderRightWidth: 10, 
-    borderRightColor:'#fff',
-    display: 'flex',
+    width: WINDOW_WIDTH , 
+    height: WINDOW_HEIGHT - 70,
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   WelcomeContainer: {
     width: WINDOW_WIDTH, 
@@ -183,8 +298,6 @@ const styles = StyleSheet.create({
     width: 85,
     height: 45,
   },
-
-
   backgroundVideo: {
     position: 'absolute',
     top: 0,
@@ -219,5 +332,31 @@ const styles = StyleSheet.create({
     padding: 10,
     marginLeft: 5,
     marginRight: 5,
-},
+  },
+
+  welcome: {
+    fontSize: 15,
+    textAlign: 'left',
+    color: '#ffffff',
+    fontWeight: 'bold',
+  },
+  headerIconLeft: {
+    paddingTop: 0,
+    paddingLeft: 10,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '80%',
+  },
+  headerIconRight: {
+    justifyContent: 'space-around',
+    flex: 1, 
+    textAlign: 'center',
+    width: '20%',
+    paddingRight: 10,
+  },
+  headerContainer:{
+    backgroundColor: '#FF4081',
+    height: 50, 
+    width: WINDOW_WIDTH,
+  },
 });
