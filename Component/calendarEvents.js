@@ -34,6 +34,10 @@ export default class MyCalendar extends React.Component {
     }
     */
 
+    componentWillMount(){
+        
+    }
+
     getCalAuth = () => {
         const eventConfig = {
             title :'Madhulika\'s 10th Birthday Celebration',

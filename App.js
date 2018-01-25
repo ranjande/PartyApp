@@ -21,7 +21,8 @@ import WelcomeMessage from './Component/WelcomeMessage.js';
 import renderIf from './Component/renderIf';
 import renderElseIf from './Component/renderElseIf';
 
-import Realm from 'realm';
+//import Realm from 'realm';
+import axios from 'axios';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
@@ -35,14 +36,14 @@ export default class PartyApp extends Component {
           isLogin : false,
           user: {},
           uname: null,
-          calendarBlocked : false,
           alarmCall : {
             alarm : true,
             alarmColor : '#ffffff',
             alarmName : 'bell-o',
           },
-          realm: null,
+          GuestList: null,
           mykey: null,
+          calendarBlocked : false,
           accessToken: null,
       };
   }
@@ -51,15 +52,12 @@ export default class PartyApp extends Component {
 
     componentDidMount(){ 
 
+      axios.get('https://github.com/ranjande/PartyApp/blob/master/Assets/Realm/GuestList.json')
+        .then(res => this.setState({GuestList: res.data}))
+        .catch(err => console.log(err));
 
 
-      AsyncStorage.getItem("myKey").then((value) => {
-        this.setState({"myKey": value});
-      }).done();
-      
-      AsyncStorage.setItem("myKey", "My value here");
-
-      
+ 
 
       _cancelWelcome = () =>{
         this.setState({
@@ -75,40 +73,62 @@ export default class PartyApp extends Component {
     } 
 
     componentWillMount(){
-
       class AwesomeBirthday {}
-          AwesomeBirthday.schema = {
-              name: 'BirthdayGuest',
-              primaryKey: 'email',
-              properties: {
-                  name: 'string',
-                  email: {type: 'string', default: 0},
-                  altemail: {type: 'string?', default: 0},
-                  mobile: {type: 'int'},
-                  altmobible: {type: 'int?'},
-                  no_head : {type: 'int'},
-                  seniors: {type: 'int?'},
-                  cars: {type: 'string?'},
-                  joining : {type: 'bool', default: false},
-                  calendarBlocked: {type: 'bool?', default : false},
-              },
-          };
+      AwesomeBirthday.schema = {
+          name: 'GST',
+          primaryKey: 'email',
+          properties: {
+              name: 'string',
+              email: {type: 'string', default: 0},
+              altemail: {type: 'string?', default: 0},
+              mobile: {type: 'int'},
+              altmobible: {type: 'int?'},
+              no_head : {type: 'int'},
+              seniors: {type: 'int?'},
+              cars: {type: 'string?'},
+              joining : {type: 'bool', default: false},
+              calendarBlocked: {type: 'bool?', default : false},
+          },
+      };
+let email = 'ranjan.de@gmail.com';
+let mobile = '9830028418';
+let joining = 0;
+let calendarBlocked = 0;
 
-      Realm.open({
-         schema: [AwesomeBirthday]
-       })
-       .then(realm => 
-           {
-             realm.write(() => {
-               realm.create('BirthdayGuest', {name: 'Ranjan De', email: 'ranjan.de@gmail.com', mobile: 9874428418, no_head: 3, cars: 'wb06h6805', altmobile: 9830028418});
-              });
-            this.setState({realm});
-            Alert.alert(this.state.realm);
-         }
-       );
-    }
+const user = [{name: 'Ranjan De', email: 'ranjan.de@gmail.com', mobile: 9874428418, no_head: 3, cars: 'wb06h6805', altmobile: 9830028418},
+{name: 'Subhra Sircar De', email: 'subhra.sircarde@gmail.com', mobile: 9830028418, no_head: 3, cars: 'wb06h6805', altmobile: 822222233}
+];
 
 
+//AsyncStorage.multiSet([['k1', JSON.stringify(user)], ['k2', 'val2']]);
+
+/*
+  AsyncStorage.getItem("3").then((value) => {
+    Alert.alert('3', value);
+  }).done();
+*/
+
+let keys = ['k1', 'k2', '1', '2', '3', '4', 'keys', 'myKey'];
+AsyncStorage.multiRemove(keys, (err) => {
+  // keys k1 & k2 removed, if they existed
+  // do most stuff after removal (if you want)
+  //Alert.alert(keys);
+});
+
+AsyncStorage.getAllKeys((err, keys) => {
+  AsyncStorage.multiGet(keys, (err, stores) => {
+    stores.map((result, i, store) => {
+      // get at each store's key/value so you can work with it
+      let key = store[i][0];
+      let val = store[i][1];
+      Alert.alert(key, key+'****'+val);
+    });
+  });
+});
+
+
+
+}
   render() {
 
     const MyNavigation = TabNavigator({
@@ -157,8 +177,10 @@ export default class PartyApp extends Component {
               />
               </View>
               <View>
+              </View>
+              <View>
                 <Text>
-                 Ranjan {info} De
+                 &copy; Ranjan De {this.state.GuestList}
                 </Text>
               </View>
           </View>
