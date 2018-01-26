@@ -20,9 +20,7 @@ import DressCodeScreen from './Component/dressCode.js';
 import WelcomeMessage from './Component/WelcomeMessage.js';
 import renderIf from './Component/renderIf';
 import renderElseIf from './Component/renderElseIf';
-
-//import Realm from 'realm';
-import axios from 'axios';
+import Guestlist from './Assets/Realm/guestlist';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
@@ -37,13 +35,16 @@ export default class PartyApp extends Component {
           user: {},
           uname: null,
           alarmCall : {
-            alarm : true,
+            alarm : false,
             alarmColor : '#ffffff',
             alarmName : 'bell-o',
           },
-          GuestList: null,
-          mykey: null,
+          GuestData: null,
+          guestkey: null,
+          uemail: null,
+          umobile: null,
           calendarBlocked : false,
+          isjoining: false,
           accessToken: null,
       };
   }
@@ -52,17 +53,34 @@ export default class PartyApp extends Component {
 
     componentDidMount(){ 
 
-      axios.get('https://github.com/ranjande/PartyApp/blob/master/Assets/Realm/GuestList.json')
-        .then(res => this.setState({GuestList: res.data}))
-        .catch(err => console.log(err));
-
-
- 
-
       _cancelWelcome = () =>{
         this.setState({
           wvisible: false,
         });  
+      }
+
+      _checkCalBlock = () =>{
+        AsyncStorage.getItem("calendarBlocked").then((value) => {
+          if(value == 'true'){
+            this.setState({
+              calendarBlocked: true,
+               alarmCall : {
+                alarm : true,
+                alarmColor : '#ffffff',
+                alarmName : 'bell',
+              },
+            });  
+            clearInterval(calc);           
+          }
+        }).done();
+      }
+
+      getUserDetails = () => {
+        const guest = Guestlist().map((usr) => {
+           return (usr.email === this.state.uemail) ? usr : null}
+          );
+          Alert.alert(JSON.stringify(guest));
+          return JSON.stringify(guest);
       }
 
       this._setupGoogleSignin();
@@ -70,65 +88,41 @@ export default class PartyApp extends Component {
           Vibration.vibrate(1100);
           _cancelWelcome();
       }, 4000);
+
+      let calc = setInterval(function(){
+          _checkCalBlock();
+      }, 1500)
     } 
 
     componentWillMount(){
-      class AwesomeBirthday {}
-      AwesomeBirthday.schema = {
-          name: 'GST',
-          primaryKey: 'email',
-          properties: {
-              name: 'string',
-              email: {type: 'string', default: 0},
-              altemail: {type: 'string?', default: 0},
-              mobile: {type: 'int'},
-              altmobible: {type: 'int?'},
-              no_head : {type: 'int'},
-              seniors: {type: 'int?'},
-              cars: {type: 'string?'},
-              joining : {type: 'bool', default: false},
-              calendarBlocked: {type: 'bool?', default : false},
-          },
-      };
-let email = 'ranjan.de@gmail.com';
-let mobile = '9830028418';
-let joining = 0;
-let calendarBlocked = 0;
+      AsyncStorage.multiSet([['GuestData', JSON.stringify(this.state.GuestData)], ['k2', 'val2']]);
 
-const user = [{name: 'Ranjan De', email: 'ranjan.de@gmail.com', mobile: 9874428418, no_head: 3, cars: 'wb06h6805', altmobile: 9830028418},
-{name: 'Subhra Sircar De', email: 'subhra.sircarde@gmail.com', mobile: 9830028418, no_head: 3, cars: 'wb06h6805', altmobile: 822222233}
-];
+          /*
+            AsyncStorage.getItem("calendarBlocked").then((value) => {
+              if(value !== 'true'){
+                AsyncStorage.getAllKeys((err, keys) => {
+                  AsyncStorage.multiRemove(keys, (err) => {
+                    // keys k1 & k2 removed, if they existed
+                    // do most stuff after removal (if you want)
+                    //Alert.alert(keys);
+                  });
+                });
+              }
+            }).done();
+         */ 
 
 
-//AsyncStorage.multiSet([['k1', JSON.stringify(user)], ['k2', 'val2']]);
-
-/*
-  AsyncStorage.getItem("3").then((value) => {
-    Alert.alert('3', value);
-  }).done();
-*/
-
-let keys = ['k1', 'k2', '1', '2', '3', '4', 'keys', 'myKey'];
-AsyncStorage.multiRemove(keys, (err) => {
-  // keys k1 & k2 removed, if they existed
-  // do most stuff after removal (if you want)
-  //Alert.alert(keys);
-});
-
-AsyncStorage.getAllKeys((err, keys) => {
-  AsyncStorage.multiGet(keys, (err, stores) => {
-    stores.map((result, i, store) => {
-      // get at each store's key/value so you can work with it
-      let key = store[i][0];
-      let val = store[i][1];
-      Alert.alert(key, key+'****'+val);
-    });
-  });
-});
-
-
-
-}
+          AsyncStorage.getAllKeys((err, keys) => {
+            AsyncStorage.multiGet(keys, (err, stores) => {
+              stores.map((result, i, store) => {
+                // get at each store's key/value so you can work with it
+                let key = store[i][0];
+                let val = store[i][1];
+                //Alert.alert(key, key+'****'+val);
+              });
+            });
+          });
+    }
   render() {
 
     const MyNavigation = TabNavigator({
@@ -177,10 +171,11 @@ AsyncStorage.getAllKeys((err, keys) => {
               />
               </View>
               <View>
+                <Text>Guest User / Non Google user</Text>
               </View>
               <View>
                 <Text>
-                 &copy; Ranjan De {this.state.GuestList}
+                 &copy; Ranjan De
                 </Text>
               </View>
           </View>
@@ -192,7 +187,7 @@ AsyncStorage.getAllKeys((err, keys) => {
               <View style={{flexDirection: 'row', flex:1, justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#fff', height: 50}}>
                   <View style={styles.headerIconLeft}>
                       <Text style={styles.welcome}>
-                        Welcome {this.state.uname}
+                        Welcome {this.state.uname} {this.state.GuestData}
                     </Text>
                   </View>
                   <View style={styles.headerIconRight}>
@@ -239,7 +234,7 @@ AsyncStorage.getAllKeys((err, keys) => {
 
       const userName = await GoogleSignin.currentUserAsync();
       console.log(userName);
-      this.setState({user: userName, uname: userName.name});
+      this.setState({user: userName, uname: userName.name, uemail: userName.email});
     }
     catch(err) {
       console.log("Play services error", err.code, err.message);
@@ -250,7 +245,7 @@ AsyncStorage.getAllKeys((err, keys) => {
     GoogleSignin.signIn()
     .then((user) => {
       console.log(user);
-      this.setState({user: user, isLogin: true, accessToken: user.accessToken, uname: user.name, wvisible: false});
+      this.setState({user: user, isLogin: true, accessToken: user.accessToken, uname: user.name, uemail: user.email, wvisible: false, GuestData : getUserDetails()});
     })
     .catch((err) => {
       console.warn('WRONG SIGNIN', err);
@@ -260,18 +255,24 @@ AsyncStorage.getAllKeys((err, keys) => {
 
   _signOut() {
     GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
-      this.setState({user: null, isLogin: false, accessToken: null, uname: null, wvisible: true});
+      this.setState({user: null, isLogin: false, accessToken: null, uname: null, uemail: null, wvisible: true, GuestData : null});
       Alert.alert("You have successfully Logged out.", "You can close the application now by clicking close button.")
     })
     .done();
   }
 
   stopAlarm =() => {
-    if(this.state.alarmCall.alarm == true){
-      Alert.alert('Stop Alarm');
+    let nowDate = new Date();
+    let startDate = '2018-01-26T20:33:00.000Z';
+    let endDate = '2018-02-11T10:30:00.000Z';
+    Alert.alert(nowDate);
+    if(this.state.alarmCall.alarm == true &&  nowDate >= startDate){
       this.setState({
+        calendarBlocked: false,
         alarmCall: {alarmName: 'bell-slash', alrtm: false},
       });  
+      if(nowDate >= endDate)
+      AsyncStorage.setItem('calendarBlocked', 'false');
     }
   }
 }

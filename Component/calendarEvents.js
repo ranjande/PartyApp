@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,Vibration, Alert, Text, TextInput, Platform, Button, View, Image, Dimensions} from 'react-native';
+import { StyleSheet,Vibration, Alert, Text, TextInput, Platform, Button, View, Image, Dimensions, AsyncStorage} from 'react-native';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 
 import {Fonts} from 'react-native-vector-icons';
@@ -35,7 +35,13 @@ export default class MyCalendar extends React.Component {
     */
 
     componentWillMount(){
-        
+        AsyncStorage.getItem("calendarBlocked").then((value) => {
+            if(value == 'true'){
+                this.setState({blocked: true});
+            }else{
+                this.setState({blocked: false}); 
+            }
+          }).done();        
     }
 
     getCalAuth = () => {
@@ -53,13 +59,12 @@ export default class MyCalendar extends React.Component {
               if (eventId) {
                 Alert.alert('Thank you!','Event saved to your calendar.\n\nEvent ID: '+eventId);
                 this.setState({blocked: true});
-                this.props.navigation.setParams({alarmCall: {alram: true, alarmName : 'bell'}});
+                AsyncStorage.setItem('calendarBlocked', 'true');
               } else {
                 Alert.alert('Sorry! ','You have not save this event to your calendar.');
               }
             })
             .catch((error) => {
-              // handle error such as when user rejected permissions
               Alert.alert('', 'You have rejected permission to add to your calendar.');
             });
           };
@@ -96,13 +101,13 @@ export default class MyCalendar extends React.Component {
                         <Text style={styles.textBold}>Time: 12 NOON to 4:00 PM</Text>
                         <Text style={styles.textBold}>Entry: East Gate (Gate 1) &amp; South Gate</Text>
                     </View>
-                     {renderIf(this.state.blocked == true, 
+                     {renderElseIf(this.state.blocked == true, 
                     <View style={styles.NoteInfo}>
                         <Text style={styles.textBoldBlocked}>
                             Dear {this.props.screenProps.name}, Thank you for blocking your Calendar. 
                         </Text>
                     </View>
-                     )}
+                    ,
                     <View>
                         <Button
                             onPress={() => this.getCalAuth()}
@@ -111,6 +116,7 @@ export default class MyCalendar extends React.Component {
                             color="#FF4081"
                         />
                     </View>
+                    )}
                     <View style={styles.NoteInfo}>
                         <Text style={styles.Note}>You can call us by TAP any of below number(s) before you reach.</Text>
                         <Text style={styles.Note}>For parking : Please tap PARK.</Text>
