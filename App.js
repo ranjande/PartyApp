@@ -75,9 +75,10 @@ export default class PartyApp extends Component {
         }).done();
       }
 
-      getUserDetails = () => {
+      getUserDetails = (user) => {
+        Alert.alert(user.uemail);
         const guest = Guestlist().map((usr) => {
-           return (usr.email === this.state.uemail) ? usr : null}
+           return (usr.email === user.uemail) ? usr : null}
           );
           Alert.alert(JSON.stringify(guest));
           return JSON.stringify(guest);
@@ -245,7 +246,7 @@ export default class PartyApp extends Component {
     GoogleSignin.signIn()
     .then((user) => {
       console.log(user);
-      this.setState({user: user, isLogin: true, accessToken: user.accessToken, uname: user.name, uemail: user.email, wvisible: false, GuestData : getUserDetails()});
+      this.setState({user: user, isLogin: true, accessToken: user.accessToken, uname: user.name, uemail: user.email, wvisible: false, GuestData : getUserDetails(user)});
     })
     .catch((err) => {
       console.warn('WRONG SIGNIN', err);
@@ -263,10 +264,10 @@ export default class PartyApp extends Component {
 
   stopAlarm =() => {
     let nowDate = new Date();
-    let startDate = '2018-01-26T20:33:00.000Z';
+    let startDate = '2018-01-26T18:33:00.000Z';
     let endDate = '2018-02-11T10:30:00.000Z';
     Alert.alert(nowDate);
-    if(this.state.alarmCall.alarm == true &&  nowDate >= startDate){
+    if(this.state.alarmCall.alarm == true &&  nowDate > startDate){
       this.setState({
         calendarBlocked: false,
         alarmCall: {alarmName: 'bell-slash', alrtm: false},
