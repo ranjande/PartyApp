@@ -74,11 +74,15 @@ export default class PartyApp extends Component {
           }
         }).done();
       }
-
+/*
+      loginSuccess = (user) => {
+        this.setState({user: user, isLogin: true, accessToken: user.accessToken, uname: user.name, uemail: user.email, wvisible: false, GuestData : getUserDetails(user)});
+      }
+*/
       getUserDetails = (user) => {
-        Alert.alert(user.uemail);
-        const guest = Guestlist().map((usr) => {
-           return (usr.email === user.uemail) ? usr : null}
+        const guest = Guestlist().map((usrDB) => {
+          Alert.alert(usrDB.email+'######'+user.email)
+           return (usrDB.email == user.email || usrDB.altemail == user.email) ? usr : null}
           );
           Alert.alert(JSON.stringify(guest));
           return JSON.stringify(guest);
@@ -96,21 +100,23 @@ export default class PartyApp extends Component {
     } 
 
     componentWillMount(){
-      AsyncStorage.multiSet([['GuestData', JSON.stringify(this.state.GuestData)], ['k2', 'val2']]);
+      //AsyncStorage.multiSet([['GuestData', JSON.stringify(this.state.GuestData)], ['k2', 'val2']]);
 
-          /*
-            AsyncStorage.getItem("calendarBlocked").then((value) => {
-              if(value !== 'true'){
-                AsyncStorage.getAllKeys((err, keys) => {
-                  AsyncStorage.multiRemove(keys, (err) => {
-                    // keys k1 & k2 removed, if they existed
-                    // do most stuff after removal (if you want)
-                    //Alert.alert(keys);
-                  });
-                });
-              }
-            }).done();
-         */ 
+       
+      deleteDataonLogout = () => {
+        AsyncStorage.getItem("calendarBlocked").then((value) => {
+          if(value !== 'true'){
+            AsyncStorage.getAllKeys((err, keys) => {
+              AsyncStorage.multiRemove(keys, (err) => {
+                // keys k1 & k2 removed, if they existed
+                // do most stuff after removal (if you want)
+                Alert.alert(keys);
+              });
+            });
+          }
+        }).done();
+      }
+         
 
 
           AsyncStorage.getAllKeys((err, keys) => {
@@ -119,7 +125,7 @@ export default class PartyApp extends Component {
                 // get at each store's key/value so you can work with it
                 let key = store[i][0];
                 let val = store[i][1];
-                //Alert.alert(key, key+'****'+val);
+                Alert.alert(key, key+'****'+val);
               });
             });
           });
@@ -257,6 +263,7 @@ export default class PartyApp extends Component {
   _signOut() {
     GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
       this.setState({user: null, isLogin: false, accessToken: null, uname: null, uemail: null, wvisible: true, GuestData : null});
+      this.deleteDataonLogout();
       Alert.alert("You have successfully Logged out.", "You can close the application now by clicking close button.")
     })
     .done();
