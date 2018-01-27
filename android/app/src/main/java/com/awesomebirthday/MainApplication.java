@@ -3,14 +3,12 @@ package com.awesomebirthday;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import io.realm.react.RealmReactPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.auth0.react.A0Auth0Package;
 import com.vonovak.AddCalendarEventPackage;
 import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
 import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyticsPackage;
 import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage;
-import com.calendarevents.CalendarEventsPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.smixx.reactnativeicons.ReactNativeIcons;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -34,14 +32,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RealmReactPackage(),
             new RNGoogleSigninPackage(),
             new A0Auth0Package(),
             new AddCalendarEventPackage(),
             new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appcenterCrashes_whenToSendCrashes)),
             new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appcenterAnalytics_whenToEnableAnalytics)),
             new AppCenterReactNativePackage(MainApplication.this),
-            new CalendarEventsPackage(),
             new RNDeviceInfo(),
             new ReactNativeIcons(),
             new VectorIconsPackage(),

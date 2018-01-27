@@ -37,9 +37,9 @@ export default class MyCalendar extends React.Component {
     componentWillMount(){
         AsyncStorage.getItem("calendarBlocked").then((value) => {
             if(value == 'true'){
-                this.setState({blocked: true});
+                this.setState({calendarBlocked: true});
             }else{
-                this.setState({blocked: false}); 
+                this.setState({calendarBlocked: false}); 
             }
           }).done();        
     }
@@ -56,9 +56,10 @@ export default class MyCalendar extends React.Component {
           AddCalendarEvent.presentNewCalendarEventDialog(eventConfig)
             .then(eventId => {
               //handle success (receives event id) or dismissing the modal (receives false)
-              if (eventId) {
+              Alert.alert(eventId.toString());
+              if (eventId.toString()) {
                 Alert.alert('Thank you!','Event saved to your calendar.\n\nEvent ID: '+eventId);
-                this.setState({blocked: true});
+                this.setState({calendarBlocked: true});
                 AsyncStorage.setItem('calendarBlocked', 'true');
               } else {
                 Alert.alert('Sorry! ','You have not save this event to your calendar.');
@@ -86,7 +87,7 @@ export default class MyCalendar extends React.Component {
         constructor(props) {
             super(props);
             this.state = {
-                blocked : false,
+                calendarBlocked : false,
             };
         }
 
@@ -101,7 +102,7 @@ export default class MyCalendar extends React.Component {
                         <Text style={styles.textBold}>Time: 12 NOON to 4:00 PM</Text>
                         <Text style={styles.textBold}>Entry: East Gate (Gate 1) &amp; South Gate</Text>
                     </View>
-                     {renderElseIf(this.state.blocked == true, 
+                     {renderElseIf(this.state.calendarBlocked == true, 
                     <View style={styles.NoteInfo}>
                         <Text style={styles.textBoldBlocked}>
                             Dear {this.props.screenProps.name}, Thank you for blocking your Calendar. 

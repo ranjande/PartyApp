@@ -11,6 +11,7 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 
 export default class DigitalCardScreen extends React.Component {
 
+
   static navigationOptions = {
     tabBarLabel: 'I-Card',
     
@@ -26,13 +27,29 @@ export default class DigitalCardScreen extends React.Component {
   };
 
 
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      GuestData: [],
+      calendarBlocked : false,
+    };
+  }
 
+  componentWillMount(){
+    AsyncStorage.getItem('GuestData').then((value) => {
+      this.setState({GuestData: JSON.parse(value)});
+    }).done()
+  }
+
+
+  render() {
     const venue = 'Victory Lounge, \nArmy Officers Institute\nFort William, Kolkata';
     const date = '11th February, 2018\n';
     const time = '12:00 noon to 4:00 pm';
+    let gstdata =(this.state.GuestData);
 
-    const qrvalue = this.props.screenProps.name+'|'+this.props.screenProps.email+'|'+this.props.screenProps.id+'|'+this.props.screenProps.mobile;
+    const qrvalue = this.props.screenProps.name+'|'+this.props.screenProps.email+'|'+gstdata.mobile+'|'+gstdata.guest;
+
 
     return (
       <ScrollView>
@@ -57,7 +74,8 @@ export default class DigitalCardScreen extends React.Component {
                 <View style={styles.blocksCol}>
                     <Text style={styles.welcomeHeader}>{this.props.screenProps.name}</Text>
                     <Text style={styles.welcomeText}>Email: {this.props.screenProps.email}</Text>
-                    <Text style={styles.welcomeText}>Mobile:{this.props.screenProps.mobile}</Text>
+                    <Text style={styles.welcomeText}>Mobile:{gstdata.mobile}</Text>
+                    <Text style={styles.welcomeText}>&nbsp;</Text>
                     <Text style={styles.welcomeText}>Time: {time}</Text>
                     <Text style={styles.welcomeText}>Date: {date}</Text>
                     <Text style={styles.welcomeText}>Venue: {venue}</Text>
@@ -65,7 +83,7 @@ export default class DigitalCardScreen extends React.Component {
               </View>
               <View style={styles.blocksRow}>
                 <View style={styles.blocksCol}>
-                    <Text style={styles.Note}>{this.props.screenProps.id}</Text>
+                    <Text style={styles.Note}>{this.props.screenProps.id} | {gstdata.guest}</Text>
                 </View>
               </View>
           </View>

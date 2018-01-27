@@ -32,14 +32,14 @@ export default class PartyApp extends Component {
       this.state = {
           wvisible: true,
           isLogin : false,
-          user: {},
+          guser: {},
           uname: null,
           alarmCall : {
             alarm : false,
             alarmColor : '#ffffff',
             alarmName : 'bell-o',
           },
-          GuestData: null,
+          GuestData: [],
           guestkey: null,
           uemail: null,
           umobile: null,
@@ -51,13 +51,7 @@ export default class PartyApp extends Component {
 
   
 
-    componentDidMount(){ 
-
-      _cancelWelcome = () =>{
-        this.setState({
-          wvisible: false,
-        });  
-      }
+componentDidMount(){ 
 
       _checkCalBlock = () =>{
         AsyncStorage.getItem("calendarBlocked").then((value) => {
@@ -69,93 +63,111 @@ export default class PartyApp extends Component {
                 alarmColor : '#ffffff',
                 alarmName : 'bell',
               },
-            });  
-            clearInterval(calc);           
+            });           
           }
         }).done();
       }
-/*
-      loginSuccess = (user) => {
-        this.setState({user: user, isLogin: true, accessToken: user.accessToken, uname: user.name, uemail: user.email, wvisible: false, GuestData : getUserDetails(user)});
+
+      _cancelWelcome = () =>{
+        this.setState({
+          wvisible: false,
+        });  
       }
-*/
+
       getUserDetails = (user) => {
+        let gstDB = null;
         const guest = Guestlist().map((usrDB) => {
-          Alert.alert(usrDB.email+'######'+user.email)
-           return (usrDB.email == user.email || usrDB.altemail == user.email) ? usr : null}
-          );
-          Alert.alert(JSON.stringify(guest));
-          return JSON.stringify(guest);
+            return (usrDB.email === user.email || usrDB.altemail === user.email) ? usrDB : null
+          });
+          for(i=0;  i< guest.length; i++){
+            if(guest[i] != null){
+              gstDB = JSON.stringify(guest[i]);
+              break;
+            }
+          }
+        return gstDB;
       }
 
       this._setupGoogleSignin();
-      setTimeout(function(){
-          Vibration.vibrate(1100);
-          _cancelWelcome();
+          setTimeout(function(){
+              Vibration.vibrate(1000);
+              _cancelWelcome();
+              _checkCalBlock();
       }, 4000);
-
-      let calc = setInterval(function(){
-          _checkCalBlock();
-      }, 1500)
-    } 
+  } 
 
     componentWillMount(){
-      //AsyncStorage.multiSet([['GuestData', JSON.stringify(this.state.GuestData)], ['k2', 'val2']]);
 
-       
-      deleteDataonLogout = () => {
-        AsyncStorage.getItem("calendarBlocked").then((value) => {
-          if(value !== 'true'){
-            AsyncStorage.getAllKeys((err, keys) => {
-              AsyncStorage.multiRemove(keys, (err) => {
-                // keys k1 & k2 removed, if they existed
-                // do most stuff after removal (if you want)
-                Alert.alert(keys);
+        storeSyncData = (db, value) => {
+          //Alert.alert('Ranjan De DB ADDEd',db);
+          AsyncStorage.setItem(db,value); // changed to object 
+        }
+ 
+        deleteDataonLogout = () => {
+          AsyncStorage.getItem("calendarBlocked").then((value) => {
+            if(value !== 'true'){
+              AsyncStorage.getAllKeys((err, keys) => {
+                AsyncStorage.multiRemove(keys, (err) => {
+                  console.log('Data removed'+ keys);
+                });
               });
-            });
-          }
-        }).done();
-      }
+            }
+          }).done();
+        }
+
+        getFromStore = (db) => {
+          AsyncStorage.getItem(db).then((value) => {
+            this.setState({GuestData: value});
+            // Alert.alert('HOWWWWWWWWW ::: ', this.state.GuestData);
+          }).done();
+        }
          
-
-
-          AsyncStorage.getAllKeys((err, keys) => {
-            AsyncStorage.multiGet(keys, (err, stores) => {
-              stores.map((result, i, store) => {
-                // get at each store's key/value so you can work with it
-                let key = store[i][0];
-                let val = store[i][1];
-                Alert.alert(key, key+'****'+val);
-              });
-            });
+        /*
+      AsyncStorage.getAllKeys((err, keys) => {
+        AsyncStorage.multiGet(keys, (err, stores) => {
+          stores.map((result, i, store) => {
+            // get at each store's key/value so you can work with it
+            let key = store[i][0];
+            let val = store[i][1];
+           // Alert.alert('madhulika ::: '+key, key+'****'+val);
           });
+        });
+      });
+      */
+
     }
+
+    componentWillUnmount(){
+
+    }
+
+
   render() {
 
     const MyNavigation = TabNavigator({
-      Home: { screen: MyHomeScreen, },
-      Map: {screen: MapDirectionScreen,},
-      ICard: {screen: DigitalCardScreen,},
-      Calendar: {screen: MyCalendar,},
-      Park: {screen: ParkingInfoScreen,},
-      Dress: {screen: DressCodeScreen},
+        Home: { screen: MyHomeScreen, },
+        Map: {screen: MapDirectionScreen,},
+        ICard: {screen: DigitalCardScreen,},
+        Calendar: {screen: MyCalendar,},
+        Park: {screen: ParkingInfoScreen,},
+        Dress: {screen: DressCodeScreen},
     }, 
     {
-      tabBarPosition: 'top',
-      animationEnabled: true,
-      tabBarOptions: {
-        showIcon: true,
-        activeTintColor: '#ffffff',
-        style: {
-          width: WINDOW_WIDTH,
-          backgroundColor: '#F50057',
-          alignItems: 'stretch' 
-        }, 
-        iconStyle: styles.icon,
-        labelStyle: {
-          fontSize: 7,
-          fontWeight: 'bold',
-        },
+        tabBarPosition: 'top',
+        animationEnabled: true,
+        tabBarOptions: {
+          showIcon: true,
+          activeTintColor: '#ffffff',
+          style: {
+            width: WINDOW_WIDTH,
+            backgroundColor: '#F50057',
+            alignItems: 'stretch' 
+          }, 
+          iconStyle: styles.icon,
+          labelStyle: {
+            fontSize: 7,
+            fontWeight: 'bold',
+          },
       },
     swipeEnabled: false,
     });
@@ -170,21 +182,22 @@ export default class PartyApp extends Component {
         {renderElseIf((this.state.isLogin == false && this.state.uname == null), 
           <View style={styles.LoginMenuContainer}>
             <View>
-              <GoogleSigninButton 
-                  style={{width: 230, height: 72}} 
-                  color={GoogleSigninButton.Color.Light} 
-                  size={GoogleSigninButton.Size.Wide} 
-                  onPress={() => { this._signIn()}}
-              />
-              </View>
-              <View>
-                <Text>Guest User / Non Google user</Text>
-              </View>
-              <View>
+                <GoogleSigninButton 
+                    style={{width: 230, height: 72}} 
+                    color={GoogleSigninButton.Color.Light} 
+                    size={GoogleSigninButton.Size.Wide} 
+                    onPress={() => { this._signIn()}}
+                />
+            </View>
+            {/*<View>
+                <Text>Non Google user please use Awesome.10Birthday@gmail.com with Password: birthda10</Text>
+                <Text>This will ask you for your Mobile Number and Name after Login</Text>
+            </View>*/}
+            <View>
                 <Text>
                  &copy; Ranjan De
                 </Text>
-              </View>
+            </View>
           </View>
         ,
           <View style={styles.navContainer}>
@@ -194,7 +207,7 @@ export default class PartyApp extends Component {
               <View style={{flexDirection: 'row', flex:1, justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#fff', height: 50}}>
                   <View style={styles.headerIconLeft}>
                       <Text style={styles.welcome}>
-                        Welcome {this.state.uname} {this.state.GuestData}
+                        Welcome {this.state.uname} {/*this.state.GuestData */}
                     </Text>
                   </View>
                   <View style={styles.headerIconRight}>
@@ -218,8 +231,7 @@ export default class PartyApp extends Component {
               </View>
             </View>
             {/* Header Top */}
-            
-            <MyNavigation screenProps={this.state.user} />
+            <MyNavigation screenProps={this.state.guser}/>
           </View>
         )}
         <View style={styles.footerContainer}>
@@ -241,7 +253,9 @@ export default class PartyApp extends Component {
 
       const userName = await GoogleSignin.currentUserAsync();
       console.log(userName);
-      this.setState({user: userName, uname: userName.name, uemail: userName.email});
+      this.setState({guser: userName, uname: userName.name, uemail: userName.email});
+      getFromStore('GuestData');
+     // Alert.alert('', 'Already logged in');
     }
     catch(err) {
       console.log("Play services error", err.code, err.message);
@@ -252,8 +266,9 @@ export default class PartyApp extends Component {
     GoogleSignin.signIn()
     .then((user) => {
       console.log(user);
-      this.setState({user: user, isLogin: true, accessToken: user.accessToken, uname: user.name, uemail: user.email, wvisible: false,});
-      Alert.alert('User:'+uname+'Email: '+uemail);
+      this.setState({guser: user, isLogin: true, accessToken: user.accessToken, uname: user.name, uemail: user.email, wvisible: false, GuestData : getUserDetails(user)});
+      storeSyncData('GuestData', this.state.GuestData);
+      //Alert.alert('', 'DB state: '+this.state.GuestData);
     })
     .catch((err) => {
       console.warn('WRONG SIGNIN', err);
@@ -263,9 +278,9 @@ export default class PartyApp extends Component {
 
   _signOut() {
     GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
-      this.setState({user: null, isLogin: false, accessToken: null, uname: null, uemail: null, wvisible: true, GuestData : null});
+      this.setState({guser: null, isLogin: false, accessToken: null, uname: null, uemail: null, wvisible: true, GuestData : null});
       //deleteDataonLogout();
-      Alert.alert("You have successfully Logged out.", "You can close the application now by clicking close button.")
+      //Alert.alert("You have successfully Logged out.", "You can close the application now by clicking close button.")
     })
     .done();
   }
@@ -281,7 +296,7 @@ export default class PartyApp extends Component {
         alarmCall: {alarmName: 'bell-slash', alrtm: false},
       });  
       if(nowDate >= endDate)
-      AsyncStorage.setItem('calendarBlocked', 'false');
+        AsyncStorage.setItem('calendarBlocked', 'false');
     }
   }
 }
