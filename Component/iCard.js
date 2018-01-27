@@ -12,6 +12,28 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 export default class DigitalCardScreen extends React.Component {
 
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      GuestData: [],
+      calendarBlocked : false,
+    };
+  }
+
+  componentDidMount(){
+    AsyncStorage.getAllKeys((err, keys) => {
+      AsyncStorage.multiGet(keys, (err, stores) => {
+        stores.map((result, i, store) => {
+          // get at each store's key/value so you can work with it
+          let key = store[i][0];
+          let value = store[i][1];
+          if(key === 'GuestData')
+              this.setState({GuestData: JSON.parse(value)});
+        });
+      });
+    });
+  }
+
   static navigationOptions = {
     tabBarLabel: 'I-Card',
     
@@ -27,29 +49,13 @@ export default class DigitalCardScreen extends React.Component {
   };
 
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      GuestData: [],
-      calendarBlocked : false,
-    };
-  }
-
-  componentWillMount(){
-    AsyncStorage.getItem('GuestData').then((value) => {
-      this.setState({GuestData: JSON.parse(value)});
-    }).done()
-  }
-
-
   render() {
-    const venue = 'Victory Lounge, \nArmy Officers Institute\nFort William, Kolkata';
+    const venue = 'Victory Lounge, \nArmy Officers Institute, Fort William, Kolkata';
     const date = '11th February, 2018\n';
     const time = '12:00 noon to 4:00 pm';
     let gstdata =(this.state.GuestData);
 
-    const qrvalue = this.props.screenProps.name+'|'+this.props.screenProps.email+'|'+gstdata.mobile+'|'+gstdata.guest;
-
+    const qrvalue = this.props.screenProps.name+'|'+this.props.screenProps.email+'|'+gstdata.mobile+'|'+gstdata.guest+'|'+gstdata.joining;
 
     return (
       <ScrollView>
@@ -74,11 +80,11 @@ export default class DigitalCardScreen extends React.Component {
                 <View style={styles.blocksCol}>
                     <Text style={styles.welcomeHeader}>{this.props.screenProps.name}</Text>
                     <Text style={styles.welcomeText}>Email: {this.props.screenProps.email}</Text>
-                    <Text style={styles.welcomeText}>Mobile:{gstdata.mobile}</Text>
+                    <Text style={styles.welcomeText}>Mobile:{gstdata.mobile}&nbsp;{gstdata.altmobile}</Text>
                     <Text style={styles.welcomeText}>&nbsp;</Text>
-                    <Text style={styles.welcomeText}>Time: {time}</Text>
-                    <Text style={styles.welcomeText}>Date: {date}</Text>
-                    <Text style={styles.welcomeText}>Venue: {venue}</Text>
+                    <Text style={styles.welcomeTextBold}>Time: {time}</Text>
+                    <Text style={styles.welcomeTextBold}>Date: {date}</Text>
+                    <Text style={styles.welcomeTextBold}>Venue: {venue}</Text>
                 </View>
               </View>
               <View style={styles.blocksRow}>
@@ -148,6 +154,13 @@ const styles = StyleSheet.create({
     color: '#691a99',
     alignItems: 'center',
     justifyContent: 'center', 
+  },
+  welcomeTextBold : {
+    fontSize: 15,
+    color: '#691a99',
+    alignItems: 'center',
+    justifyContent: 'center', 
+    fontWeight: 'bold',
   },
   welcomeHeader: {
     fontSize: 25,
