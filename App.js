@@ -252,7 +252,8 @@ export default class PartyApp extends Component {
     GoogleSignin.signIn()
     .then((user) => {
       console.log(user);
-      this.setState({user: user, isLogin: true, accessToken: user.accessToken, uname: user.name, uemail: user.email, wvisible: false, GuestData : getUserDetails(user)});
+      this.setState({user: user, isLogin: true, accessToken: user.accessToken, uname: user.name, uemail: user.email, wvisible: false,});
+      Alert.alert('User:'+uname+'Email: '+uemail);
     })
     .catch((err) => {
       console.warn('WRONG SIGNIN', err);
@@ -263,7 +264,7 @@ export default class PartyApp extends Component {
   _signOut() {
     GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
       this.setState({user: null, isLogin: false, accessToken: null, uname: null, uemail: null, wvisible: true, GuestData : null});
-      this.deleteDataonLogout();
+      //deleteDataonLogout();
       Alert.alert("You have successfully Logged out.", "You can close the application now by clicking close button.")
     })
     .done();
