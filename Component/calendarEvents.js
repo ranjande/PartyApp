@@ -59,7 +59,7 @@ export default class MyCalendar extends React.Component {
               Alert.alert(eventId.toString());
               if (eventId.toString()) {
                 Alert.alert('Thank you!','Event saved to your calendar.');
-                console.log('Event ID: '+eventId);
+                //console.log('Event ID: '+eventId);
                 this.setState({calendarBlocked: true});
                 AsyncStorage.setItem('calendarBlocked', 'true');
               } else {
