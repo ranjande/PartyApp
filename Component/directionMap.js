@@ -184,7 +184,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
         <View style={styles.Drive}>
               <View>
                   <Button
-                      title="Current Location"
+                      title="RECENTER"
                       buttonStyle={styles.mapButton}
                       color="#3F51B5"
                       borderRadius={5}
@@ -194,7 +194,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
               <View style={{marginLeft: 50}}>
                   <Button
                       onPress={this.handleGetDirections} 
-                      title="Get Directions" 
+                      title="GET DIRECTION" 
                       color="#3F51B5"
                       buttonStyle={styles.mapButton}
                       borderRadius={5}

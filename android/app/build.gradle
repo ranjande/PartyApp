@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-alarm')
     compile project(':react-native-google-signin')
     compile project(':react-native-auth0')
     compile project(':react-native-add-calendar-event')

@@ -65,6 +65,7 @@
 		60ED3CF2DC7448A394DEDF26 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02ACF282177244B3A7932643 /* AddressBook.framework */; };
 		8F6E756D7D3340D8977F477B /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 840B76E0E01240FEABF9DF58 /* libRealmReact.a */; };
 		997E1C1E99FA485A96FD226E /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D4BDFC09BD462DA9972E17 /* libc++.tbd */; };
+		746CB39F1F4C4156800AE2AC /* libRNAlarm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF6BF9B76A244446833C1130 /* libRNAlarm.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -332,6 +333,8 @@
 		D49D4E50155C4F2AA0C7BBF4 /* RealmReact.xcodeproj */ = {isa = PBXFileReference; name = "RealmReact.xcodeproj"; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		840B76E0E01240FEABF9DF58 /* libRealmReact.a */ = {isa = PBXFileReference; name = "libRealmReact.a"; path = "libRealmReact.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		B2D4BDFC09BD462DA9972E17 /* libc++.tbd */ = {isa = PBXFileReference; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		C3C24BF44D1D4674991CB591 /* RNAlarm.xcodeproj */ = {isa = PBXFileReference; name = "RNAlarm.xcodeproj"; path = "../node_modules/react-native-alarm/ios/RNAlarm.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		EF6BF9B76A244446833C1130 /* libRNAlarm.a */ = {isa = PBXFileReference; name = "libRNAlarm.a"; path = "libRNAlarm.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -377,6 +380,7 @@
 				60ED3CF2DC7448A394DEDF26 /* AddressBook.framework in Frameworks */,
 				8F6E756D7D3340D8977F477B /* libRealmReact.a in Frameworks */,
 				997E1C1E99FA485A96FD226E /* libc++.tbd in Frameworks */,
+				746CB39F1F4C4156800AE2AC /* libRNAlarm.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,6 +560,7 @@
 				E62F65C38B5A41FE8FBB41DC /* A0Auth0.xcodeproj */,
 				8CC7A89A55ED4C0DA0C6A549 /* RNGoogleSignin.xcodeproj */,
 				D49D4E50155C4F2AA0C7BBF4 /* RealmReact.xcodeproj */,
+				C3C24BF44D1D4674991CB591 /* RNAlarm.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1162,6 +1167,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1176,6 +1182,7 @@
 					"$(SRCROOT)/../node_modules/react-native-auth0/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-alarm/ios",
 				);
 			};
 			name = Debug;
@@ -1208,6 +1215,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1222,6 +1230,7 @@
 					"$(SRCROOT)/../node_modules/react-native-auth0/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-alarm/ios",
 				);
 			};
 			name = Release;
@@ -1254,6 +1263,7 @@
 					"$(SRCROOT)/../node_modules/react-native-auth0/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-alarm/ios",
 				);
 			};
 			name = Debug;
@@ -1285,6 +1295,7 @@
 					"$(SRCROOT)/../node_modules/react-native-auth0/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-alarm/ios",
 				);
 			};
 			name = Release;
@@ -1326,6 +1337,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1340,6 +1352,7 @@
 					"$(SRCROOT)/../node_modules/react-native-auth0/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-alarm/ios",
 				);
 			};
 			name = Debug;
@@ -1381,6 +1394,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1395,6 +1409,7 @@
 					"$(SRCROOT)/../node_modules/react-native-auth0/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-alarm/ios",
 				);
 			};
 			name = Release;
@@ -1431,6 +1446,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1455,6 +1471,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

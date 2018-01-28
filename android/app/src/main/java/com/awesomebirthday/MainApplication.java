@@ -3,6 +3,7 @@ package com.awesomebirthday;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.liang.RNAlarmPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.auth0.react.A0Auth0Package;
 import com.vonovak.AddCalendarEventPackage;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNAlarmPackage(),
             new RNGoogleSigninPackage(),
             new A0Auth0Package(),
             new AddCalendarEventPackage(),

@@ -8,7 +8,7 @@ import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
-
+import RNAlarm from 'react-native-alarm';
 
 import Footer from './Container/FooterContainer.js';
 import MyHomeScreen from './Component/homeScreen.js';
@@ -25,33 +25,32 @@ import Guestlist from './Assets/Realm/guestlist';
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
+
 export default class PartyApp extends Component {
 
-  constructor(props) {
-      super(props);
-      this.state = {
-          wvisible: true,
-          isLogin : false,
-          guser: {},
-          uname: null,
-          alarmCall : {
-            alarm : false,
-            alarmColor : '#ffffff',
-            alarmName : 'bell-o',
-          },
-          GuestData: [],
-          guestkey: null,
-          uemail: null,
-          umobile: null,
-          calendarBlocked : false,
-          isjoining: false,
-          accessToken: null,
-      };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            wvisible: true,
+            isLogin : false,
+            guser: {},
+            uname: null,
+            alarmCall : {
+              alarm : false,
+              alarmColor : '#ffffff',
+              alarmName : 'bell-o',
+            },
+            GuestData: [],
+            guestkey: null,
+            uemail: null,
+            umobile: null,
+            calendarBlocked : false,
+            isjoining: false,
+            accessToken: null,
+        };
+    }
 
-  
-
-componentDidMount(){ 
+    componentDidMount(){ 
 
       _checkCalBlock = () =>{
         AsyncStorage.getItem("calendarBlocked").then((value) => {
@@ -94,12 +93,11 @@ componentDidMount(){
               _cancelWelcome();
               _checkCalBlock();
       }, 4000);
-  } 
+    } 
 
     componentWillMount(){
 
         storeSyncData = (db, value) => {
-          //Alert.alert('Ranjan De DB ADDEd',db);
           AsyncStorage.setItem(db,value); // changed to object 
         }
  
@@ -135,170 +133,205 @@ componentDidMount(){
       });
       */
 
+      setAlarmNotification = () => {
+          const alarmNotifData = {
+              id: "12345",                                                    // Required
+              title: 'Madhulika\'s 10th Birthday Celebration',               // Required
+              message: "Army Officers Institute, Fort WIlliam, Kolkata",                             // Required
+              ticker: "Madhulika\'s 10th Birthday Celebration",                   
+              auto_cancel: true,                                              // default: true
+              vibrate: true,                                      
+              vibration: 100,                                             // default: 100, no vibration if vibrate: false
+              small_icon: "ic_launcher",                                  // Required
+              large_icon: "ic_launcher",                          
+              play_sound: true,                                    
+              sound_name: null,                                            // Plays custom notification ringtone if sound_name: null
+              color: "red",                                       
+              schedule_once: true,                                    // Works with ReactNativeAN.scheduleAlarm so alarm fires once
+              tag: 'some_tag',                                    
+              fire_date: "01-24-2018 01:00:00"                            // Date for firing alarm, Required for ReactNativeAN.scheduleAlarm. Format: dd-MM-yyyy HH:mm:ss
+          };
+
+
+      }
+
     }
 
     componentWillUnmount(){
-
     }
 
 
-  render() {
+    render() {
 
-    const MyNavigation = TabNavigator({
-        Home: { screen: MyHomeScreen, },
-        Map: {screen: MapDirectionScreen,},
-        ICard: {screen: DigitalCardScreen,},
-        Calendar: {screen: MyCalendar,},
-        Park: {screen: ParkingInfoScreen,},
-        Dress: {screen: DressCodeScreen},
-    }, 
-    {
-        tabBarPosition: 'top',
-        animationEnabled: true,
-        tabBarOptions: {
-          showIcon: true,
-          activeTintColor: '#ffffff',
-          style: {
-            width: WINDOW_WIDTH,
-            backgroundColor: '#F50057',
-            alignItems: 'stretch' 
-          }, 
-          iconStyle: styles.icon,
-          labelStyle: {
-            fontSize: 7,
-            fontWeight: 'bold',
-          },
-      },
-    swipeEnabled: false,
-    });
-    const info = this.state.mykey;
-    return (
-      <View style={styles.mainContainer}>
-        {renderIf(this.state.wvisible, 
-            <View style={styles.WelcomeContainer}>
-              <WelcomeMessage />
-          </View>
-        )}
-        {renderElseIf((this.state.isLogin == false && this.state.uname == null), 
-          <View style={styles.LoginMenuContainer}>
-            <View>
-                <GoogleSigninButton 
-                    style={{width: 230, height: 72}} 
-                    color={GoogleSigninButton.Color.Light} 
-                    size={GoogleSigninButton.Size.Wide} 
-                    onPress={() => { this._signIn()}}
-                />
+      const MyNavigation = TabNavigator({
+          Home: { screen: MyHomeScreen, },
+          Map: {screen: MapDirectionScreen,},
+          ICard: {screen: DigitalCardScreen,},
+          Calendar: {screen: MyCalendar,},
+          Park: {screen: ParkingInfoScreen,},
+          Dress: {screen: DressCodeScreen},
+      }, 
+      {
+          tabBarPosition: 'top',
+          animationEnabled: true,
+          tabBarOptions: {
+            showIcon: true,
+            activeTintColor: '#ffffff',
+            style: {
+              width: WINDOW_WIDTH,
+              backgroundColor: '#F50057',
+              alignItems: 'stretch' 
+            }, 
+            iconStyle: styles.icon,
+            labelStyle: {
+              fontSize: 7,
+              fontWeight: 'bold',
+            },
+        },
+      swipeEnabled: false,
+      });
+      const info = this.state.mykey;
+      return (
+        <View style={styles.mainContainer}>
+          {renderIf(this.state.wvisible, 
+              <View style={styles.WelcomeContainer}>
+                <WelcomeMessage />
             </View>
-            {/*<View>
-                <Text>Non Google user please use Awesome.10Birthday@gmail.com with Password: birthda10</Text>
-                <Text>This will ask you for your Mobile Number and Name after Login</Text>
-            </View>*/}
-            <View>
-                <Text>
-                 &copy; Ranjan De
-                </Text>
-            </View>
-          </View>
-        ,
-          <View style={styles.navContainer}>
-
-            {/* Header Top */}
-            <View style={styles.headerContainer}>
-              <View style={{flexDirection: 'row', flex:1, justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#fff', height: 50}}>
-                  <View style={styles.headerIconLeft}>
-                      <Text style={styles.welcome}>
-                        Welcome {this.state.uname} {/*this.state.GuestData */}
-                    </Text>
-                  </View>
-                  <View style={styles.headerIconRight}>
-                    <Icon
-                        name={this.state.alarmCall.alarmName}
-                        size={28}
-                        color={this.state.alarmCall.alarmColor}
-                        activeOpacity={0.7}
-                        onPress={() => this.stopAlarm()}
-                    />
-                  </View> 
-                  <View style={styles.headerIconRight}>
-                    <Icon
-                        name='sign-out'
-                        size={28}
-                        color='white'
-                        activeOpacity={0.7}
-                        onPress={() => this._signOut()}
-                    />
-                  </View> 
+          )}
+          {renderElseIf((this.state.isLogin == false && this.state.uname == null), 
+            <View style={styles.LoginMenuContainer}>
+              <View>
+                  <GoogleSigninButton 
+                      style={{width: 230, height: 72}} 
+                      color={GoogleSigninButton.Color.Light} 
+                      size={GoogleSigninButton.Size.Wide} 
+                      onPress={() => { this._signIn()}}
+                  />
+              </View>
+              {/*<View>
+                  <Text>Non Google user please use Awesome.10Birthday@gmail.com with Password: birthda10</Text>
+                  <Text>This will ask you for your Mobile Number and Name after Login</Text>
+              </View>*/}
+              <View>
+                  <Text onPress={() => this.setBirthdayAlarm()}>
+                  &copy; Ranjan De
+                  </Text>
               </View>
             </View>
-            {/* Header Top */}
-            <MyNavigation screenProps={this.state.guser}/>
+          ,
+            <View style={styles.navContainer}>
+
+              {/* Header Top */}
+              <View style={styles.headerContainer}>
+                <View style={{flexDirection: 'row', flex:1, justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#fff', height: 50}}>
+                    <View style={styles.headerIconLeft}>
+                        <Text style={styles.welcome}>
+                          Welcome {this.state.uname} {/*this.state.GuestData */}
+                      </Text>
+                    </View>
+                    <View style={styles.headerIconRight}>
+                      <Icon
+                          name={this.state.alarmCall.alarmName}
+                          size={28}
+                          color={this.state.alarmCall.alarmColor}
+                          activeOpacity={0.7}
+                          onPress={() => this.stopAlarm()}
+                      />
+                    </View> 
+                    <View style={styles.headerIconRight}>
+                      <Icon
+                          name='sign-out'
+                          size={28}
+                          color='white'
+                          activeOpacity={0.7}
+                          onPress={() => this._signOut()}
+                      />
+                    </View> 
+                </View>
+              </View>
+              {/* Header Top */}
+              <MyNavigation screenProps={this.state.guser}/>
+            </View>
+          )}
+          <View style={styles.footerContainer}>
+              <Footer accessToken={ this.state.accessToken } />
           </View>
-        )}
-        <View style={styles.footerContainer}>
-            <Footer accessToken={ '&copy; Ranjan De'} />
-        </View>
-      </View>      
-    );
-  }
-
-
-  async _setupGoogleSignin() {
-    try {
-      await GoogleSignin.hasPlayServices({ autoResolve: true });
-      await GoogleSignin.configure({
-        webClientId: '460904176105-mq2j6d0p8u529mjs2iidmqmqe528nt6n.apps.googleusercontent.com',
-        offlineAccess: true,
-        shouldFetchBasicProfile: true,
-      });
-
-      const userName = await GoogleSignin.currentUserAsync();
-      console.log(userName);
-      this.setState({guser: userName, uname: userName.name, uemail: userName.email});
-      getFromStore('GuestData');
-     // Alert.alert('', 'Already logged in');
+        </View>      
+      );
     }
-    catch(err) {
-      console.log("Play services error", err.code, err.message);
+
+    
+    setBirthdayAlarm = () => {
+      RNAlarm.setAlarm('01-28-2018 15:00:00',
+            'Meeting with customer',
+            '', 
+            '',
+        () => {
+          // Success callback function
+          Alert.alert('Meeting set');
+        },
+        () => {
+          // Fail callback function
+        });
+      }
+
+    async _setupGoogleSignin() {
+      try {
+        await GoogleSignin.hasPlayServices({ autoResolve: true });
+        await GoogleSignin.configure({
+          webClientId: '460904176105-mq2j6d0p8u529mjs2iidmqmqe528nt6n.apps.googleusercontent.com',
+          offlineAccess: true,
+          shouldFetchBasicProfile: true,
+        });
+
+        const userName = await GoogleSignin.currentUserAsync();
+        console.log(userName);
+        this.setState({guser: userName, uname: userName.name, uemail: userName.email});
+        getFromStore('GuestData');
+      // Alert.alert('', 'Already logged in');
+      }
+      catch(err) {
+        console.log("Play services error", err.code, err.message);
+      }
     }
-  }
 
-  _signIn() {
-    GoogleSignin.signIn()
-    .then((user) => {
-      console.log(user);
-      this.setState({guser: user, isLogin: true, accessToken: user.accessToken, uname: user.name, uemail: user.email, wvisible: false, GuestData : getUserDetails(user)});
-      storeSyncData('GuestData', this.state.GuestData);
-      //Alert.alert('', 'DB state: '+this.state.GuestData);
-    })
-    .catch((err) => {
-      console.warn('WRONG SIGNIN', err);
-    })
-    .done();
-  }
-
-  _signOut() {
-    GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
-      this.setState({guser: null, isLogin: false, accessToken: null, uname: null, uemail: null, wvisible: true, GuestData : null});
-      //deleteDataonLogout();
-      //Alert.alert("You have successfully Logged out.", "You can close the application now by clicking close button.")
-    })
-    .done();
-  }
-
-  stopAlarm =() => {
-    let nowDate = new Date();
-    let startDate = '2018-01-26T18:33:00.000Z';
-    let endDate = '2018-02-11T10:30:00.000Z';
-    Alert.alert(nowDate);
-    if(this.state.alarmCall.alarm == true &&  nowDate > startDate){
-      this.setState({
-        calendarBlocked: false,
-        alarmCall: {alarmName: 'bell-slash', alrtm: false},
-      });  
-      if(nowDate >= endDate)
-        AsyncStorage.setItem('calendarBlocked', 'false');
+    _signIn() {
+      GoogleSignin.signIn()
+      .then((user) => {
+        console.log(user);
+        this.setState({guser: user, isLogin: true, accessToken: user.accessToken, uname: user.name, uemail: user.email, wvisible: false, GuestData : getUserDetails(user)});
+        storeSyncData('GuestData', this.state.GuestData);
+        //Alert.alert('', 'DB state: '+this.state.GuestData);
+      })
+      .catch((err) => {
+        console.warn('WRONG SIGNIN', err);
+      })
+      .done();
     }
-  }
+
+    _signOut() {
+      GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
+        this.setState({guser: null, isLogin: false, accessToken: null, uname: null, uemail: null, wvisible: true, GuestData : null});
+        //deleteDataonLogout();
+        //Alert.alert("You have successfully Logged out.", "You can close the application now by clicking close button.")
+      })
+      .done();
+    }
+
+    stopAlarm =() => {
+      let nowDate = new Date();
+      let startDate = '2018-01-26T18:33:00.000Z';
+      let endDate = '2018-02-11T10:30:00.000Z';
+      Alert.alert(nowDate);
+      if(this.state.alarmCall.alarm == true &&  nowDate > startDate){
+        this.setState({
+          calendarBlocked: false,
+          alarmCall: {alarmName: 'bell-slash', alrtm: false},
+        });  
+        if(nowDate >= endDate)
+          AsyncStorage.setItem('calendarBlocked', 'false');
+      }
+    }
 }
 
 
