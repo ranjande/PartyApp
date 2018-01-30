@@ -55,7 +55,7 @@ export default class DigitalCardScreen extends React.Component {
     const time = '12:00 noon to 4:00 pm';
     let gstdata =(this.state.GuestData);
 
-    const qrvalue = this.props.screenProps.name+'|'+this.props.screenProps.email+'|'+gstdata.mobile+'|'+gstdata.guest+'|'+gstdata.no_head+'|'+gstdata.joining;
+    const qrvalue = this.props.screenProps.name+'|'+this.props.screenProps.email+'|'+gstdata.mobile+'|'+gstdata.guest+'|'+gstdata.no_head;
 
     return (
       <ScrollView>
