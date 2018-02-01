@@ -8,6 +8,7 @@ import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
+import ReactNativeAN from 'react-native-alarm-notification';
 
 import Footer from './Container/FooterContainer.js';
 import MyHomeScreen from './Component/homeScreen.js';
@@ -136,9 +137,10 @@ export default class PartyApp extends Component {
               tag: 'some_tag',                                    
               fire_date: "01-24-2018 01:00:00"                            // Date for firing alarm, Required for ReactNativeAN.scheduleAlarm. Format: dd-MM-yyyy HH:mm:ss
           };
+          ReactNativeAN.scheduleAlarm(this.alarmNotifData);
       }
+   
 
-      
       const pushEnabled = Push.isEnabled();
     }
 

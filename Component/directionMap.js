@@ -53,7 +53,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
           console.log('Init: '+JSON.stringify(this.state.source));
         },
         (error) => console.log(error.message),
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+        {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000}
       )
       
       this.watchID = navigator.geolocation.watchPosition((position) => {
@@ -115,7 +115,6 @@ export default class MapDirectionScreen extends React.Component<{}> {
                     onDragEnd={
                       (e) => {
                         this.setState({source: e.nativeEvent.coordinate})
-                        //this.setState({coordinates: Object.assign({}, this.state.coordinates, {[0]: e.nativeEvent.coordinate})});
                         console.log('dragEnd Source State', this.state.source);
                       }
                     }
