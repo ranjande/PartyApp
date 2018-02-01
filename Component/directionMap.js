@@ -13,6 +13,12 @@ import Crashes from "mobile-center-crashes";
 
 const { WINDOW_WIDTH, WINDOW_HEIGHT } = Dimensions.get('window');
 
+//const ASPECT_RATIO = WINDOW_WIDTH / WINDOW_HEIGHT;
+//const LATITUDE = 22.550432;
+//const LONGITUDE = 88.339831;
+//const LATITUDE_DELTA = 0.050003;
+//const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
 export default class MapDirectionScreen extends React.Component<{}> {
 
   static navigationOptions = {
@@ -48,7 +54,35 @@ export default class MapDirectionScreen extends React.Component<{}> {
       this.mapView = null;
     }
 
+    /* GET RECENTER API START */
+    findMe = () => {
+      console.log('find me');
+      navigator.geolocation.getCurrentPosition(
+        ({coords}) => {
+          const {latitude, longitude} = this.state.coordinates[0]
+          this.setState({
+            position: {
+              latitude,
+              longitude,
+            },
+            region: {
+              latitude,
+              longitude,
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.001,
+            }
+          })
+        },
+        (error) => console.log(JSON.stringify(error)),
+        {
+          enableHighAccuracy: true, timeout: 2000, maximumAge: 3000
+        }
+      )
+    }
+    /* GET RECENTER API END */
 
+
+    /* GET Direction API START */
     handleGetDirections = () => {
       const data = {
         source: {
@@ -68,67 +102,42 @@ export default class MapDirectionScreen extends React.Component<{}> {
       }
       getDirections(data)
     }
+    /* GET Direction API END */
 
-    componentDidlMount = () => {
+
+     componentDidMount = () => {
       navigator.geolocation.getCurrentPosition(
         (position)=> {
-            const initialPosition = JSON.stringify(position);
-            alert(initialPosition)
-            this.setState({initialPosition});
+          const initialPosition = JSON.stringify(position);
+          this.setState({ initialPosition : JSON.stringify(position)});
         },
-        (error) => alert(error.message),
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-      );
-      this.watchID = navigator.geolocation.watchPosition((position) => {
-        const lastPosition = JSON.stringify(position);
-        this.setState({ lastPosition });
-      });
-    }
-
-    componentWillUnmount = () => {
-      navigator.geolocation.clearWatch(this.watchID);
-    }
-
-    _findMe(){
-      navigator.geolocation.getCurrentPosition(
-        ({coords}) => {
-          const {latitude, longitude} = coords
-          this.setState({
-            position: {
-              latitude,
-              longitude,
-            },
-            region: {
-              latitude,
-              longitude,
-              latitudeDelta: 0.005,
-              longitudeDelta: 0.001,
-            }
-          })
-        },
-        (error) => alert(JSON.stringify(error)),
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-      )
-    }
-
+            (error) => alert(error.message),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+        );
+        this.watchID = navigator.geolocation.watchPosition((position) => {
+               const lastPosition = JSON.stringify(position);
+               this.setState({ lastPosition: JSON.stringify(position) });
+          });
+      }
+      
+      
+      componentWillUnmount = () => {
+           navigator.geolocation.clearWatch(this.watchID);
+      }
+   
   watchID: ?number = null;
 
   render() {
     const GOOGLE_MAPS_APIKEY = 'AIzaSyDXRs3OKZNE3p8NdxHKc2pP42cTwIyH2ZM';
     const ASPECT_RATIO = WINDOW_WIDTH / WINDOW_HEIGHT;
+
+
     const region = {
       longitude:88.3411023,
       latitude:22.5553296,
       latitudeDelta:0.2999992,
       longitudeDelta:0.2005002
     } 
-
-    //const ASPECT_RATIO = WINDOW_WIDTH / WINDOW_HEIGHT;
-    //const LATITUDE = 22.550432;
-    //const LONGITUDE = 88.339831;
-    //const LATITUDE_DELTA = 0.050003;
-    //const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
 
     return (
       <View style={styles.mainContainer}>
@@ -147,7 +156,14 @@ export default class MapDirectionScreen extends React.Component<{}> {
                   <MapView.Marker draggable
                     coordinate={{latitude:22.6413802, longitude:88.4707479}}
                     pinColor="blue"
-                    //title="Siddha Town, Rajarhat"
+                    onDragEnd={
+                      (e) => {
+                        console.log('dragEnd', e.nativeEvent.coordinate)
+                        //this.setState({coordinates: Object.assign({}, this.state.coordinates, {[0]: e.nativeEvent.coordinate})});
+                        this.setState({coordinates: Object.assign({}, this.state.coordinates, e.nativeEvent.coordinate)});
+                        console.log('dragEnd State', this.state.coordinates[0]);
+                      }
+                    }
                   />	
 
                   <MapViewDirections
@@ -184,11 +200,11 @@ export default class MapDirectionScreen extends React.Component<{}> {
         <View style={styles.Drive}>
               <View>
                   <Button
+                      onPress={this.findMe} 
                       title="RECENTER"
                       buttonStyle={styles.mapButton}
                       color="#3F51B5"
                       borderRadius={5}
-                      onPress={this._findMe} 
                   />
               </View>
               <View style={{marginLeft: 50}}>

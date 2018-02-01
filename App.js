@@ -8,7 +8,6 @@ import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
-import RNAlarm from 'react-native-alarm';
 
 import Footer from './Container/FooterContainer.js';
 import MyHomeScreen from './Component/homeScreen.js';
