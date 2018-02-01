@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':appcenter-push')
     compile project(':react-native-google-signin')
     compile project(':react-native-add-calendar-event')
     compile project(':appcenter-crashes')

@@ -1,7 +1,8 @@
 package com.awesomebirthday;
-
+import com.microsoft.appcenter.push.Push;
 import android.app.Application;
 import com.facebook.react.ReactApplication;
+import com.microsoft.appcenter.reactnative.push.AppCenterReactNativePushPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.vonovak.AddCalendarEventPackage;
 import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new AppCenterReactNativePushPackage(MainApplication.this),
             new RNGoogleSigninPackage(),
             new AddCalendarEventPackage(),
             new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appcenterCrashes_whenToSendCrashes)),
@@ -55,6 +57,7 @@ public class MainApplication extends Application implements ReactApplication {
 
   @Override
   public void onCreate() {
+    Push.setSenderId("460904176105");
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
   }

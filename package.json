@@ -10,6 +10,7 @@
     "appcenter": "^1.1.0",
     "appcenter-analytics": "^1.1.0",
     "appcenter-crashes": "^1.1.0",
+    "appcenter-push": "^1.1.0",
     "mdi": "^2.1.19",
     "mobile-center-crashes": "^0.11.2",
     "prop-types": "^15.6.0",

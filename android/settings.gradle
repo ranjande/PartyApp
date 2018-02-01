@@ -1,4 +1,6 @@
 rootProject.name = 'AwesomeBirthday'
+include ':appcenter-push'
+project(':appcenter-push').projectDir = new File(rootProject.projectDir, '../node_modules/appcenter-push/android')
 include ':react-native-system-notification'
 project(':react-native-system-notification').projectDir = new File(settingsDir, '../node_modules/react-native-system-notification/android')
 include ':react-native-add-calendar-event'

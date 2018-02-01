@@ -3,7 +3,7 @@ import { ScrollView, ActivityIndicator, Vibration, AppRegistry, BackAndroid, Sty
 import DeviceInfo from 'react-native-device-info';
 import { TabNavigator } from "react-navigation";
 import Crashes from "mobile-center-crashes";
-
+import Push from 'appcenter-push';
 import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
@@ -136,10 +136,10 @@ export default class PartyApp extends Component {
               tag: 'some_tag',                                    
               fire_date: "01-24-2018 01:00:00"                            // Date for firing alarm, Required for ReactNativeAN.scheduleAlarm. Format: dd-MM-yyyy HH:mm:ss
           };
-
-
       }
 
+      
+      const pushEnabled = Push.isEnabled();
     }
 
     componentWillUnmount(){
