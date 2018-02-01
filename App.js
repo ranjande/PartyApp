@@ -115,22 +115,8 @@ export default class PartyApp extends Component {
         getFromStore = (db) => {
           AsyncStorage.getItem(db).then((value) => {
             this.setState({GuestData: value});
-            // Alert.alert('HOWWWWWWWWW ::: ', this.state.GuestData);
           }).done();
         }
-         
-        /*
-      AsyncStorage.getAllKeys((err, keys) => {
-        AsyncStorage.multiGet(keys, (err, stores) => {
-          stores.map((result, i, store) => {
-            // get at each store's key/value so you can work with it
-            let key = store[i][0];
-            let val = store[i][1];
-           // Alert.alert('madhulika ::: '+key, key+'****'+val);
-          });
-        });
-      });
-      */
 
       setAlarmNotification = () => {
           const alarmNotifData = {
@@ -377,42 +363,6 @@ const styles = StyleSheet.create({
     width: 85,
     height: 45,
   },
-  backgroundVideo: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  mainBlocks : {
-    flex: 1,
-    flexDirection : 'column',
-    height: 800,
-    marginTop: 10,
-  },
-  movieblocksRow: {
-      backgroundColor: '#FFFFFF',
-      flex: 1,
-      flexDirection : 'row',
-      height: 150,
-      marginBottom: 10,
-  },
-  movieblocksCol: {
-    borderWidth: 2,
-    borderColor: '#FF80AB',
-    flex: 1,
-    flexDirection : 'column',
-    height: 180,
-    padding: 10,
-    marginLeft: 5,
-    marginRight: 5,
-  },
-
   welcome: {
     fontSize: 15,
     textAlign: 'left',

@@ -1,10 +1,8 @@
 package com.awesomebirthday;
 
 import android.app.Application;
-
 import com.facebook.react.ReactApplication;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
-import com.auth0.react.A0Auth0Package;
 import com.vonovak.AddCalendarEventPackage;
 import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
 import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyticsPackage;
@@ -33,7 +31,6 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new RNGoogleSigninPackage(),
-            new A0Auth0Package(),
             new AddCalendarEventPackage(),
             new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appcenterCrashes_whenToSendCrashes)),
             new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appcenterAnalytics_whenToEnableAnalytics)),

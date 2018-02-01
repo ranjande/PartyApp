@@ -50,7 +50,7 @@ const list = [
    {
        guest: "G005",
        name: "Soumya Chatterjee",
-       email: "soumya.chatterjee@tcs.com",
+       email: "soumyachatterjee2000@gmail.com",
        altemail: "mandirag@gmail.com",
        mobile: 9830712745,
        altmobile: 9874800882,

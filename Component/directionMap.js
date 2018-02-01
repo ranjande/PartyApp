@@ -3,21 +3,15 @@ import { ScrollView, Vibration, AppRegistry,StyleSheet,Text, Alert, AsyncStorage
 import MapView from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import getDirections from 'react-native-google-maps-directions'
-
 import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
-
 import Crashes from "mobile-center-crashes";
 
 
+const GOOGLE_MAPS_APIKEY = 'AIzaSyDXRs3OKZNE3p8NdxHKc2pP42cTwIyH2ZM';
 const { WINDOW_WIDTH, WINDOW_HEIGHT } = Dimensions.get('window');
-
-//const ASPECT_RATIO = WINDOW_WIDTH / WINDOW_HEIGHT;
-//const LATITUDE = 22.550432;
-//const LONGITUDE = 88.339831;
-//const LATITUDE_DELTA = 0.050003;
-//const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+const ASPECT_RATIO = WINDOW_WIDTH / WINDOW_HEIGHT;
 
 export default class MapDirectionScreen extends React.Component<{}> {
 
@@ -38,53 +32,6 @@ export default class MapDirectionScreen extends React.Component<{}> {
     constructor(props) {
       super(props);
       this.state = {
-        initialPosition: '',
-        lastPosition: '',
-        coordinates: [
-          {
-            latitude: 22.6413802,
-            longitude: 88.4707479,
-          },
-          {
-            latitude:22.550432,
-            longitude:88.339831,
-          },
-        ],
-      };
-      this.mapView = null;
-    }
-
-    /* GET RECENTER API START */
-    findMe = () => {
-      console.log('find me');
-      navigator.geolocation.getCurrentPosition(
-        ({coords}) => {
-          const {latitude, longitude} = this.state.coordinates[0]
-          this.setState({
-            position: {
-              latitude,
-              longitude,
-            },
-            region: {
-              latitude,
-              longitude,
-              latitudeDelta: 0.005,
-              longitudeDelta: 0.001,
-            }
-          })
-        },
-        (error) => console.log(JSON.stringify(error)),
-        {
-          enableHighAccuracy: true, timeout: 2000, maximumAge: 3000
-        }
-      )
-    }
-    /* GET RECENTER API END */
-
-
-    /* GET Direction API START */
-    handleGetDirections = () => {
-      const data = {
         source: {
           latitude: 22.6413802,
           longitude: 88.4707479,
@@ -92,7 +39,37 @@ export default class MapDirectionScreen extends React.Component<{}> {
         destination: {
           latitude:22.550432,
           longitude:88.339831,
+        }
+      };
+      this.mapView = null;
+    }
+
+    /* GET RECENTER API START */
+    findMe = () => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const {latitude, longitude} = position
+          this.setState({source: Object.assign({}, this.state.source, {latitude: position.coords.latitude, longitude: position.coords.longitude})});
+          console.log('Init: '+JSON.stringify(this.state.source));
         },
+        (error) => console.log(error.message),
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      )
+      
+      this.watchID = navigator.geolocation.watchPosition((position) => {
+            const {latitude, longitude} = position
+             this.setState({source: Object.assign({}, this.state.source, {latitude: position.coords.latitude, longitude: position.coords.longitude})});
+            console.log('Watch: '+JSON.stringify(this.state.source));
+        });
+    }
+    /* GET RECENTER API END */
+
+
+    /* GET Direction API START */
+    handleGetDirections = () => {
+      const data = {
+        source: this.state.source,
+        destination: this.state.destination,
         params: [
           {
             key: "dirflg",
@@ -103,35 +80,19 @@ export default class MapDirectionScreen extends React.Component<{}> {
       getDirections(data)
     }
     /* GET Direction API END */
-
-
      componentDidMount = () => {
-      navigator.geolocation.getCurrentPosition(
-        (position)=> {
-          const initialPosition = JSON.stringify(position);
-          this.setState({ initialPosition : JSON.stringify(position)});
-        },
-            (error) => alert(error.message),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-        );
-        this.watchID = navigator.geolocation.watchPosition((position) => {
-               const lastPosition = JSON.stringify(position);
-               this.setState({ lastPosition: JSON.stringify(position) });
-          });
+        this.findMe;
       }
       
-      
       componentWillUnmount = () => {
-           navigator.geolocation.clearWatch(this.watchID);
+        navigator.geolocation.clearWatch(this.watchID);
       }
    
   watchID: ?number = null;
 
+
+
   render() {
-    const GOOGLE_MAPS_APIKEY = 'AIzaSyDXRs3OKZNE3p8NdxHKc2pP42cTwIyH2ZM';
-    const ASPECT_RATIO = WINDOW_WIDTH / WINDOW_HEIGHT;
-
-
     const region = {
       longitude:88.3411023,
       latitude:22.5553296,
@@ -140,61 +101,46 @@ export default class MapDirectionScreen extends React.Component<{}> {
     } 
 
     return (
-      <View style={styles.mainContainer}>
-          <View style ={styles.mapContainer}>
-              <MapView style={styles.map}
-                provider = {MapView.POOVIDER_GOOGLE}
-                initialRegion={region}
-                onMapReady = {console.log('Map Loaded')}
-              >
-                  <MapView.Marker
-                    coordinate={{latitude:22.5560008, longitude:88.3393902}}
-                    pinColor="red"
-                    title="Army Officers Institute, Fort William"
-                  />	
+          <View style={styles.mainContainer}>
+              <View style ={styles.mapContainer}>
+                  <MapView style={styles.map}
+                    provider = {MapView.POOVIDER_GOOGLE}
+                    initialRegion={region}
+                    //onMapReady = {this.findMe()}
+                  >
 
                   <MapView.Marker draggable
-                    coordinate={{latitude:22.6413802, longitude:88.4707479}}
+                    coordinate={this.state.source}
                     pinColor="blue"
                     onDragEnd={
                       (e) => {
-                        console.log('dragEnd', e.nativeEvent.coordinate)
+                        this.setState({source: e.nativeEvent.coordinate})
                         //this.setState({coordinates: Object.assign({}, this.state.coordinates, {[0]: e.nativeEvent.coordinate})});
-                        this.setState({coordinates: Object.assign({}, this.state.coordinates, e.nativeEvent.coordinate)});
-                        console.log('dragEnd State', this.state.coordinates[0]);
+                        console.log('dragEnd Source State', this.state.source);
                       }
                     }
+                    showCallout
+                    animateMarkerToCoordinate
+                  />	
+
+                  <MapView.Marker
+                    coordinate={this.state.destination}
+                    pinColor="red"
+                    showCallout
+                    title="Army Officers Institute, Fort William"
                   />	
 
                   <MapViewDirections
-                    origin={this.state.coordinates[0]}
-                    waypoints={ (this.state.coordinates.length > 2) ? this.state.coordinates.slice(1, -1): null}
-                    destination={this.state.coordinates[this.state.coordinates.length-1]}
+                    origin={this.state.source}
+                   // waypoints={ (this.state.coordinates.length > 2) ? this.state.coordinates.slice(1, -1): null}
+                    destination={this.state.destination}
                     apikey={GOOGLE_MAPS_APIKEY}
                     strokeWidth={5}
-                    strokeColor="red"
-                    /*
-                    onReady={(result) => {
-                      this.mapView.fitToCoordinates(result.coordinates, {
-                        edgePadding: {
-                          right: (width / 20),
-                          bottom: (height / 20),
-                          left: (width / 20),
-                          top: (height / 20),
-                        }
-                      });
-                    }}
-                    onError={(errorMessage) => {
-                      console.log('GOT AN ERROR'+ errorMessage);
-                    }}*/
-                  />
+                    strokeColor="purple"
+                  /> 
+
+
               </MapView> 
-              <Text style = {styles.boldText}>
-                  Initial position: {this.state.initialPosition}
-              </Text>
-              <Text style = {styles.boldText}>
-                    Current position: {this.state.lastPosition}
-               </Text>
         </View> 
         {/* Buttons */}
         <View style={styles.Drive}>
