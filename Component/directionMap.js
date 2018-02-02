@@ -46,6 +46,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
 
     /* GET RECENTER API START */
     findMe = () => {
+      console.log('find Me')
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const {latitude, longitude} = position
@@ -106,7 +107,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
                   <MapView style={styles.map}
                     provider = {MapView.POOVIDER_GOOGLE}
                     initialRegion={region}
-                    //onMapReady = {this.findMe()}
+                    onMapReady = {this.findMe}
                   >
 
                   <MapView.Marker draggable

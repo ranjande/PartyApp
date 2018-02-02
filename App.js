@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, ActivityIndicator, Vibration, AppRegistry, BackAndroid, StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, TouchableHighlight, Dimensions} from 'react-native';
+import { ScrollView, ActivityIndicator, Vibration, AppRegistry, NativeEventEmitter, BackAndroid, StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, TouchableHighlight, Dimensions} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { TabNavigator } from "react-navigation";
 import Crashes from "mobile-center-crashes";
@@ -95,6 +95,28 @@ export default class PartyApp extends Component {
       }, 4000);
     } 
 
+    setAlarmNotification = () => {
+      const alarmNotifData = {
+          id: "12345",                                                    // Required
+          title: 'Madhulika\'s 10th Birthday Celebration',               // Required
+          message: "Army Officers Institute, Fort WIlliam, Kolkata",                             // Required
+          ticker: "Madhulika\'s 10th Birthday Celebration",                   
+          auto_cancel: true,                                              // default: true
+          vibrate: true,                                      
+          vibration: 100,                                             // default: 100, no vibration if vibrate: false
+          small_icon: "ic_launcher",                                  // Required
+          large_icon: "ic_launcher",                          
+          play_sound: true,                                    
+          sound_name: null,                                            // Plays custom notification ringtone if sound_name: null
+          color: "red",                                       
+          schedule_once: true,                                    // Works with ReactNativeAN.scheduleAlarm so alarm fires once
+          tag: 'some_tag',                                    
+          fire_date: "01-24-2018 01:00:00"                            // Date for firing alarm, Required for ReactNativeAN.scheduleAlarm. Format: dd-MM-yyyy HH:mm:ss
+      };
+      ReactNativeAN.scheduleAlarm(this.alarmNotifData);
+  }
+
+
     componentWillMount(){
 
         storeSyncData = (db, value) => {
@@ -119,28 +141,9 @@ export default class PartyApp extends Component {
           }).done();
         }
 
-      setAlarmNotification = () => {
-          const alarmNotifData = {
-              id: "12345",                                                    // Required
-              title: 'Madhulika\'s 10th Birthday Celebration',               // Required
-              message: "Army Officers Institute, Fort WIlliam, Kolkata",                             // Required
-              ticker: "Madhulika\'s 10th Birthday Celebration",                   
-              auto_cancel: true,                                              // default: true
-              vibrate: true,                                      
-              vibration: 100,                                             // default: 100, no vibration if vibrate: false
-              small_icon: "ic_launcher",                                  // Required
-              large_icon: "ic_launcher",                          
-              play_sound: true,                                    
-              sound_name: null,                                            // Plays custom notification ringtone if sound_name: null
-              color: "red",                                       
-              schedule_once: true,                                    // Works with ReactNativeAN.scheduleAlarm so alarm fires once
-              tag: 'some_tag',                                    
-              fire_date: "01-24-2018 01:00:00"                            // Date for firing alarm, Required for ReactNativeAN.scheduleAlarm. Format: dd-MM-yyyy HH:mm:ss
-          };
-          ReactNativeAN.scheduleAlarm(this.alarmNotifData);
-      }
-   
-
+        setBirthdayAlarm = () => {
+          this.setAlarmNotification;
+        }
       const pushEnabled = Push.isEnabled();
     }
 
@@ -246,21 +249,6 @@ export default class PartyApp extends Component {
         </View>      
       );
     }
-
-    
-    setBirthdayAlarm = () => {
-      RNAlarm.setAlarm('01-28-2018 15:00:00',
-            'Meeting with customer',
-            '', 
-            '',
-        () => {
-          // Success callback function
-          Alert.alert('Meeting set');
-        },
-        () => {
-          // Fail callback function
-        });
-      }
 
     async _setupGoogleSignin() {
       try {
