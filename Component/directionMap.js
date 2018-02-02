@@ -54,7 +54,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
           console.log('Init: '+JSON.stringify(this.state.source));
         },
         (error) => console.log(error.message),
-        {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000}
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 3000}
       )
       
       this.watchID = navigator.geolocation.watchPosition((position) => {
@@ -107,7 +107,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
                   <MapView style={styles.map}
                     provider = {MapView.POOVIDER_GOOGLE}
                     initialRegion={region}
-                    onMapReady = {this.findMe}
+                    //onMapReady = {this.findMe}
                   >
 
                   <MapView.Marker draggable
