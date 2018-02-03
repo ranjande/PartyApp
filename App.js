@@ -8,7 +8,6 @@ import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
-import ReactNativeAN from 'react-native-alarm-notification';
 
 import Footer from './Container/FooterContainer.js';
 import MyHomeScreen from './Component/homeScreen.js';
@@ -95,28 +94,7 @@ export default class PartyApp extends Component {
       }, 4000);
     } 
 
-    setAlarmNotification = () => {
-      const alarmNotifData = {
-          id: "12345",                                                    // Required
-          title: 'Madhulika\'s 10th Birthday Celebration',               // Required
-          message: "Army Officers Institute, Fort WIlliam, Kolkata",                             // Required
-          ticker: "Madhulika\'s 10th Birthday Celebration",                   
-          auto_cancel: true,                                              // default: true
-          vibrate: true,                                      
-          vibration: 100,                                             // default: 100, no vibration if vibrate: false
-          small_icon: "ic_launcher",                                  // Required
-          large_icon: "ic_launcher",                          
-          play_sound: true,                                    
-          sound_name: null,                                            // Plays custom notification ringtone if sound_name: null
-          color: "red",                                       
-          schedule_once: true,                                    // Works with ReactNativeAN.scheduleAlarm so alarm fires once
-          tag: 'some_tag',                                    
-          fire_date: "01-24-2018 01:00:00"                            // Date for firing alarm, Required for ReactNativeAN.scheduleAlarm. Format: dd-MM-yyyy HH:mm:ss
-      };
-      ReactNativeAN.scheduleAlarm(this.alarmNotifData);
-  }
-
-
+    
     componentWillMount(){
 
         storeSyncData = (db, value) => {
@@ -203,7 +181,7 @@ export default class PartyApp extends Component {
                   <Text>This will ask you for your Mobile Number and Name after Login</Text>
               </View>*/}
               <View>
-                  <Text onPress={() => this.setBirthdayAlarm()}>
+                  <Text>
                   &copy; Ranjan De
                   </Text>
               </View>
@@ -297,7 +275,7 @@ export default class PartyApp extends Component {
       let nowDate = new Date();
       let startDate = '2018-01-26T18:33:00.000Z';
       let endDate = '2018-02-11T10:30:00.000Z';
-      Alert.alert(nowDate);
+      //Alert.alert(nowDate);
       if(this.state.alarmCall.alarm == true &&  nowDate > startDate){
         this.setState({
           calendarBlocked: false,

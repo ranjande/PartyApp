@@ -52,3 +52,7 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 android/app/release/app-release.apk
+credentials.json
+android/app/build.gradle
+android/app/google-services.json
+awesomebirthday_key.jks

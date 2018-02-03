@@ -1,11 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.awesomebirthday"
-    android:versionCode="2"
-    android:versionName="1.1">
+    android:versionCode="2.1"
+    android:versionName="1.2">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>         <!-- for Device Name -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>  <!-- for Phone Number -->
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
     <uses-permission android:name="android.permission.GET_TASKS" /> <!-- <- For System Information -->
     <uses-permission android:name="android.permission.VIBRATE"/>  <!-- for  Vibration -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -13,7 +15,10 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- for Location -->
-
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" /> <!-- for shortcut -->
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     
     <uses-sdk
         android:minSdkVersion="16"
