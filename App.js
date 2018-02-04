@@ -177,10 +177,6 @@ export default class PartyApp extends Component {
                       onPress={() => { this._signIn()}}
                   />
               </View>
-              {/*<View>
-                  <Text>Non Google user please use Awesome.10Birthday@gmail.com with Password: birthda10</Text>
-                  <Text>This will ask you for your Mobile Number and Name after Login</Text>
-              </View>*/}
               <View>
                   <Text>
                   &copy; Ranjan De
@@ -242,7 +238,6 @@ export default class PartyApp extends Component {
         console.log(userName);
         this.setState({guser: userName, uname: userName.name, uemail: userName.email});
         getFromStore('GuestData');
-      // Alert.alert('', 'Already logged in');
       }
       catch(err) {
         console.log("Play services error", err.code, err.message);
@@ -255,7 +250,6 @@ export default class PartyApp extends Component {
         console.log(user);
         this.setState({guser: user, isLogin: true, accessToken: user.accessToken, uname: user.name, uemail: user.email, wvisible: false, GuestData : getUserDetails(user)});
         storeSyncData('GuestData', this.state.GuestData);
-        //Alert.alert('', 'DB state: '+this.state.GuestData);
       })
       .catch((err) => {
         console.warn('WRONG SIGNIN', err);

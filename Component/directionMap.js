@@ -51,7 +51,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
         (position) => {
           const {latitude, longitude} = position
           this.setState({source: Object.assign({}, this.state.source, {latitude: position.coords.latitude, longitude: position.coords.longitude})});
-          console.log('Init: '+JSON.stringify(this.state.source));
+          //console.log('Init: '+JSON.stringify(this.state.source));
         },
         (error) => console.log(error.message),
         {enableHighAccuracy: true, timeout: 20000, maximumAge: 3000}
@@ -60,7 +60,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
       this.watchID = navigator.geolocation.watchPosition((position) => {
             const {latitude, longitude} = position
              this.setState({source: Object.assign({}, this.state.source, {latitude: position.coords.latitude, longitude: position.coords.longitude})});
-            console.log('Watch: '+JSON.stringify(this.state.source));
+            //console.log('Watch: '+JSON.stringify(this.state.source));
         });
     }
     /* GET RECENTER API END */
@@ -107,7 +107,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
                   <MapView style={styles.map}
                     provider = {MapView.POOVIDER_GOOGLE}
                     initialRegion={region}
-                    //onMapReady = {this.findMe}
+                    onMapReady = {this.findMe}
                   >
 
                   <MapView.Marker draggable
@@ -116,7 +116,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
                     onDragEnd={
                       (e) => {
                         this.setState({source: e.nativeEvent.coordinate})
-                        console.log('dragEnd Source State', this.state.source);
+                        //console.log('dragEnd Source State', this.state.source);
                       }
                     }
                     showCallout

@@ -11,7 +11,6 @@ const welcomemsg1 = '\n\nWe don’t know what you’ve been told\n';
 const welcomemsg2 = 'But Madhulika turns 10 years old\n'; 
 const welcomemsg3 = 'So wear your camouflage\n';
 const welcomemsg4 = 'And spread the word…\n'; 
-//const welcomemsg5 = 'We are celebrating MADHULIKA’s 10th birthday on 11th February, 12 pm onwards at Fort William, Kolkata\n\n';
 const welcomemsg5 = '\n\n\n\n';
 const welcomemsg6 = 'Please join us to celebrate...';
 

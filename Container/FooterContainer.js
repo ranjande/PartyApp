@@ -32,7 +32,7 @@ export default class Footer extends React.Component{
                   this.callRSVP(args1);
                 }}
                 title={args1.number}
-              >{args1.host} - {args1.number}
+              >{args1.host}-{args1.number}
             </Text>
           </View>
           <View>
@@ -41,7 +41,7 @@ export default class Footer extends React.Component{
                 this.callRSVP(args2);
               }}
               title={args2.number}
-            >{args2.host} - {args2.number}</Text>
+            >{args2.host}-{args2.number}</Text>
           </View>
         </View>
     );
