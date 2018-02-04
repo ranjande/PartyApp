@@ -1,87 +1,11 @@
 {
   "project_info": {
     "project_number": "460904176105",
-    "project_id": "awesomebirthday-1515779411365"
+    "firebase_url": "https://awesomebirthday-1515779411365.firebaseio.com",
+    "project_id": "awesomebirthday-1515779411365",
+    "storage_bucket": "awesomebirthday-1515779411365.appspot.com"
   },
   "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:460904176105:android:121f923f0477676b",
-        "android_client_info": {
-          "package_name": "com.awesomebirthday"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "460904176105-rig8nkveqqr4p0lkkftsppp2qma60hfj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.awesomebirthday",
-            "certificate_hash": "e511068730a4b7701a2cab37274f7c6663e7493c"
-          }
-        },
-        {
-          "client_id": "460904176105-mq2j6d0p8u529mjs2iidmqmqe528nt6n.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCOCS_WhNVmKTzPN1HYL0Nmw8Y9bjj_KVw"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 1
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:460904176105:android:3edacde5519ae1fd",
-        "android_client_info": {
-          "package_name": "com.awesomebirthday"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "460904176105-d3sdosopr7p9jmso3q7pnn3ljtoibjgt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.awesomebirthday",
-            "certificate_hash": "e511068730a4b7701a2cab37274f7c6663e7493c"
-          }
-        },
-        {
-          "client_id": "460904176105-mq2j6d0p8u529mjs2iidmqmqe528nt6n.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCOCS_WhNVmKTzPN1HYL0Nmw8Y9bjj_KVw"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 1
-        }
-      }
-    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:460904176105:android:d89b6f7154cca7fa",
@@ -91,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "460904176105-s0qbf6l3v3ocudv4f53r8ghb3r54amjo.apps.googleusercontent.com",
+          "client_id": "460904176105-2oqvq6l27uc8i4ln9pjosj7sfomjddjo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.awesomebirthday",
@@ -99,13 +23,21 @@
           }
         },
         {
-          "client_id": "460904176105-mq2j6d0p8u529mjs2iidmqmqe528nt6n.apps.googleusercontent.com",
+          "client_id": "460904176105-nkqi8onhgqho7cgshm16prb1enec9d57.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.awesomebirthday",
+            "certificate_hash": "bae94fe358d84206c7f8cd4631a5b03cdd0b3d6f"
+          }
+        },
+        {
+          "client_id": "460904176105-gfvhc2k6rgq1ccceea5ghsbsh0uhe5nn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCOCS_WhNVmKTzPN1HYL0Nmw8Y9bjj_KVw"
+          "current_key": "AIzaSyCVQlNEuH7IblPpL5MXAgMX1v_IfThuyFQ"
         }
       ],
       "services": {
@@ -113,11 +45,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460904176105-gfvhc2k6rgq1ccceea5ghsbsh0uhe5nn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

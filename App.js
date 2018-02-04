@@ -166,6 +166,7 @@ export default class PartyApp extends Component {
                 <WelcomeMessage />
             </View>
           )}
+          
           {renderElseIf((this.state.isLogin == false && this.state.uname == null), 
             <View style={styles.LoginMenuContainer}>
               <View>
@@ -220,7 +221,7 @@ export default class PartyApp extends Component {
               {/* Header Top */}
               <MyNavigation screenProps={this.state.guser}/>
             </View>
-          )}
+          )} 
           <View style={styles.footerContainer}>
               <Footer accessToken={ this.state.accessToken } />
           </View>
@@ -232,7 +233,7 @@ export default class PartyApp extends Component {
       try {
         await GoogleSignin.hasPlayServices({ autoResolve: true });
         await GoogleSignin.configure({
-          webClientId: '460904176105-mq2j6d0p8u529mjs2iidmqmqe528nt6n.apps.googleusercontent.com',
+          webClientId: '460904176105-gfvhc2k6rgq1ccceea5ghsbsh0uhe5nn.apps.googleusercontent.com',
           offlineAccess: true,
           shouldFetchBasicProfile: true,
         });
@@ -275,7 +276,6 @@ export default class PartyApp extends Component {
       let nowDate = new Date();
       let startDate = '2018-01-26T18:33:00.000Z';
       let endDate = '2018-02-11T10:30:00.000Z';
-      //Alert.alert(nowDate);
       if(this.state.alarmCall.alarm == true &&  nowDate > startDate){
         this.setState({
           calendarBlocked: false,
