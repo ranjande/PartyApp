@@ -229,7 +229,7 @@ export default class PartyApp extends Component {
       try {
         await GoogleSignin.hasPlayServices({ autoResolve: true });
         await GoogleSignin.configure({
-          webClientId: '460904176105-gfvhc2k6rgq1ccceea5ghsbsh0uhe5nn.apps.googleusercontent.com',
+          webClientId: '395434046648-bmeogorvbs42a51e3850ladamqkckb2d.apps.googleusercontent.com',
           offlineAccess: true,
           shouldFetchBasicProfile: true,
         });

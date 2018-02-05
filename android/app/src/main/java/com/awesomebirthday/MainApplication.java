@@ -1,4 +1,4 @@
-package com.awesomebirthday;
+package com.awesomebirthdayten;
 import com.microsoft.appcenter.push.Push;
 import android.app.Application;
 import com.facebook.react.ReactApplication;

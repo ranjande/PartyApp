@@ -97,11 +97,11 @@ android {
     compileSdkVersion 23
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "com.awesomebirthday"
+        applicationId "com.awesomebirthdayten"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 2
-        versionName '1.1'
+        versionCode 3
+        versionName '1.2'
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -114,9 +114,9 @@ android {
     signingConfigs {
         release {
             if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
-                storeFile file('awesomebirthday.keystore')
+                storeFile file('../../awesomebirthday.jks')
                 storePassword 'madhulika10'
-                keyAlias 'awesomebirthday'
+                keyAlias 'keystore_madhulika'
                 keyPassword 'madhulika10'
             }
         }

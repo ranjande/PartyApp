@@ -9,7 +9,7 @@ import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
 import Crashes from "mobile-center-crashes";
 
 
-const GOOGLE_MAPS_APIKEY = 'AIzaSyDXRs3OKZNE3p8NdxHKc2pP42cTwIyH2ZM';
+const GOOGLE_MAPS_APIKEY = 'AIzaSyC4dNEEYfhUYGi8_wsWKVjTqWFev3hJ-GA';
 const { WINDOW_WIDTH, WINDOW_HEIGHT } = Dimensions.get('window');
 const ASPECT_RATIO = WINDOW_WIDTH / WINDOW_HEIGHT;
 
@@ -81,7 +81,7 @@ export default class MapDirectionScreen extends React.Component<{}> {
       getDirections(data)
     }
     /* GET Direction API END */
-     componentDidMount = () => {
+     componentWillMount = () => {
         this.findMe;
       }
       

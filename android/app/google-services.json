@@ -1,43 +1,33 @@
 {
   "project_info": {
-    "project_number": "460904176105",
-    "firebase_url": "https://awesomebirthday-1515779411365.firebaseio.com",
-    "project_id": "awesomebirthday-1515779411365",
-    "storage_bucket": "awesomebirthday-1515779411365.appspot.com"
+    "project_number": "395434046648",
+    "project_id": "awesome-birthday"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:460904176105:android:d89b6f7154cca7fa",
+        "mobilesdk_app_id": "1:395434046648:android:7cd40f4ccc2fce02",
         "android_client_info": {
-          "package_name": "com.awesomebirthday"
+          "package_name": "com.awesomebirthdayten"
         }
       },
       "oauth_client": [
         {
-          "client_id": "460904176105-2oqvq6l27uc8i4ln9pjosj7sfomjddjo.apps.googleusercontent.com",
+          "client_id": "395434046648-obb6tesbriet2g2btrg042253k6oglp5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.awesomebirthday",
-            "certificate_hash": "e511068730a4b7701a2cab37274f7c6663e7493c"
+            "package_name": "com.awesomebirthdayten",
+            "certificate_hash": "01fec9335dc9e96ad9e27549368b1ce9e3185773"
           }
         },
         {
-          "client_id": "460904176105-nkqi8onhgqho7cgshm16prb1enec9d57.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.awesomebirthday",
-            "certificate_hash": "bae94fe358d84206c7f8cd4631a5b03cdd0b3d6f"
-          }
-        },
-        {
-          "client_id": "460904176105-gfvhc2k6rgq1ccceea5ghsbsh0uhe5nn.apps.googleusercontent.com",
+          "client_id": "395434046648-bmeogorvbs42a51e3850ladamqkckb2d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCVQlNEuH7IblPpL5MXAgMX1v_IfThuyFQ"
+          "current_key": "AIzaSyD6qLFB4RHD-YTsOUC77AepYlUkhHM1dGM"
         }
       ],
       "services": {
@@ -45,16 +35,11 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "460904176105-gfvhc2k6rgq1ccceea5ghsbsh0uhe5nn.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 2
+          "status": 1
         }
       }
     }

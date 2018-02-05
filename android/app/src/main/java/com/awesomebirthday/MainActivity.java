@@ -1,4 +1,4 @@
-package com.awesomebirthday;
+package com.awesomebirthdayten;
 
 import com.facebook.react.ReactActivity;
 
