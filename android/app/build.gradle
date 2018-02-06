@@ -100,8 +100,8 @@ android {
         applicationId "com.awesomebirthdayten"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 3
-        versionName '1.2'
+        versionCode 5
+        versionName '1.3.1'
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -154,27 +154,32 @@ android {
 }
 
 dependencies {
-    implementation project(':appcenter-push')
-    implementation project(':react-native-google-signin')
-    implementation project(':react-native-add-calendar-event')
-    implementation project(':appcenter-crashes')
-    implementation project(':appcenter-analytics')
-    implementation project(':appcenter')
-    implementation project(':react-native-device-info')
-    implementation project(':react-native-icons')
-    implementation project(':react-native-vector-icons')
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:23.0.1'
-    implementation 'com.facebook.react:react-native:+'
+    compile project(':appcenter-push')
+    compile project(':react-native-google-signin')
+    compile project(':react-native-add-calendar-event')
+    compile project(':appcenter-crashes')
+    compile project(':appcenter-analytics')
+    compile project(':appcenter')
+    compile project(':react-native-device-info')
+    compile project(':react-native-icons')
+    compile project(':react-native-vector-icons')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.facebook.react:react-native:+'
+    compile 'com.google.firebase:firebase-database:11.+'
+    compile 'com.google.firebase:firebase-core:11.+'
+    compile 'com.google.firebase:firebase-auth:11.+'
+    compile 'com.google.firebase:firebase-messaging:11.+'
     // From node_modules
-    implementation(project(':react-native-maps')) {
+    compile(project(':react-native-maps')) {
         exclude group: 'com.google.android.gms', module: 'play-services-base'
         exclude group: 'com.google.android.gms', module: 'play-services-maps'
     }
-    implementation 'com.google.android.gms:play-services-base:11.+'
-    implementation 'com.google.android.gms:play-services-maps:11.+'
+    compile 'com.google.android.gms:play-services-base:11.+'
+    compile 'com.google.android.gms:play-services-maps:11.+'
     /* Google Sign in Start */
-    implementation 'com.google.android.gms:play-services-auth:11.+'
+    compile 'com.google.android.gms:play-services-auth:11.+'
+    //compile 'com.google.android.gms:play-services-auth:10.2.4'
     // should be at least 9.0.0
     /* Google Sign in End */
 }
