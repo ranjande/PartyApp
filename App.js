@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, ActivityIndicator, Vibration, AppRegistry, NativeEventEmitter, BackAndroid, StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, TouchableHighlight, Dimensions} from 'react-native';
+import { ScrollView, ActivityIndicator, Vibration, AppRegistry, TextInput, NativeEventEmitter, BackAndroid, StyleSheet,Text, Alert, AsyncStorage, Platform, Button, View, Image, TouchableHighlight, Dimensions} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { TabNavigator } from "react-navigation";
 import Crashes from "mobile-center-crashes";
@@ -7,7 +7,7 @@ import Push from 'appcenter-push';
 import {Fonts} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Tabs, Tab , SocialIcon, Avatar, Header} from 'react-native-elements';
-import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
+//import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 
 import Footer from './Container/FooterContainer.js';
 import MyHomeScreen from './Component/homeScreen.js';
@@ -46,6 +46,7 @@ export default class PartyApp extends Component {
             calendarBlocked : false,
             isjoining: false,
             accessToken: null,
+            errorText: '',
         };
     }
 
@@ -86,7 +87,7 @@ export default class PartyApp extends Component {
         return gstDB;
       }
 
-      this._setupGoogleSignin();
+     // this._setupGoogleSignin();
           setTimeout(function(){
               Vibration.vibrate(1000);
               _cancelWelcome();
@@ -94,12 +95,59 @@ export default class PartyApp extends Component {
       }, 4000);
     } 
 
-    
+       /* NON GOOGLE LOGIN FUNCTIONS - START */
+
+       getUserName = (usermobile) => {
+        let gstDB = null;
+        //console.log('Mobile Number: '+usermobile);
+        const guest = Guestlist().map((usrDB) => {
+            return (usrDB.mobile === parseInt(usermobile)) ? usrDB : null
+          });
+          console.log(guest);
+          for(i=0;  i< guest.length; i++){
+            if(guest[i] != null){
+              if(guest[i].mobile == parseInt(usermobile)){
+                gstDB = guest[i];
+                  //console.log(guest[i].name);
+                  this.setState({uname: guest[i].name, isLogin: true, GuestData : guest[i]});
+                  storeSyncData('GuestData', this.state.GuestData); 
+                  storeSyncData('caseLogin', true); 
+                  break;
+                }
+            }
+          }
+        return gstDB;
+      }
+
+
+
+      checkGuestName = (event) => {
+        console.log('Mobile Number Start: '+event.nativeEvent.text);
+        let mobileno = event.nativeEvent.text;
+          if((mobileno != null || mobileno != '') && mobileno.length === 10){
+            this.setState({guser: this.getUserName(mobileno)});         
+          }else{
+            this.setState({errorText: 'Bad User / Mobile number wrongly entered. \n Please enter correct mobile only.'})
+          }
+
+      }
+      getSetStatusStore = (store, state1) => {
+        AsyncStorage.getItem(store).then((value) => {
+          this.setState({state1: value});
+        }).done();      
+      }
+
+      /* NON GOOGLE LOGIN FUNCTIONS - END */
+
+
+
     componentWillMount(){
 
         storeSyncData = (db, value) => {
           AsyncStorage.setItem(db,value); // changed to object 
         }
+
+        this.getSetStatusStore('caseLogin', 'isLogin');  /* ADDED FOR NON GOOGLE LOGIN FUNCTIONS */
  
         deleteDataonLogout = () => {
           AsyncStorage.getItem("calendarBlocked").then((value) => {
@@ -169,13 +217,23 @@ export default class PartyApp extends Component {
           
           {renderElseIf((this.state.isLogin == false && this.state.uname == null), 
             <View style={styles.LoginMenuContainer}>
-              <View>
+              {/*<View>
                   <GoogleSigninButton 
                       style={{width: 230, height: 72}} 
                       color={GoogleSigninButton.Color.Light} 
                       size={GoogleSigninButton.Size.Wide} 
                       onPress={() => { this._signIn()}}
                   />
+              </View>*/}
+              <View>
+                <Text style={styles.welcome}>Please Enter Your Mobile Number to Login</Text>
+                <TextInput
+                  keyboardType='numeric'
+                  placeholder = "Enter Your Mobile Number"
+                  style={{height: 50, width: 280, color: '#ffffff', fontSize: 15, backgroundColor: 'black', marginTop: 40, }}
+                  onSubmitEditing={(e) => this.checkGuestName(e)}
+                />
+                <Text>{this.state.errorText}</Text>
               </View>
               <View>
                   <Text>
@@ -211,7 +269,7 @@ export default class PartyApp extends Component {
                           activeOpacity={0.7}
                           onPress={() => this._signOut()}
                       />
-                    </View> 
+                      </View> 
                 </View>
               </View>
               {/* Header Top */}
@@ -224,7 +282,7 @@ export default class PartyApp extends Component {
         </View>      
       );
     }
-
+/*
     async _setupGoogleSignin() {
       try {
         await GoogleSignin.hasPlayServices({ autoResolve: true });
@@ -278,6 +336,12 @@ export default class PartyApp extends Component {
         if(nowDate >= endDate)
           AsyncStorage.setItem('calendarBlocked', 'false');
       }
+    }
+    */
+
+    _signOut() {
+        this.setState({guser: null, isLogin: false, accessToken: null, uname: null, uemail: null, wvisible: true, GuestData : null});
+        storeSyncData('caseLogin', false); 
     }
 }
 
