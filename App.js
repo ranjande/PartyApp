@@ -106,7 +106,7 @@ export default class PartyApp extends Component {
           console.log(guest);
           for(i=0;  i< guest.length; i++){
             if(guest[i] != null){
-              if(guest[i].mobile == parseInt(usermobile)){
+              if(guest[i].mobile == parseInt(usermobile) || guest[i].altmobile == parseInt(usermobile)){
                 gstDB = guest[i];
                   //console.log(guest[i].name);
                   this.setState({uname: guest[i].name, isLogin: true, GuestData : guest[i]});
@@ -122,7 +122,7 @@ export default class PartyApp extends Component {
 
 
       checkGuestName = (event) => {
-        console.log('Mobile Number Start: '+event.nativeEvent.text);
+        //console.log('Mobile Number Start: '+event.nativeEvent.text);
         let mobileno = event.nativeEvent.text;
           if((mobileno != null || mobileno != '') && mobileno.length === 10){
             this.setState({guser: this.getUserName(mobileno)});         
