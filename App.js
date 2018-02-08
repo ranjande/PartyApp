@@ -323,7 +323,7 @@ export default class PartyApp extends Component {
       })
       .done();
     }
-
+    */
     stopAlarm =() => {
       let nowDate = new Date();
       let startDate = '2018-01-26T18:33:00.000Z';
@@ -337,7 +337,7 @@ export default class PartyApp extends Component {
           AsyncStorage.setItem('calendarBlocked', 'false');
       }
     }
-    */
+
 
     _signOut() {
         this.setState({guser: null, isLogin: false, accessToken: null, uname: null, uemail: null, wvisible: true, GuestData : null});
