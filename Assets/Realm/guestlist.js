@@ -340,7 +340,7 @@ const list = [
        name: "Ruma De",
        email: "ruma.dc2@gmail.com",
        altemail: "RUMA@nwmissouri.edu",
-       mobile: 9748331782,
+       mobile: 6605280708,
        altmobile: 0,
        no_head: 3,
        seniors: 0,
@@ -370,7 +370,55 @@ const list = [
        seniors: 0,
        cars: "",
        joining: false
-   }
+   },
+   {
+       guest: "G032",
+       name: "Taniya Santra",
+       email: "taniyasantra@gmail.com",
+       altemail: "",
+       mobile: 9632532593,
+       altmobile: 0,
+       no_head: 3,
+       seniors: 0,
+       cars: "",
+       joining: false
+   },
+   {
+       guest: "G033",
+       name: "Krishnendu Mitra",
+       email: "krish@gmail.com",
+       altemail: "",
+       mobile: 7003294805,
+       altmobile: 0,
+       no_head: 3,
+       seniors: 0,
+       cars: "",
+       joining: false
+   },
+   {
+       guest: "G034",
+       name: "De Studio - Ramkrishna Sinha",
+       email: "ranjan.de@gmail.com",
+       altemail: "",
+       mobile: 7998339328,
+       altmobile: 0,
+       no_head: 1,
+       seniors: 0,
+       cars: "",
+       joining: false
+   },
+   {
+       guest: "G035",
+       name: "Kaustav Roy",
+       email: "ranjan.de@gmail.com",
+       altemail: "",
+       mobile: 9475957042,
+       altmobile: 0,
+       no_head: 1,
+       seniors: 0,
+       cars: "",
+       joining: false
+   },
 ]
 
 export default function Guestlist() {
